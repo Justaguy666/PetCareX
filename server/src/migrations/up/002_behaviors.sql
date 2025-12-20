@@ -17,7 +17,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Function to check service type match
-CREATE FUNCTION fn_check_service_type_match(check_type service_type)
+CREATE FUNCTION fn_check_service_type(expected_type service_type)
 RETURNS TRIGGER AS $$
 BEGIN
     IF NOT EXISTS (
