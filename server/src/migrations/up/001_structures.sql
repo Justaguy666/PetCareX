@@ -7,11 +7,20 @@
 -- TABLES: ATTRIBUTES AND CONSTRAINTS
 -- ======================================================================= 
 
+CREATE DATABASE petcarex_db
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.utf8'
+    LC_CTYPE = 'en_US.utf8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
 -- =======================================================================
 -- EXTENSIONS
 -- =======================================================================
-CREATE EXTENSION IF NOT EXISTS citext;
-CREATE EXTENSION IF NOT EXISTS btree_gist;
+CREATE EXTENSION citext;
+CREATE EXTENSION btree_gist;
 
 -- ======================================================================= 
 -- ENUM TYPES
@@ -117,6 +126,7 @@ CREATE TABLE refresh_tokens (
     expires_at      TIMESTAMPTZ NOT NULL,
 
     created_at      TIMESTAMPTZ DEFAULT NOW(),
+    updated_at      TIMESTAMPTZ DEFAULT NOW(),
 
     PRIMARY KEY (id),
 
@@ -272,7 +282,7 @@ CREATE TABLE invoices (
 
     total_amount                    finance DEFAULT 0,
     total_discount                  finance DEFAULT 0,
-    final_amount                    finance GENERATED ALWAYS AS (total_amount - total_discount) STORED;
+    final_amount                    finance GENERATED ALWAYS AS (total_amount - total_discount) STORED,
 
     created_at                      TIMESTAMPTZ DEFAULT NOW(),
     updated_at                      TIMESTAMPTZ DEFAULT NOW(),
@@ -321,7 +331,7 @@ CREATE TABLE services (
 
     unit_price                  finance NOT NULL,
     discount_amount             finance NOT NULL,
-    final_amount                finance GENERATED ALWAYS AS (unit_price - discount_amount) STORED;
+    final_amount                finance GENERATED ALWAYS AS (unit_price - discount_amount) STORED,
 
     created_at                  TIMESTAMPTZ DEFAULT NOW(),
     updated_at                  TIMESTAMPTZ DEFAULT NOW(),
@@ -864,9 +874,9 @@ CREATE TABLE appointments (
     pet_id                  BIGINT NOT NULL,
     owner_id                BIGINT NOT NULL,
     branch_id               BIGINT NOT NULL,
-    doctor_id               BIGINT,
+    doctor_id               BIGINT NOT NULL,
     service_type            appointment_service_type NOT NULL,
-    appointment_date        TIMESTAMPTZ NOT NULL,
+    appointment_time        TIMESTAMPTZ NOT NULL,
     reason                  TEXT,
     status                  status NOT NULL DEFAULT 'Đang chờ xác nhận',
     cancelled_reason        TEXT,
@@ -894,7 +904,10 @@ CREATE TABLE appointments (
     CONSTRAINT fk_appointments_doctor
         FOREIGN KEY (doctor_id)
         REFERENCES employees(id)
-        ON DELETE SET NULL,
+        ON DELETE RESTRICT,
+
+    CONSTRAINT chk_appointments_appointment_time
+        CHECK (appointment_time > NOW()),
 
     CONSTRAINT chk_appointments_reason_length 
         CHECK (reason IS NULL OR length(reason) <= 500),
