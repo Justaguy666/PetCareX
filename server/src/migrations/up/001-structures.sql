@@ -1,5 +1,5 @@
 -- =======================================================================
--- Migration: 001_structures.sql
+-- Migration: 001-structures.sql
 -- Description: Implement initial database schemas
 -- EXTENSIONS, 
 -- ENUM TYPES, 
@@ -7,14 +7,14 @@
 -- TABLES: ATTRIBUTES AND CONSTRAINTS
 -- ======================================================================= 
 
-CREATE DATABASE petcarex_db
-    WITH 
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'en_US.utf8'
-    LC_CTYPE = 'en_US.utf8'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
+-- CREATE DATABASE petcarex_db
+--     WITH 
+--     OWNER = postgres
+--     ENCODING = 'UTF8'
+--     LC_COLLATE = 'en_US.utf8'
+--     LC_CTYPE = 'en_US.utf8'
+--     TABLESPACE = pg_default
+--     CONNECTION LIMIT = -1;
 
 -- =======================================================================
 -- EXTENSIONS
@@ -84,9 +84,9 @@ CHECK (VALUE BETWEEN 1 AND 5);
 -- =======================================================================
 CREATE TABLE users (
     id                  BIGSERIAL,
+    full_name           name_text,
     email               email_citext NOT NULL,
-    full_name           name_text NOT NULL,
-    phone_number        phone_vn NOT NULL,
+    phone_number        phone_vn,
     citizen_id          citizen_id_vn,
     gender              gender,
     date_of_birth       past_date,
@@ -104,6 +104,7 @@ CREATE TABLE users (
 
 CREATE TABLE accounts (
     user_id             BIGINT NOT NULL,
+    username            CITEXT NOT NULL,
     hashed_password     TEXT NOT NULL,
     is_active           BOOLEAN DEFAULT FALSE,
     last_login_at       TIMESTAMPTZ,
@@ -112,6 +113,8 @@ CREATE TABLE accounts (
     updated_at          TIMESTAMPTZ DEFAULT NOW(),
 
     PRIMARY KEY (user_id),
+
+    CONSTRAINT uq_accounts_username UNIQUE (username),
 
     CONSTRAINT fk_account_user 
         FOREIGN KEY (user_id) 
@@ -135,7 +138,10 @@ CREATE TABLE refresh_tokens (
     CONSTRAINT fk_refresh_tokens_user 
         FOREIGN KEY (user_id) 
         REFERENCES users(id) 
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+
+    CONSTRAINT chk_refresh_tokens_expires_at
+        CHECK (expires_at > created_at)
 );
 
 -- =======================================================================
@@ -159,7 +165,7 @@ CREATE TABLE pets (
     CONSTRAINT fk_pets_owner 
         FOREIGN KEY (owner_id) 
         REFERENCES users(id) 
-        ON DELETE CASCADE
+        ON DELETE RESTRICT
 );
 
 -- =======================================================================
@@ -204,7 +210,6 @@ CREATE TABLE branches (
         FOREIGN KEY (manager_id)
         REFERENCES employees(id)
         ON DELETE SET NULL
-        DEFERRABLE INITIALLY DEFERRED
 );
 
 -- =======================================================================
@@ -221,6 +226,9 @@ CREATE TABLE mobilizations (
     updated_at      TIMESTAMPTZ DEFAULT NOW(),
 
     PRIMARY KEY (id),
+
+    CONSTRAINT uq_mobilizations_employee_startdate 
+        UNIQUE (employee_id, branch_id, start_date),
 
     CONSTRAINT chk_mobilizations_end_date 
         CHECK (end_date IS NULL OR end_date >= start_date),
@@ -297,12 +305,21 @@ CREATE TABLE invoices (
     CONSTRAINT fk_invoices_branch 
         FOREIGN KEY (branch_id)
         REFERENCES branches(id)
-        ON DELETE SET NULL,
+        ON DELETE RESTRICT,
 
     CONSTRAINT fk_invoices_customer
         FOREIGN KEY (customer_id)
         REFERENCES users(id)
-        ON DELETE SET NULL
+        ON DELETE RESTRICT,
+
+    CONSTRAINT chk_total_amount
+        CHECK (total_amount >= 0),
+
+    CONSTRAINT chk_total_discount
+        CHECK (total_discount >= 0 AND total_discount <= total_amount),
+
+    CONSTRAINT chk_final_amount
+        CHECK (final_amount >= 0)
 );
 
 -- =======================================================================
@@ -346,11 +363,30 @@ CREATE TABLE services (
     CONSTRAINT fk_services_type_of_service 
         FOREIGN KEY (type_of_service)
         REFERENCES types_of_services(type)
-        ON DELETE SET NULL,
+        ON DELETE RESTRICT,
 
     CONSTRAINT chk_comment_length 
-        CHECK (comment IS NULL OR length(comment) <= 500)
+        CHECK (comment IS NULL OR length(comment) <= 500),
+
+    CONSTRAINT chk_discount_amount
+        CHECK (discount_amount >= 0 AND discount_amount <= unit_price),
+
+    CONSTRAINT chk_unit_price
+        CHECK (unit_price >= 0),
+
+    CONSTRAINT chk_final_amount
+        CHECK (final_amount >= 0)
 );
+
+-- SERVICES BRANCH VIEW
+-- Xem nhanh chi nhánh của dịch vụ thông qua hóa đơn
+CREATE VIEW v_service_branch AS
+SELECT
+    s.id          AS service_id,
+    i.id          AS invoice_id,
+    i.branch_id   AS branch_id
+FROM services s
+JOIN invoices i ON i.id = s.invoice_id;
 
 -- =======================================================================
 -- 9. PROMOTIONS (Ưu đãi)
@@ -384,6 +420,9 @@ CREATE TABLE apply_promotions (
 
     PRIMARY KEY (id),
 
+    CONSTRAINT uq_apply_promotions_branch_promotion 
+        UNIQUE (branch_id, promotion_id, start_date),
+
     CONSTRAINT chk_apply_promotions_date 
         CHECK (end_date >= start_date),
 
@@ -395,7 +434,7 @@ CREATE TABLE apply_promotions (
     CONSTRAINT fk_apply_promotions_branch
         FOREIGN KEY (branch_id)
         REFERENCES branches(id)
-        ON DELETE CASCADE
+        ON DELETE RESTRICT
 );
 
 -- =======================================================================
@@ -412,6 +451,9 @@ CREATE TABLE promotion_for (
 
     PRIMARY KEY (id),
 
+    CONSTRAINT uq_promotion_for_service_type 
+        UNIQUE (promotion_id, service_type),
+
     CONSTRAINT chk_discount_percentage 
         CHECK (discount_percentage IS NULL OR discount_percentage BETWEEN 5 AND 15),
 
@@ -423,7 +465,7 @@ CREATE TABLE promotion_for (
     CONSTRAINT fk_promotion_for_service_type
         FOREIGN KEY (service_type)
         REFERENCES types_of_services(type)
-        ON DELETE CASCADE
+        ON DELETE RESTRICT
 );
 
 -- =======================================================================
@@ -468,7 +510,7 @@ CREATE TABLE medical_examinations (
     CONSTRAINT fk_medical_examinations_pet 
         FOREIGN KEY (pet_id) 
         REFERENCES pets(id) 
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT fk_medical_examinations_doctor
         FOREIGN KEY (doctor_id) 
@@ -487,7 +529,7 @@ CREATE TABLE medical_examinations (
 -- =======================================================================
 CREATE TABLE prescriptions (
     id                          BIGSERIAL,
-    medical_examinations_id     BIGINT NOT NULL,
+    medical_examination_id     BIGINT NOT NULL,
     medicine_id                 BIGINT NOT NULL,
     quantity                    INT NOT NULL,
     dosage                      TEXT NOT NULL,
@@ -499,15 +541,18 @@ CREATE TABLE prescriptions (
 
     PRIMARY KEY (id),
 
-    CONSTRAINT fk_prescriptions_medical_examinations
-        FOREIGN KEY (medical_examinations_id)
+    CONSTRAINT uq_prescriptions_medical_examination_medicine 
+        UNIQUE (medical_examination_id, medicine_id),
+
+    CONSTRAINT fk_prescriptions_medical_examination
+        FOREIGN KEY (medical_examination_id)
         REFERENCES medical_examinations(service_id)
         ON DELETE CASCADE,
 
     CONSTRAINT fk_prescriptions_medicine
         FOREIGN KEY (medicine_id)
         REFERENCES medicines(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT chk_prescriptions_quantity
         CHECK (quantity > 0),
@@ -572,6 +617,9 @@ CREATE TABLE include_vaccines (
 
     PRIMARY KEY (id),
 
+    CONSTRAINT uq_include_vaccines_package_vaccine
+        UNIQUE (package_id, vaccine_id),
+
     CONSTRAINT fk_include_vaccines_package
         FOREIGN KEY (package_id)
         REFERENCES vaccine_packages(id)
@@ -580,7 +628,7 @@ CREATE TABLE include_vaccines (
     CONSTRAINT fk_include_vaccines_vaccine
         FOREIGN KEY (vaccine_id)
         REFERENCES vaccines(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT chk_include_vaccines_dosage
         CHECK (dosage > 0)
@@ -607,7 +655,7 @@ CREATE TABLE single_injections (
     CONSTRAINT fk_single_injections_pet
         FOREIGN KEY (pet_id)
         REFERENCES pets(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT fk_single_injections_doctor
         FOREIGN KEY (doctor_id)
@@ -636,7 +684,7 @@ CREATE TABLE package_injections (
     CONSTRAINT fk_package_injections_pet
         FOREIGN KEY (pet_id)
         REFERENCES pets(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT fk_package_injections_doctor
         FOREIGN KEY (doctor_id)
@@ -658,6 +706,9 @@ CREATE TABLE vaccine_uses (
 
     PRIMARY KEY (id),
 
+    CONSTRAINT uq_vaccine_uses_single_injection_vaccine
+        UNIQUE (single_injection_id, vaccine_id),
+
     CONSTRAINT fk_vaccine_uses_single_injection
         FOREIGN KEY (single_injection_id)
         REFERENCES single_injections(service_id)
@@ -666,7 +717,7 @@ CREATE TABLE vaccine_uses (
     CONSTRAINT fk_vaccine_uses_vaccine
         FOREIGN KEY (vaccine_id)
         REFERENCES vaccines(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT chk_vaccine_uses_dosage
         CHECK (dosage > 0)
@@ -688,6 +739,9 @@ CREATE TABLE vaccine_package_uses (
 
     PRIMARY KEY (id),
 
+    CONSTRAINT uq_vaccine_package_uses_package_injection_injection_number
+        UNIQUE (package_injection_id, injection_number),
+
     CONSTRAINT fk_vaccine_package_uses_package_injection
         FOREIGN KEY (package_injection_id)
         REFERENCES package_injections(service_id)
@@ -696,7 +750,7 @@ CREATE TABLE vaccine_package_uses (
     CONSTRAINT fk_vaccine_package_uses_package
         FOREIGN KEY (package_id)
         REFERENCES vaccine_packages(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT chk_vaccine_package_uses_injection_number
         CHECK (injection_number > 0),
@@ -736,6 +790,9 @@ CREATE TABLE sell_products (
 
     PRIMARY KEY (service_id),
 
+    CONSTRAINT uq_sell_products_service_product
+        UNIQUE (service_id, product_id),
+
     CONSTRAINT fk_sell_products_id
         FOREIGN KEY (service_id)
         REFERENCES services(id)
@@ -744,7 +801,7 @@ CREATE TABLE sell_products (
     CONSTRAINT fk_sell_products_product
         FOREIGN KEY (product_id)
         REFERENCES products(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT chk_sell_products_quantity
         CHECK (quantity > 0)
@@ -763,17 +820,18 @@ CREATE TABLE medicine_inventory (
 
     PRIMARY KEY (id),
 
-    CONSTRAINT uq_medicine_inventory_branch_medicine UNIQUE (branch_id, medicine_id),
+    CONSTRAINT uq_medicine_inventory_branch_medicine 
+        UNIQUE (branch_id, medicine_id),
 
     CONSTRAINT fk_medicine_inventory_branch
         FOREIGN KEY (branch_id)
         REFERENCES branches(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT fk_medicine_inventory_medicine
         FOREIGN KEY (medicine_id)
         REFERENCES medicines(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT chk_medicine_inventory_quantity
         CHECK (quantity >= 0)
@@ -792,17 +850,18 @@ CREATE TABLE vaccine_inventory (
 
     PRIMARY KEY (id),
 
-    CONSTRAINT uq_vaccine_inventory_branch_vaccine UNIQUE (branch_id, vaccine_id),
+    CONSTRAINT uq_vaccine_inventory_branch_vaccine 
+        UNIQUE (branch_id, vaccine_id),
 
     CONSTRAINT fk_vaccine_inventory_branch
         FOREIGN KEY (branch_id)
         REFERENCES branches(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT fk_vaccine_inventory_vaccine
         FOREIGN KEY (vaccine_id)
         REFERENCES vaccines(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT chk_vaccine_inventory_quantity
         CHECK (quantity >= 0)
@@ -821,17 +880,18 @@ CREATE TABLE package_inventory (
 
     PRIMARY KEY (id),
 
-    CONSTRAINT uq_package_inventory_branch_package UNIQUE (branch_id, package_id),
+    CONSTRAINT uq_package_inventory_branch_package 
+        UNIQUE (branch_id, package_id),
 
     CONSTRAINT fk_package_inventory_branch
         FOREIGN KEY (branch_id)
         REFERENCES branches(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT fk_package_inventory_package
         FOREIGN KEY (package_id)
         REFERENCES vaccine_packages(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT chk_package_inventory_quantity
         CHECK (quantity >= 0)
@@ -850,17 +910,18 @@ CREATE TABLE product_inventory (
 
     PRIMARY KEY (id),
 
-    CONSTRAINT uq_product_inventory_branch_product UNIQUE (branch_id, product_id),
+    CONSTRAINT uq_product_inventory_branch_product 
+        UNIQUE (branch_id, product_id),
 
     CONSTRAINT fk_product_inventory_branch
         FOREIGN KEY (branch_id)
         REFERENCES branches(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT fk_product_inventory_product
         FOREIGN KEY (product_id)
         REFERENCES products(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT chk_product_inventory_quantity
         CHECK (quantity >= 0)
@@ -886,20 +947,26 @@ CREATE TABLE appointments (
 
     PRIMARY KEY (id),
 
+    CONSTRAINT uq_appointments_pet_time_service
+        UNIQUE (pet_id, appointment_time, service_type),
+
+    CONSTRAINT uq_appointments_doctor_branch_time
+        UNIQUE (doctor_id, branch_id, appointment_time),
+
     CONSTRAINT fk_appointments_pet
         FOREIGN KEY (pet_id)
         REFERENCES pets(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT fk_appointments_owner
         FOREIGN KEY (owner_id)
         REFERENCES users(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT fk_appointments_branch
         FOREIGN KEY (branch_id)
         REFERENCES branches(id)
-        ON DELETE CASCADE,
+        ON DELETE RESTRICT,
 
     CONSTRAINT fk_appointments_doctor
         FOREIGN KEY (doctor_id)

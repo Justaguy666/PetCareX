@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 const { Pool } = pkg;
 
-const pool = new Pool({
+const db = new Pool({
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
@@ -12,13 +12,13 @@ const pool = new Pool({
     database: process.env.DB_NAME,
 });
 
-pool.on('connect', () => {
+db.on('connect', () => {
     console.log('Connected to the database');
 });
 
-pool.on('error', (err) => {
+db.on('error', (err) => {
     console.error('Unexpected error on idle client', err);
     process.exit(-1);
-}); 
+});
 
-export default pool;
+export default db;
