@@ -90,7 +90,7 @@ npm install
 	```
 
 ## Ghi chú
-- Đảm bảo đã cấu hình kết nối database trong file `.env` hoặc `prisma.config.ts`.
+- Đảm bảo đã cấu hình kết nối database trong file `.env`.
 - Khi seed dữ liệu lớn, nên kiểm tra cấu hình bộ nhớ và performance của database.
 - Các script đều có log chi tiết quá trình thực thi.
 
