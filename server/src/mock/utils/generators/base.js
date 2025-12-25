@@ -1,5 +1,4 @@
 import { logger } from "../logger.js";
-import { generateItems } from "../helpers.js";
 
 /**
  * Generator Context - Shared dependencies for all generators

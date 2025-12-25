@@ -1,4 +1,4 @@
-import { GeneratorContext, makeVietnamDateTime, randomItem } from "./base.js";
+import { makeVietnamDateTime, randomItem } from "./base.js";
 
 /**
  * Generate appointments with complex scheduling logic

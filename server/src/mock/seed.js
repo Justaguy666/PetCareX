@@ -10,8 +10,6 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-
-
 async function main() {
   const config = await parseConfigFile();
   if (!config) { console.error("❌ Missing seed.config.json"); process.exit(1); }
