@@ -19,6 +19,7 @@ npm install
 
 ## Các lệnh phát triển
 
+
 ```json
 {
 	"_comments": {
@@ -28,7 +29,9 @@ npm install
 		"clear-seed": "The clear-seed script removes all mock data from the database.",
 		"reset": "The reset script clears the database and reapplies all migrations and seed data.",
 		"start": "The start script launches the server in production mode.",
-		"dev": "The dev script launches the server in development mode with automatic restarts on file changes."
+		"dev": "The dev script launches the server in development mode with automatic restarts on file changes.",
+		"generate-module": "Tạo mới một module (folder, controller, service, routes, ...)",
+		"remove-module": "Xóa một module (folder, controller, service, routes, ... liên quan)"
 	}
 }
 ```
@@ -42,6 +45,8 @@ npm install
 | `npm run reset`             | Xóa sạch database, migrate lại và seed lại |
 | `npm start`                 | Chạy server ở chế độ production |
 | `npm run dev`               | Chạy server ở chế độ development, tự động reload khi thay đổi file |
+| `npm run generate-module -- <moduleName>` | Tạo mới một module (folder, controller, service, routes, ...) |
+| `npm run remove-module -- <moduleName>`   | Xóa một module (folder, controller, service, routes, ... liên quan) |
 
 ## Quản lý database với Prisma
 
@@ -88,3 +93,17 @@ npm install
 - Đảm bảo đã cấu hình kết nối database trong file `.env` hoặc `prisma.config.ts`.
 - Khi seed dữ liệu lớn, nên kiểm tra cấu hình bộ nhớ và performance của database.
 - Các script đều có log chi tiết quá trình thực thi.
+
+## Tạo/Xóa module
+
+- Tạo module mới:
+	```bash
+	node src/scripts/generate-module <moduleName>
+	```
+	Tự động tạo folder, controller, service, routes, ... cho module mới.
+
+- Xóa module:
+	```bash
+	node src/scripts/remove-module <moduleName>
+	```
+	Xóa toàn bộ folder, controller, service, routes, ... liên quan đến module.
