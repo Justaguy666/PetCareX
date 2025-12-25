@@ -1,40 +1,43 @@
 {
-  "name": "petcarex-server",
-  "version": "1.0.0",
-  "type": "module",
-  "main": "src/server.js",
-  "scripts": {
-    "migrate": "node src/scripts/migrate.js",
-    "rollback": "node src/scripts/rollback.js",
-    "seed": "node seed.js",
-    "reset": "node src/scripts/reset-db.js",
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@faker-js/faker": "^10.1.0",
-    "@prisma/client": "^7.2.0",
-    "bcrypt": "^6.0.0",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^5.2.1",
-    "express-rate-limit": "^8.2.1",
-    "helmet": "^8.1.0",
-    "http-errors": "^2.0.1",
-    "install": "^0.13.0",
-    "jsonwebtoken": "^9.0.3",
-    "morgan": "^1.10.1",
-    "npm": "^11.7.0",
-    "pg": "^8.16.3",
-    "prisma": "^7.2.0",
-    "winston": "^3.19.0",
-    "zod": "^4.2.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.11"
-  }
+    "name":  "petcarex-server",
+    "version":  "1.0.0",
+    "type":  "module",
+    "main":  "src/server.js",
+    "scripts":  {
+                    "migrate":  "node src/scripts/migrate.js",
+                    "rollback":  "node src/scripts/rollback.js",
+                    "seed":  "node src/mock/seed.js",
+                    "clear-seed":  "node src/mock/clear-seed.js",
+                    "reset":  "node src/scripts/reset-db.js",
+                    "start":  "node src/server.js",
+                    "dev":  "nodemon src/server.js"
+                },
+    "keywords":  [
+
+                 ],
+    "author":  "",
+    "license":  "ISC",
+    "description":  "",
+    "dependencies":  {
+                         "@faker-js/faker":  "^10.1.0",
+                         "@prisma/client":  "5.22.0",
+                         "bcrypt":  "^6.0.0",
+                         "cors":  "^2.8.5",
+                         "dotenv":  "^17.2.3",
+                         "express":  "^5.2.1",
+                         "express-rate-limit":  "^8.2.1",
+                         "helmet":  "^8.1.0",
+                         "http-errors":  "^2.0.1",
+                         "install":  "^0.13.0",
+                         "jsonwebtoken":  "^9.0.3",
+                         "morgan":  "^1.10.1",
+                         "npm":  "^11.7.0",
+                         "pg":  "^8.16.3",
+                         "prisma":  "^5.22.0",
+                         "winston":  "^3.19.0",
+                         "zod":  "^4.2.1"
+                     },
+    "devDependencies":  {
+                            "nodemon":  "^3.1.11"
+                        }
 }

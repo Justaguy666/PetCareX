@@ -995,9 +995,9 @@ BEGIN
 
     UPDATE users
     SET membership_level = CASE
-        WHEN v_total_spent >= 12000000 THEN 'VIP'
-        WHEN v_total_spent >= 5000000 THEN 'Thân thiết'
-        ELSE 'Cơ bản'
+        WHEN v_total_spent >= 12000000 THEN 'VIP'::membership_level
+        WHEN v_total_spent >= 5000000 THEN 'Thân thiết'::membership_level
+        ELSE 'Cơ bản'::membership_level
     END
     WHERE id = NEW.customer_id;
 

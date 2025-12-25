@@ -1,0 +1,82 @@
+[
+  {
+    "service_id": 2620,
+    "pet_id": 1453,
+    "doctor_id": 498
+  },
+  {
+    "service_id": 2633,
+    "pet_id": 1469,
+    "doctor_id": 498
+  },
+  {
+    "service_id": 2617,
+    "pet_id": 1462,
+    "doctor_id": 491
+  },
+  {
+    "service_id": 2608,
+    "pet_id": 1460,
+    "doctor_id": 491
+  },
+  {
+    "service_id": 2640,
+    "pet_id": 1448,
+    "doctor_id": 491
+  },
+  {
+    "service_id": 2609,
+    "pet_id": 1459,
+    "doctor_id": 498
+  },
+  {
+    "service_id": 2604,
+    "pet_id": 1451,
+    "doctor_id": 492
+  },
+  {
+    "service_id": 2592,
+    "pet_id": 1455,
+    "doctor_id": 491
+  },
+  {
+    "service_id": 2618,
+    "pet_id": 1469,
+    "doctor_id": 491
+  },
+  {
+    "service_id": 2636,
+    "pet_id": 1461,
+    "doctor_id": 492
+  },
+  {
+    "service_id": 2611,
+    "pet_id": 1449,
+    "doctor_id": 498
+  },
+  {
+    "service_id": 2599,
+    "pet_id": 1467,
+    "doctor_id": 498
+  },
+  {
+    "service_id": 2621,
+    "pet_id": 1450,
+    "doctor_id": 498
+  },
+  {
+    "service_id": 2583,
+    "pet_id": 1454,
+    "doctor_id": 498
+  },
+  {
+    "service_id": 2627,
+    "pet_id": 1450,
+    "doctor_id": 498
+  },
+  {
+    "service_id": 2607,
+    "pet_id": 1464,
+    "doctor_id": 498
+  }
+]

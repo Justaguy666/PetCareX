@@ -77,7 +77,10 @@ CREATE DOMAIN finance AS NUMERIC(15, 2)
 CHECK (VALUE >= 0);
 
 CREATE DOMAIN rating AS INT
-CHECK (VALUE BETWEEN 1 AND 5);
+CHECK (
+    VALUE BETWEEN 1 AND 5
+    OR VALUE IS NULL
+);
 
 -- =======================================================================
 -- 1. USERS (Khách Hàng)
@@ -89,7 +92,7 @@ CREATE TABLE users (
     phone_number        phone_vn,
     citizen_id          citizen_id_vn,
     gender              gender,
-    date_of_birth       past_date,
+    date_of_birth TIMESTAMPTZ,
     membership_level    membership_level DEFAULT 'Cơ bản',
 
     created_at          TIMESTAMPTZ DEFAULT NOW(),
@@ -152,7 +155,7 @@ CREATE TABLE pets (
     pet_name         name_text NOT NULL,
     species          label_text NOT NULL,
     breed            label_text,
-    date_of_birth    past_date,
+    date_of_birth TIMESTAMPTZ,
     gender           pet_gender NOT NULL,
     owner_id         BIGINT NOT NULL,
     health_status    health_status DEFAULT 'Chưa rõ',
@@ -174,7 +177,7 @@ CREATE TABLE pets (
 CREATE TABLE employees (
     id                  BIGSERIAL,
     full_name           name_text NOT NULL,
-    date_of_birth       past_date NOT NULL,
+    date_of_birth TIMESTAMPTZ NOT NULL,
     gender              gender NOT NULL,
     role                employee_role NOT NULL,
     base_salary         finance NOT NULL,
@@ -455,7 +458,7 @@ CREATE TABLE promotion_for (
         UNIQUE (promotion_id, service_type),
 
     CONSTRAINT chk_discount_percentage 
-        CHECK (discount_percentage IS NULL OR discount_percentage BETWEEN 5 AND 15),
+        CHECK (discount_percentage BETWEEN 5 AND 15),
 
     CONSTRAINT fk_promotion_for_promotion
         FOREIGN KEY (promotion_id)
@@ -988,3 +991,4 @@ CREATE TABLE appointments (
             OR (status <> 'Hủy bỏ' AND cancelled_reason IS NULL)
         )
 );
+

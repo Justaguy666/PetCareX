@@ -8,6 +8,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // =======================================================================
@@ -15,19 +16,25 @@ datasource db {
 // =======================================================================
 
 enum Gender {
-  Nam
-  Nu @map("Nữ")
+  Nam @map("Nam")
+  Nu  @map("Nữ")
+
+  @@map("gender")
 }
 
 enum PetGender {
-  Duc  @map("Đực")
-  Cai  @map("Cái")
+  Duc @map("Đực")
+  Cai @map("Cái")
+
+  @@map("pet_gender")
 }
 
 enum MembershipLevel {
-  CoBan      @map("Cơ bản")
-  ThanThiet  @map("Thân thiết")
-  VIP
+  CoBan     @map("Cơ bản")
+  ThanThiet @map("Thân thiết")
+  VIP       @map("VIP")
+
+  @@map("membership_level")
 }
 
 enum HealthStatus {
@@ -35,42 +42,56 @@ enum HealthStatus {
   CoVanDe     @map("Có vấn đề")
   DangHoiPhuc @map("Đang hồi phục")
   ChuaRo      @map("Chưa rõ")
+
+  @@map("health_status")
 }
 
 enum EmployeeRole {
-  BacSiThuY          @map("Bác sĩ thú y")
-  NhanVienTiepTan    @map("Nhân viên tiếp tân")
-  NhanVienBanHang    @map("Nhân viên bán hàng")
-  QuanLyChiNhanh     @map("Quản lý chi nhánh")
+  BacSiThuY        @map("Bác sĩ thú y")
+  NhanVienTiepTan  @map("Nhân viên tiếp tân")
+  NhanVienBanHang  @map("Nhân viên bán hàng")
+  QuanLyChiNhanh   @map("Quản lý chi nhánh")
+
+  @@map("employee_role")
 }
 
 enum PaymentMethod {
-  TienMat      @map("Tiền mặt")
-  ChuyenKhoan  @map("Chuyển khoản")
+  TienMat     @map("Tiền mặt")
+  ChuyenKhoan @map("Chuyển khoản")
+
+  @@map("payment_method")
 }
 
 enum ServiceType {
-  KhamBenh     @map("Khám bệnh")
-  TiemMuiLe    @map("Tiêm mũi lẻ")
-  TiemTheoGoi  @map("Tiêm theo gói")
-  MuaHang      @map("Mua hàng")
+  KhamBenh    @map("Khám bệnh")
+  TiemMuiLe   @map("Tiêm mũi lẻ")
+  TiemTheoGoi @map("Tiêm theo gói")
+  MuaHang     @map("Mua hàng")
+
+  @@map("service_type")
 }
 
 enum AppointmentServiceType {
-  KhamBenh     @map("Khám bệnh")
-  TiemMuiLe    @map("Tiêm mũi lẻ")
-  TiemTheoGoi  @map("Tiêm theo gói")
+  KhamBenh    @map("Khám bệnh")
+  TiemMuiLe   @map("Tiêm mũi lẻ")
+  TiemTheoGoi @map("Tiêm theo gói")
+
+  @@map("appointment_service_type")
 }
 
 enum ProductType {
-  ThucAn   @map("Thức ăn")
-  PhuKien  @map("Phụ kiện")
+  ThucAn  @map("Thức ăn")
+  PhuKien @map("Phụ kiện")
+
+  @@map("product_type")
 }
 
 enum PromotionForLevel {
-  TatCa            @map("Tất cả")
-  ThanThietTroLen  @map("Thân thiết trở lên")
-  VIP
+  TatCa           @map("Tất cả")
+  ThanThietTroLen @map("Thân thiết trở lên")
+  VIP             @map("VIP")
+
+  @@map("promotion_for_level")
 }
 
 enum Status {
@@ -78,6 +99,8 @@ enum Status {
   DaXacNhan      @map("Đã xác nhận")
   HoanThanh      @map("Hoàn thành")
   HuyBo          @map("Hủy bỏ")
+
+  @@map("status")
 }
 
 // =======================================================================
@@ -86,16 +109,13 @@ enum Status {
 
 model User {
   id               BigInt           @id @default(autoincrement())
-  fullName         String?          @map("full_name") @db.VarChar(50)
+  full_name         String? @db.VarChar(50)
   email            String           @unique @db.VarChar(320)
-  phoneNumber      String?          @unique @map("phone_number") @db.VarChar(10)
-  citizenId        String?          @unique @map("citizen_id") @db.VarChar(12)
+  phone_number      String?          @unique @db.VarChar(10)
+  citizen_id        String?          @unique @db.VarChar(12)
   gender           Gender?
-  dateOfBirth      DateTime?        @map("date_of_birth") @db.Date
-  membershipLevel  MembershipLevel  @default(CoBan) @map("membership_level")
-  
-  createdAt        DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt        DateTime         @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  date_of_birth      DateTime? @db.Timestamptz(6)
+  membership_level  MembershipLevel  @default(CoBan)
 
   // Relations
   account          Account?
@@ -108,32 +128,26 @@ model User {
 }
 
 model Account {
-  userId          BigInt    @id @map("user_id")
+  user_id          BigInt    @id
   username        String    @unique @db.VarChar(255)
-  hashedPassword  String    @map("hashed_password")
-  isActive        Boolean   @default(false) @map("is_active")
-  lastLoginAt     DateTime? @map("last_login_at") @db.Timestamptz(6)
-  
-  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt       DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  hashed_password  String
+  is_active        Boolean   @default(false)
+  last_login_at     DateTime? @db.Timestamptz(6)
 
   // Relations
-  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user            User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("accounts")
 }
 
 model RefreshToken {
   id         BigInt   @id @default(autoincrement())
-  userId     BigInt   @map("user_id")
+  user_id     BigInt
   token      String   @unique
-  expiresAt  DateTime @map("expires_at") @db.Timestamptz(6)
-  
-  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt  DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  expires_at  DateTime @db.Timestamptz(6)
 
   // Relations
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("refresh_tokens")
 }
@@ -144,19 +158,16 @@ model RefreshToken {
 
 model Pet {
   id            BigInt        @id @default(autoincrement())
-  petName       String        @map("pet_name") @db.VarChar(50)
+  pet_name       String @db.VarChar(50)
   species       String        @db.VarChar(50)
   breed         String?       @db.VarChar(50)
-  dateOfBirth   DateTime?     @map("date_of_birth") @db.Date
+  date_of_birth   DateTime? @db.Timestamptz(6)
   gender        PetGender
-  ownerId       BigInt        @map("owner_id")
-  healthStatus  HealthStatus  @default(ChuaRo) @map("health_status")
-  
-  createdAt     DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt     DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  owner_id       BigInt
+  health_status  HealthStatus  @default(ChuaRo)
 
   // Relations
-  owner                User               @relation("PetOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  owner                User               @relation("PetOwner", fields: [owner_id], references: [id], onDelete: Restrict)
   medicalExaminations  MedicalExamination[]
   singleInjections     SingleInjection[]
   packageInjections    PackageInjection[]
@@ -171,14 +182,11 @@ model Pet {
 
 model Employee {
   id                   BigInt        @id @default(autoincrement())
-  fullName             String        @map("full_name") @db.VarChar(50)
-  dateOfBirth          DateTime      @map("date_of_birth") @db.Date
+  full_name             String @db.VarChar(50)
+  date_of_birth          DateTime @db.Timestamptz(6)
   gender               Gender
   role                 EmployeeRole
-  baseSalary           Decimal       @map("base_salary") @db.Decimal(15, 2)
-  
-  createdAt            DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt            DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  base_salary           Decimal @db.Decimal(15, 2)
 
   // Relations
   managedBranch        Branch?
@@ -198,18 +206,15 @@ model Employee {
 
 model Branch {
   id                  BigInt     @id @default(autoincrement())
-  branchName          String     @map("branch_name") @db.VarChar(100)
+  branch_name          String @db.VarChar(100)
   address             String     @db.VarChar(200)
-  phoneNumber         String     @unique @map("phone_number") @db.VarChar(10)
-  openingAt           DateTime   @default(dbgenerated("'08:00:00'::time")) @map("opening_at") @db.Time(6)
-  closingAt           DateTime   @default(dbgenerated("'22:00:00'::time")) @map("closing_at") @db.Time(6)
-  managerId           BigInt?    @unique @map("manager_id")
-  
-  createdAt           DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt           DateTime   @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  phone_number         String     @unique @db.VarChar(10)
+  opening_at           DateTime   @default(dbgenerated("'08:00:00'::time")) @db.Time(6)
+  closing_at           DateTime   @default(dbgenerated("'22:00:00'::time")) @db.Time(6)
+  manager_id           BigInt?    @unique
 
   // Relations
-  manager             Employee?          @relation(fields: [managerId], references: [id], onDelete: SetNull)
+  manager             Employee?          @relation(fields: [manager_id], references: [id], onDelete: SetNull)
   mobilizations       Mobilization[]
   invoices            Invoice[]
   applyPromotions     ApplyPromotion[]
@@ -228,19 +233,16 @@ model Branch {
 
 model Mobilization {
   id          BigInt    @id @default(autoincrement())
-  employeeId  BigInt    @map("employee_id")
-  branchId    BigInt    @map("branch_id")
-  startDate   DateTime  @map("start_date") @db.Date
-  endDate     DateTime? @map("end_date") @db.Date
-  
-  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  employee_id  BigInt
+  branch_id    BigInt
+  start_date   DateTime @db.Timestamptz(6)
+  end_date     DateTime? @db.Timestamptz(6)
 
   // Relations
-  employee    Employee  @relation(fields: [employeeId], references: [id], onDelete: Restrict)
-  branch      Branch    @relation(fields: [branchId], references: [id], onDelete: Restrict)
+  employee    Employee  @relation(fields: [employee_id], references: [id], onDelete: Restrict)
+  branch      Branch    @relation(fields: [branch_id], references: [id], onDelete: Restrict)
 
-  @@unique([employeeId, branchId, startDate])
+  @@unique([employee_id, branch_id, start_date])
   @@map("mobilizations")
 }
 
@@ -250,23 +252,20 @@ model Mobilization {
 
 model Invoice {
   id                         BigInt         @id @default(autoincrement())
-  createdBy                  BigInt?        @map("created_by")
-  branchId                   BigInt?        @map("branch_id")
-  customerId                 BigInt?        @map("customer_id")
-  paymentMethod              PaymentMethod  @map("payment_method")
-  saleAttitudeRating         Int?           @map("sale_attitude_rating")
-  overallSatisfactionRating  Int?           @map("overall_satisfaction_rating")
-  totalAmount                Decimal        @default(0) @map("total_amount") @db.Decimal(15, 2)
-  totalDiscount              Decimal        @default(0) @map("total_discount") @db.Decimal(15, 2)
-  finalAmount                Decimal?       @map("final_amount") @db.Decimal(15, 2)
-  
-  createdAt                  DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt                  DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  created_by                  BigInt?
+  branch_id                   BigInt?
+  customer_id                 BigInt?
+  payment_method              PaymentMethod
+  sale_attitude_rating         Int?
+  overall_satisfaction_rating  Int?
+  total_amount                Decimal        @default(0) @db.Decimal(15, 2)
+  total_discount              Decimal        @default(0) @db.Decimal(15, 2)
+  final_amount                Decimal? @db.Decimal(15, 2)
 
   // Relations
-  creator   Employee? @relation(fields: [createdBy], references: [id], onDelete: SetNull)
-  branch    Branch?   @relation(fields: [branchId], references: [id], onDelete: Restrict)
-  customer  User?     @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  creator   Employee? @relation(fields: [created_by], references: [id], onDelete: SetNull)
+  branch    Branch?   @relation(fields: [branch_id], references: [id], onDelete: Restrict)
+  customer  User?     @relation(fields: [customer_id], references: [id], onDelete: Restrict)
   services  Service[]
 
   @@map("invoices")
@@ -279,9 +278,6 @@ model Invoice {
 model TypeOfService {
   type      ServiceType @id
   price     Decimal     @db.Decimal(15, 2)
-  
-  createdAt DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
   services      Service[]
@@ -296,21 +292,18 @@ model TypeOfService {
 
 model Service {
   id                      BigInt       @id @default(autoincrement())
-  invoiceId               BigInt?      @map("invoice_id")
-  typeOfService           ServiceType? @map("type_of_service")
-  qualityRating           Int?         @map("quality_rating")
-  employeeAttitudeRating  Int?         @map("employee_attitude_rating")
+  invoice_id               BigInt?
+  type_of_service           ServiceType?
+  quality_rating           Int?
+  employee_attitude_rating  Int?
   comment                 String?
-  unitPrice               Decimal      @map("unit_price") @db.Decimal(15, 2)
-  discountAmount          Decimal      @map("discount_amount") @db.Decimal(15, 2)
-  finalAmount             Decimal?     @map("final_amount") @db.Decimal(15, 2)
-  
-  createdAt               DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt               DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  unit_price               Decimal @db.Decimal(15, 2)
+  discount_amount          Decimal @db.Decimal(15, 2)
+  final_amount             Decimal? @db.Decimal(15, 2)
 
   // Relations
-  invoice             Invoice?            @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-  serviceType         TypeOfService?      @relation(fields: [typeOfService], references: [type], onDelete: Restrict)
+  invoice             Invoice?            @relation(fields: [invoice_id], references: [id], onDelete: Cascade)
+  service_type         TypeOfService?      @relation(fields: [type_of_service], references: [type], onDelete: Restrict)
   medicalExamination  MedicalExamination?
   singleInjection     SingleInjection?
   packageInjection    PackageInjection?
@@ -326,10 +319,7 @@ model Service {
 model Promotion {
   id              BigInt              @id @default(autoincrement())
   description     String?
-  applyFor        PromotionForLevel   @map("apply_for")
-  
-  createdAt       DateTime            @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt       DateTime            @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  apply_for        PromotionForLevel
 
   // Relations
   applyPromotions ApplyPromotion[]
@@ -344,19 +334,16 @@ model Promotion {
 
 model ApplyPromotion {
   id           BigInt   @id @default(autoincrement())
-  promotionId  BigInt   @map("promotion_id")
-  branchId     BigInt   @map("branch_id")
-  startDate    DateTime @map("start_date") @db.Date
-  endDate      DateTime @map("end_date") @db.Date
-  
-  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  promotion_id  BigInt
+  branch_id     BigInt
+  start_date    DateTime @db.Timestamptz(6)
+  end_date      DateTime @db.Timestamptz(6)
 
   // Relations
-  promotion Promotion @relation(fields: [promotionId], references: [id], onDelete: Cascade)
-  branch    Branch    @relation(fields: [branchId], references: [id], onDelete: Restrict)
+  promotion Promotion @relation(fields: [promotion_id], references: [id], onDelete: Cascade)
+  branch    Branch    @relation(fields: [branch_id], references: [id], onDelete: Restrict)
 
-  @@unique([branchId, promotionId, startDate])
+  @@unique([branch_id, promotion_id, start_date])
   @@map("apply_promotions")
 }
 
@@ -366,18 +353,15 @@ model ApplyPromotion {
 
 model PromotionFor {
   id                  BigInt        @id @default(autoincrement())
-  promotionId         BigInt        @map("promotion_id")
-  serviceType         ServiceType   @map("service_type")
-  discountPercentage  Int?          @map("discount_percentage")
-  
-  createdAt           DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt           DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  promotion_id         BigInt
+  service_type         ServiceType
+  discount_percentage  Int
 
   // Relations
-  promotion     Promotion       @relation(fields: [promotionId], references: [id], onDelete: Cascade)
-  typeOfService TypeOfService   @relation(fields: [serviceType], references: [type], onDelete: Restrict)
+  promotion     Promotion       @relation(fields: [promotion_id], references: [id], onDelete: Cascade)
+  type_of_service TypeOfService   @relation(fields: [service_type], references: [type], onDelete: Restrict)
 
-  @@unique([promotionId, serviceType])
+  @@unique([promotion_id, service_type])
   @@map("promotion_for")
 }
 
@@ -387,12 +371,9 @@ model PromotionFor {
 
 model Medicine {
   id               BigInt              @id @default(autoincrement())
-  medicineName     String              @map("medicine_name") @db.VarChar(200)
+  medicine_name     String @db.VarChar(200)
   description      String?
   price            Decimal             @db.Decimal(15, 2)
-  
-  createdAt        DateTime            @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt        DateTime            @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
   prescriptions        Prescription[]
@@ -406,20 +387,17 @@ model Medicine {
 // =======================================================================
 
 model MedicalExamination {
-  serviceId        BigInt    @id @map("service_id")
-  petId            BigInt    @map("pet_id")
-  doctorId         BigInt    @map("doctor_id")
+  service_id        BigInt    @id
+  pet_id            BigInt
+  doctor_id         BigInt
   diagnosis        String?
   conclusion       String?
-  appointmentDate  DateTime? @map("appointment_date") @db.Timestamptz(6)
-  
-  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt        DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  appointment_date  DateTime? @db.Timestamptz(6)
 
   // Relations
-  service       Service        @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  pet           Pet            @relation(fields: [petId], references: [id], onDelete: Restrict)
-  doctor        Employee       @relation(fields: [doctorId], references: [id], onDelete: Restrict)
+  service       Service        @relation(fields: [service_id], references: [id], onDelete: Cascade)
+  pet           Pet            @relation(fields: [pet_id], references: [id], onDelete: Restrict)
+  doctor        Employee       @relation(fields: [doctor_id], references: [id], onDelete: Restrict)
   prescriptions Prescription[]
 
   @@map("medical_examinations")
@@ -431,21 +409,18 @@ model MedicalExamination {
 
 model Prescription {
   id                    BigInt             @id @default(autoincrement())
-  medicalExaminationId  BigInt             @map("medical_examination_id")
-  medicineId            BigInt             @map("medicine_id")
+  medical_examination_id  BigInt
+  medicine_id            BigInt
   quantity              Int
   dosage                String             @db.VarChar(100)
   duration              String             @db.VarChar(100)
   instructions          String?
-  
-  createdAt             DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt             DateTime           @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
-  medicalExamination MedicalExamination @relation(fields: [medicalExaminationId], references: [serviceId], onDelete: Cascade)
-  medicine           Medicine           @relation(fields: [medicineId], references: [id], onDelete: Restrict)
+  medicalExamination MedicalExamination @relation(fields: [medical_examination_id], references: [service_id], onDelete: Cascade)
+  medicine           Medicine           @relation(fields: [medicine_id], references: [id], onDelete: Restrict)
 
-  @@unique([medicalExaminationId, medicineId])
+  @@unique([medical_examination_id, medicine_id])
   @@map("prescriptions")
 }
 
@@ -455,11 +430,8 @@ model Prescription {
 
 model Vaccine {
   id               BigInt            @id @default(autoincrement())
-  vaccineName      String            @map("vaccine_name") @db.VarChar(200)
+  vaccine_name      String @db.VarChar(200)
   price            Decimal           @db.Decimal(15, 2)
-  
-  createdAt        DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt        DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
   includeVaccines   IncludeVaccine[]
@@ -475,13 +447,10 @@ model Vaccine {
 
 model VaccinePackage {
   id                BigInt               @id @default(autoincrement())
-  packageName       String               @map("package_name") @db.VarChar(200)
-  monthlyMilestone  Int                  @map("monthly_milestone")
+  package_name       String @db.VarChar(200)
+  monthly_milestone  Int
   cycle             Int
   price             Decimal              @db.Decimal(15, 2)
-  
-  createdAt         DateTime             @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt         DateTime             @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
   includeVaccines      IncludeVaccine[]
@@ -497,18 +466,15 @@ model VaccinePackage {
 
 model IncludeVaccine {
   id         BigInt         @id @default(autoincrement())
-  packageId  BigInt         @map("package_id")
-  vaccineId  BigInt         @map("vaccine_id")
+  package_id  BigInt
+  vaccine_id  BigInt
   dosage     Int
-  
-  createdAt  DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt  DateTime       @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
-  package VaccinePackage @relation(fields: [packageId], references: [id], onDelete: Cascade)
-  vaccine Vaccine        @relation(fields: [vaccineId], references: [id], onDelete: Restrict)
+  package VaccinePackage @relation(fields: [package_id], references: [id], onDelete: Cascade)
+  vaccine Vaccine        @relation(fields: [vaccine_id], references: [id], onDelete: Restrict)
 
-  @@unique([packageId, vaccineId])
+  @@unique([package_id, vaccine_id])
   @@map("include_vaccines")
 }
 
@@ -517,17 +483,14 @@ model IncludeVaccine {
 // =======================================================================
 
 model SingleInjection {
-  serviceId BigInt   @id @map("service_id")
-  petId     BigInt   @map("pet_id")
-  doctorId  BigInt   @map("doctor_id")
-  
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  service_id BigInt   @id
+  pet_id     BigInt
+  doctor_id  BigInt
 
   // Relations
-  service      Service      @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  pet          Pet          @relation(fields: [petId], references: [id], onDelete: Restrict)
-  doctor       Employee     @relation(fields: [doctorId], references: [id], onDelete: Restrict)
+  service      Service      @relation(fields: [service_id], references: [id], onDelete: Cascade)
+  pet          Pet          @relation(fields: [pet_id], references: [id], onDelete: Restrict)
+  doctor       Employee     @relation(fields: [doctor_id], references: [id], onDelete: Restrict)
   vaccineUses  VaccineUse[]
 
   @@map("single_injections")
@@ -538,17 +501,14 @@ model SingleInjection {
 // =======================================================================
 
 model PackageInjection {
-  serviceId BigInt   @id @map("service_id")
-  petId     BigInt   @map("pet_id")
-  doctorId  BigInt   @map("doctor_id")
-  
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  service_id BigInt   @id
+  pet_id     BigInt
+  doctor_id  BigInt
 
   // Relations
-  service             Service             @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  pet                 Pet                 @relation(fields: [petId], references: [id], onDelete: Restrict)
-  doctor              Employee            @relation(fields: [doctorId], references: [id], onDelete: Restrict)
+  service             Service             @relation(fields: [service_id], references: [id], onDelete: Cascade)
+  pet                 Pet                 @relation(fields: [pet_id], references: [id], onDelete: Restrict)
+  doctor              Employee            @relation(fields: [doctor_id], references: [id], onDelete: Restrict)
   vaccinePackageUses  VaccinePackageUse[]
 
   @@map("package_injections")
@@ -560,18 +520,15 @@ model PackageInjection {
 
 model VaccineUse {
   id                 BigInt          @id @default(autoincrement())
-  singleInjectionId  BigInt?         @map("single_injection_id")
-  vaccineId          BigInt          @map("vaccine_id")
+  single_injection_id  BigInt?
+  vaccine_id          BigInt
   dosage             Int
-  
-  createdAt          DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt          DateTime        @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
-  singleInjection SingleInjection? @relation(fields: [singleInjectionId], references: [serviceId], onDelete: Cascade)
-  vaccine         Vaccine          @relation(fields: [vaccineId], references: [id], onDelete: Restrict)
+  singleInjection SingleInjection? @relation(fields: [single_injection_id], references: [service_id], onDelete: Cascade)
+  vaccine         Vaccine          @relation(fields: [vaccine_id], references: [id], onDelete: Restrict)
 
-  @@unique([singleInjectionId, vaccineId])
+  @@unique([single_injection_id, vaccine_id])
   @@map("vaccine_uses")
 }
 
@@ -581,20 +538,17 @@ model VaccineUse {
 
 model VaccinePackageUse {
   id                 BigInt           @id @default(autoincrement())
-  packageInjectionId BigInt?          @map("package_injection_id")
-  packageId          BigInt           @map("package_id")
-  injectionNumber    Int              @map("injection_number")
-  nextInjectionDate  DateTime?        @map("next_injection_date") @db.Date
-  isCompleted        Boolean          @default(false) @map("is_completed")
-  
-  createdAt          DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt          DateTime         @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  package_injection_id BigInt?
+  package_id          BigInt
+  injection_number    Int
+  next_injection_date  DateTime? @db.Timestamptz(6)
+  is_completed        Boolean          @default(false)
 
   // Relations
-  packageInjection PackageInjection? @relation(fields: [packageInjectionId], references: [serviceId], onDelete: Cascade)
-  package          VaccinePackage    @relation(fields: [packageId], references: [id], onDelete: Restrict)
+  packageInjection PackageInjection? @relation(fields: [package_injection_id], references: [service_id], onDelete: Cascade)
+  package          VaccinePackage    @relation(fields: [package_id], references: [id], onDelete: Restrict)
 
-  @@unique([packageInjectionId, injectionNumber])
+  @@unique([package_injection_id, injection_number])
   @@map("vaccine_package_uses")
 }
 
@@ -604,12 +558,9 @@ model VaccinePackageUse {
 
 model Product {
   id               BigInt            @id @default(autoincrement())
-  productName      String            @map("product_name") @db.VarChar(200)
-  productType      ProductType       @map("product_type")
+  product_name      String @db.VarChar(200)
+  product_type      ProductType
   price            Decimal           @db.Decimal(15, 2)
-  
-  createdAt        DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt        DateTime          @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
   sellProducts      SellProduct[]
@@ -623,18 +574,15 @@ model Product {
 // =======================================================================
 
 model SellProduct {
-  serviceId BigInt   @id @map("service_id")
-  productId BigInt   @map("product_id")
+  service_id BigInt   @id
+  product_id BigInt
   quantity  Int
-  
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
-  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  service Service @relation(fields: [service_id], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [product_id], references: [id], onDelete: Restrict)
 
-  @@unique([serviceId, productId])
+  @@unique([service_id, product_id])
   @@map("sell_products")
 }
 
@@ -644,17 +592,15 @@ model SellProduct {
 
 model MedicineInventory {
   id         BigInt   @id @default(autoincrement())
-  branchId   BigInt   @map("branch_id")
-  medicineId BigInt   @map("medicine_id")
+  branch_id   BigInt
+  medicine_id BigInt
   quantity   Int
-  
-  updatedAt  DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
-  branch   Branch   @relation(fields: [branchId], references: [id], onDelete: Restrict)
-  medicine Medicine @relation(fields: [medicineId], references: [id], onDelete: Restrict)
+  branch   Branch   @relation(fields: [branch_id], references: [id], onDelete: Restrict)
+  medicine Medicine @relation(fields: [medicine_id], references: [id], onDelete: Restrict)
 
-  @@unique([branchId, medicineId])
+  @@unique([branch_id, medicine_id])
   @@map("medicine_inventory")
 }
 
@@ -664,17 +610,15 @@ model MedicineInventory {
 
 model VaccineInventory {
   id        BigInt   @id @default(autoincrement())
-  branchId  BigInt   @map("branch_id")
-  vaccineId BigInt   @map("vaccine_id")
+  branch_id  BigInt
+  vaccine_id BigInt
   quantity  Int
-  
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
-  branch  Branch  @relation(fields: [branchId], references: [id], onDelete: Restrict)
-  vaccine Vaccine @relation(fields: [vaccineId], references: [id], onDelete: Restrict)
+  branch  Branch  @relation(fields: [branch_id], references: [id], onDelete: Restrict)
+  vaccine Vaccine @relation(fields: [vaccine_id], references: [id], onDelete: Restrict)
 
-  @@unique([branchId, vaccineId])
+  @@unique([branch_id, vaccine_id])
   @@map("vaccine_inventory")
 }
 
@@ -684,17 +628,15 @@ model VaccineInventory {
 
 model PackageInventory {
   id        BigInt   @id @default(autoincrement())
-  branchId  BigInt   @map("branch_id")
-  packageId BigInt   @map("package_id")
+  branch_id  BigInt
+  package_id BigInt
   quantity  Int
-  
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
-  branch  Branch         @relation(fields: [branchId], references: [id], onDelete: Restrict)
-  package VaccinePackage @relation(fields: [packageId], references: [id], onDelete: Restrict)
+  branch  Branch         @relation(fields: [branch_id], references: [id], onDelete: Restrict)
+  package VaccinePackage @relation(fields: [package_id], references: [id], onDelete: Restrict)
 
-  @@unique([branchId, packageId])
+  @@unique([branch_id, package_id])
   @@map("package_inventory")
 }
 
@@ -704,17 +646,15 @@ model PackageInventory {
 
 model ProductInventory {
   id        BigInt   @id @default(autoincrement())
-  branchId  BigInt   @map("branch_id")
-  productId BigInt   @map("product_id")
+  branch_id  BigInt
+  product_id BigInt
   quantity  Int
-  
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   // Relations
-  branch  Branch  @relation(fields: [branchId], references: [id], onDelete: Restrict)
-  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  branch  Branch  @relation(fields: [branch_id], references: [id], onDelete: Restrict)
+  product Product @relation(fields: [product_id], references: [id], onDelete: Restrict)
 
-  @@unique([branchId, productId])
+  @@unique([branch_id, product_id])
   @@map("product_inventory")
 }
 
@@ -724,26 +664,23 @@ model ProductInventory {
 
 model Appointment {
   id               BigInt                  @id @default(autoincrement())
-  petId            BigInt                  @map("pet_id")
-  ownerId          BigInt                  @map("owner_id")
-  branchId         BigInt                  @map("branch_id")
-  doctorId         BigInt                  @map("doctor_id")
-  serviceType      AppointmentServiceType  @map("service_type")
-  appointmentTime  DateTime                @map("appointment_time") @db.Timestamptz(6)
+  pet_id            BigInt
+  owner_id          BigInt
+  branch_id         BigInt
+  doctor_id         BigInt
+  service_type      AppointmentServiceType
+  appointment_time  DateTime @db.Timestamptz(6)
   reason           String?
   status           Status                  @default(DangChoXacNhan)
-  cancelledReason  String?                 @map("cancelled_reason")
-  
-  createdAt        DateTime                @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt        DateTime                @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  cancelled_reason  String?
 
   // Relations
-  pet    Pet      @relation(fields: [petId], references: [id], onDelete: Restrict)
-  owner  User     @relation(fields: [ownerId], references: [id], onDelete: Restrict)
-  branch Branch   @relation(fields: [branchId], references: [id], onDelete: Restrict)
-  doctor Employee @relation(fields: [doctorId], references: [id], onDelete: Restrict)
+  pet    Pet      @relation(fields: [pet_id], references: [id], onDelete: Restrict)
+  owner  User     @relation(fields: [owner_id], references: [id], onDelete: Restrict)
+  branch Branch   @relation(fields: [branch_id], references: [id], onDelete: Restrict)
+  doctor Employee @relation(fields: [doctor_id], references: [id], onDelete: Restrict)
 
-  @@unique([petId, appointmentTime, serviceType])
-  @@unique([doctorId, branchId, appointmentTime])
+  @@unique([pet_id, appointment_time, service_type])
+  @@unique([doctor_id, branch_id, appointment_time])
   @@map("appointments")
 }

@@ -1,0 +1,802 @@
+[
+  {
+    "branch_name": "Kirlin, Friesen and Vandervort",
+    "address": "5525 N Monroe Street",
+    "phone_number": "0459068608",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Turcotte and Sons",
+    "address": "6649 Jamal Road",
+    "phone_number": "0986333925",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Thiel - Mayer",
+    "address": "901 W Broadway",
+    "phone_number": "0307076409",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Gerlach, Jacobi and Veum",
+    "address": "79180 Everardo Square",
+    "phone_number": "0925772354",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Gislason - McCullough",
+    "address": "6606 Mervin Crossroad",
+    "phone_number": "0349276816",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Koelpin, Wolf and Rippin",
+    "address": "3040 Rowe Curve",
+    "phone_number": "0053264555",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Treutel, Mraz and Dickinson",
+    "address": "656 Washington Avenue",
+    "phone_number": "0060716589",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Hettinger and Sons",
+    "address": "56401 Callie Trace",
+    "phone_number": "0330926280",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Towne LLC",
+    "address": "305 S Broadway Street",
+    "phone_number": "0818956321",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Stehr - Paucek",
+    "address": "819 Boyle Station",
+    "phone_number": "0563431916",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Harber - Moore",
+    "address": "401 Maple Close",
+    "phone_number": "0995313645",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "VonRueden, Pacocha and Dach",
+    "address": "89394 Garett Square",
+    "phone_number": "0931348853",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Leannon and Sons",
+    "address": "9912 Ewell Stream",
+    "phone_number": "0041368510",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Ortiz, Cruickshank and Lakin",
+    "address": "1841 Center Road",
+    "phone_number": "0966883707",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Corwin, Stroman and Marks",
+    "address": "61504 W Grand Avenue",
+    "phone_number": "0863944524",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Zemlak - Nienow",
+    "address": "9034 Windmill Lane",
+    "phone_number": "0936190770",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Rosenbaum, Kerluke and Heathcote",
+    "address": "746 Trinity Pines",
+    "phone_number": "0655948489",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Zieme Group",
+    "address": "42353 Laurine Extension",
+    "phone_number": "0228150813",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Senger - Hammes",
+    "address": "9020 Brown Green",
+    "phone_number": "0372423368",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Sanford - Tremblay",
+    "address": "9038 Poplar Avenue",
+    "phone_number": "0919641994",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Rosenbaum - Zieme",
+    "address": "727 Rosanna Track",
+    "phone_number": "0347419530",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Becker, Moore and Denesik",
+    "address": "7745 Maya Mission",
+    "phone_number": "0312375660",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Cole - Luettgen",
+    "address": "33113 Wolff Valleys",
+    "phone_number": "0103330581",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Koss Inc",
+    "address": "917 Kayden River",
+    "phone_number": "0217256738",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Boehm Inc",
+    "address": "47056 Daniel Mews",
+    "phone_number": "0906055440",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Johnson - Sipes",
+    "address": "536 Mill Road",
+    "phone_number": "0846756697",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Sawayn and Sons",
+    "address": "812 Timmy Fall",
+    "phone_number": "0718716435",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Cronin - Romaguera",
+    "address": "65143 Therese Hills",
+    "phone_number": "0495033024",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Schultz LLC",
+    "address": "91326 Balmoral Road",
+    "phone_number": "0467032081",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Kertzmann Inc",
+    "address": "1799 Kamille Field",
+    "phone_number": "0585353298",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Turcotte LLC",
+    "address": "46463 Krajcik Centers",
+    "phone_number": "0808100456",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Hodkiewicz - Block",
+    "address": "52427 Jamey Manor",
+    "phone_number": "0941296174",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Lindgren, Rempel and Franecki",
+    "address": "4477 S Park Street",
+    "phone_number": "0765390374",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Ullrich and Sons",
+    "address": "629 W Broadway",
+    "phone_number": "0815471331",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "O'Kon, Collins and Deckow",
+    "address": "714 Park Crescent",
+    "phone_number": "0127490889",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Padberg LLC",
+    "address": "439 Chestnut Street",
+    "phone_number": "0569584412",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Weber - Bernier",
+    "address": "1640 Von Pines",
+    "phone_number": "0326638465",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Gutkowski Group",
+    "address": "14889 Bailey Prairie",
+    "phone_number": "0890011152",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Sauer, Hermann and Huel",
+    "address": "366 Kennedi Stravenue",
+    "phone_number": "0559158856",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "McGlynn Group",
+    "address": "2270 2nd Street",
+    "phone_number": "0768080085",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Purdy, Lubowitz and Ruecker",
+    "address": "267 Victoria Road",
+    "phone_number": "0963160009",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "McCullough Inc",
+    "address": "11144 Wood Street",
+    "phone_number": "0542385460",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Bahringer Group",
+    "address": "581 Novella Circles",
+    "phone_number": "0002526825",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Skiles - Rempel",
+    "address": "890 Brown Ramp",
+    "phone_number": "0463812869",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Goyette LLC",
+    "address": "14645 Hyatt Burg",
+    "phone_number": "0031609609",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Hauck, Leffler and Considine",
+    "address": "48218 Broadway Avenue",
+    "phone_number": "0313920172",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Wolff, Tillman and Purdy",
+    "address": "1354 Orlo Hill",
+    "phone_number": "0053812157",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Armstrong LLC",
+    "address": "570 Bahringer Turnpike",
+    "phone_number": "0818319130",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Towne, Conn and Pfeffer",
+    "address": "334 Terence Knoll",
+    "phone_number": "0140839152",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Lind - Franey",
+    "address": "7960 Hickle Corners",
+    "phone_number": "0847724689",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Weber, Sipes and Boehm",
+    "address": "618 Jeff Drives",
+    "phone_number": "0337114821",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Lockman Inc",
+    "address": "8424 Erwin Stravenue",
+    "phone_number": "0199418013",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Bailey, Mayer and Strosin",
+    "address": "200 Bulah Grove",
+    "phone_number": "0957483630",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Herman, Davis and Glover",
+    "address": "93021 Joy Crest",
+    "phone_number": "0945977149",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Walker - Rosenbaum",
+    "address": "171 Norene Rapids",
+    "phone_number": "0778949107",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Kreiger, Gerlach and Strosin",
+    "address": "2798 Troy Brook",
+    "phone_number": "0441155669",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Rath, Kunde and Mante",
+    "address": "61631 Emard Fords",
+    "phone_number": "0694518523",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Gorczany - Bechtelar",
+    "address": "372 Candelario Throughway",
+    "phone_number": "0780792613",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Heidenreich, Huels and Muller",
+    "address": "819 Wilfrid Skyway",
+    "phone_number": "0054056378",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Stracke Group",
+    "address": "734 Marcella View",
+    "phone_number": "0556039838",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Borer Inc",
+    "address": "6397 Flossie Glens",
+    "phone_number": "0984759624",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Hermann - Windler",
+    "address": "9419 Dickens Pines",
+    "phone_number": "0494192888",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Gutkowski, Johnston and Herzog",
+    "address": "85595 Ahmad Forest",
+    "phone_number": "0926106575",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Gutkowski, Senger and Muller",
+    "address": "698 Victoria Road",
+    "phone_number": "0829787783",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Jenkins Group",
+    "address": "4157 Mertz Locks",
+    "phone_number": "0459163920",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Schoen LLC",
+    "address": "948 Heidenreich Lock",
+    "phone_number": "0663527845",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Grady Inc",
+    "address": "7751 Mitchel Mission",
+    "phone_number": "0250296952",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Stroman, D'Amore and Senger",
+    "address": "21441 Commerce Street",
+    "phone_number": "0230730832",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Kuhlman - Kihn",
+    "address": "6131 Abagail Loaf",
+    "phone_number": "0879050253",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Welch, Blanda and Steuber",
+    "address": "224 Nicolas Ridges",
+    "phone_number": "0292870005",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Howell - Greenfelder",
+    "address": "484 Holly Close",
+    "phone_number": "0187077687",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Hickle and Sons",
+    "address": "334 Runte Shore",
+    "phone_number": "0630253158",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Quigley, Mosciski and Batz",
+    "address": "4536 Logan Parkways",
+    "phone_number": "0601252412",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Mertz Group",
+    "address": "466 Ines Burgs",
+    "phone_number": "0784411090",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Wilderman Group",
+    "address": "7490 Daphnee Parkways",
+    "phone_number": "0889315994",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Labadie, Simonis and Anderson",
+    "address": "92117 Rodolfo Club",
+    "phone_number": "0877990198",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Stracke - Swift",
+    "address": "252 Stephon Springs",
+    "phone_number": "0377899607",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Waelchi - Vandervort",
+    "address": "8854 N Union Street",
+    "phone_number": "0955905717",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Heller - Block",
+    "address": "463 Kris Forge",
+    "phone_number": "0661614455",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Walker - Hane",
+    "address": "4146 The Sidings",
+    "phone_number": "0880885265",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Cole Group",
+    "address": "302 N 2nd Street",
+    "phone_number": "0135701573",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Schiller - MacGyver",
+    "address": "506 Alf Views",
+    "phone_number": "0553613141",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Emmerich - Cummings",
+    "address": "7198 Bell Lane",
+    "phone_number": "0447328919",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Nicolas and Sons",
+    "address": "4254 Victor Circles",
+    "phone_number": "0505643249",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Dicki and Sons",
+    "address": "338 Conroy Freeway",
+    "phone_number": "0291945551",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "O'Reilly - Hilll",
+    "address": "3180 Jedidiah Heights",
+    "phone_number": "0527672398",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Heathcote, Windler and Jones",
+    "address": "254 Parisian Ridges",
+    "phone_number": "0345775119",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Kutch, Nader and Mohr",
+    "address": "6183 Rogahn Garden",
+    "phone_number": "0307169278",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "O'Connell, Witting and Keeling",
+    "address": "545 Regan Courts",
+    "phone_number": "0535341604",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Johnson - Miller",
+    "address": "11735 Rusty Flats",
+    "phone_number": "0152065319",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Ernser, Ernser and Reichel",
+    "address": "6929 Cleo River",
+    "phone_number": "0774457807",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Renner, Maggio and Lesch",
+    "address": "737 Gladys Viaduct",
+    "phone_number": "0766614444",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Ward LLC",
+    "address": "27186 Vivien Center",
+    "phone_number": "0175220160",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Schaefer - Cruickshank",
+    "address": "5337 E Broad Street",
+    "phone_number": "0716943162",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Upton - Runte",
+    "address": "589 Gottlieb Center",
+    "phone_number": "0234911096",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Larson - Wolf",
+    "address": "3654 Josiane Ranch",
+    "phone_number": "0281357808",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Shanahan - Christiansen",
+    "address": "15355 Kelsie Mills",
+    "phone_number": "0459453858",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Moen - Legros",
+    "address": "6651 Devonshire Road",
+    "phone_number": "0189542524",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Reinger - Wiza",
+    "address": "97271 E 12th Street",
+    "phone_number": "0417199349",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Harris, Morar and Lubowitz",
+    "address": "701 Makayla Rue",
+    "phone_number": "0284348649",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  }
+]

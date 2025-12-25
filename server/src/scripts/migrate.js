@@ -14,12 +14,6 @@ async function migrate() {
     console.log('🔄 Starting migration...');
     await client.query('BEGIN');
 
-    // Get executed migrations
-    const { rows } = await client.query(
-      'SELECT version FROM schema_migrations'
-    );
-    const executed = new Set(rows.map(r => r.version));
-
     // Read migration files
     const files = fs
       .readdirSync(MIGRATION_DIR)
@@ -27,11 +21,6 @@ async function migrate() {
       .sort();
 
     for (const file of files) {
-      if (executed.has(file)) {
-        console.log(`⏭️  Skip ${file}`);
-        continue;
-      }
-
       console.log(`▶️  Running ${file}`);
       const sql = fs.readFileSync(
         path.join(MIGRATION_DIR, file),
@@ -39,12 +28,6 @@ async function migrate() {
       );
 
       await client.query(sql);
-
-      // Record migration as executed
-      await client.query(
-        'INSERT INTO schema_migrations(version) VALUES ($1)',
-        [file]
-      );
     }
 
     await client.query('COMMIT');
