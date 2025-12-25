@@ -1,9 +1,7 @@
 // Import utilities
 import { logger, warningCounts, printProgressBar, LOG_FILE } from "./utils/logger.js";
-import { OUT_DIR, DEFAULT_COUNTS, FACTORIES, PRISMA_CLIENT_MAP, MODEL_ENUM_FIELDS } from "./utils/constants.js";
-import { buildEnumMaps } from "./utils/enum-mapper.js";
+import { OUT_DIR, DEFAULT_COUNTS, FACTORIES, PRISMA_CLIENT_MAP } from "./utils/constants.js";
 import { ensureOutDir, parseConfigFile, generateItems } from "./utils/helpers.js";
-import { normalizeInvoices, normalizePromotionFors, validateVeterinarians, validatePromotionFors, validateApplyPromotions } from "./utils/validators.js";
 import { GENERATOR_REGISTRY, generateWithRegistry } from "./utils/generators/index.js";
 import { persistToDb } from "./utils/persistence.js";
 import fs from "fs/promises";
@@ -18,7 +16,7 @@ async function main() {
   const config = await parseConfigFile();
   if (!config) { console.error("❌ Missing seed.config.json"); process.exit(1); }
 
-  const { counts = {}, order = Object.keys(FACTORIES), persist = false, dryRun = false } = config;
+  const { size = "small", counts = {}, order = Object.keys(FACTORIES), persist = false, dryRun = false } = config;
 
   // Clear log file at start
   logger.clear();
@@ -229,7 +227,7 @@ async function main() {
     if (persist && prisma && !dryRun) {
 
       let insertedCount = 0;
-      const batchSize = 1000;
+      const batchSize = (size === "small") ? 500 : (size === "medium") ? 1000 : 5000;
 
       for (let start = 0; start < items.length; start += batchSize) {
         const batch = items.slice(start, start + batchSize);

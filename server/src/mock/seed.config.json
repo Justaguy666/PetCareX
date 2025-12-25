@@ -1,4 +1,5 @@
 {
+  "size": "small",
   "persist": true,
   "dryRun": false,
   "order": [
