@@ -977,7 +977,7 @@ CREATE TABLE appointments (
         ON DELETE RESTRICT,
 
     CONSTRAINT chk_appointments_appointment_time
-        CHECK (appointment_time > NOW()),
+        CHECK (appointment_time >= NOW()),
 
     CONSTRAINT chk_appointments_reason_length 
         CHECK (reason IS NULL OR length(reason) <= 500),

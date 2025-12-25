@@ -1043,7 +1043,7 @@ EXECUTE FUNCTION fn_validate_promotion_dates();
 CREATE FUNCTION fn_prevent_past_appointment()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF NEW.appointment_time <= NOW() THEN
+    IF NEW.appointment_time < NOW() THEN
         RAISE EXCEPTION 'Không thể đặt lịch hẹn trong quá khứ';
     END IF;
     RETURN NEW;
@@ -1062,7 +1062,7 @@ EXECUTE FUNCTION fn_prevent_past_appointment();
 CREATE FUNCTION fn_prevent_delete_active_appointment()
 RETURNS TRIGGER AS $$
 BEGIN
-    IF OLD.status IN ('Đã xác nhận') AND OLD.appointment_time > NOW() THEN
+    IF OLD.status IN ('Đã xác nhận') AND OLD.appointment_time >= NOW() THEN
         RAISE EXCEPTION 'Không thể xóa lịch hẹn đã xác nhận. Vui lòng hủy lịch trước.';
     END IF;
     RETURN OLD;
