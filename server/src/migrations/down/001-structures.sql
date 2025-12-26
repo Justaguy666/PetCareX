@@ -65,6 +65,7 @@ DROP TYPE IF EXISTS appointment_service_type CASCADE;
 DROP TYPE IF EXISTS product_type CASCADE;
 DROP TYPE IF EXISTS promotion_for_level CASCADE;
 DROP TYPE IF EXISTS status CASCADE;
+DROP TYPE IF EXISTS account_type CASCADE;
 
 -- Drop extensions
 DROP EXTENSION IF EXISTS btree_gist CASCADE;

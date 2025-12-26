@@ -37,6 +37,16 @@ enum MembershipLevel {
   @@map("membership_level")
 }
 
+enum AccountType {
+  KhachHang           @map("Khách hàng")
+  NhanVienBanHang     @map("Nhân viên bán hàng")
+  NhanVienTiepTan     @map("Nhân viên tiếp tân")
+  QuanLyChiNhanh      @map("Quản lý chi nhánh")
+  BacSiThuY           @map("Bác sĩ thú y")
+
+  @@map("account_type")
+}
+
 enum HealthStatus {
   KhoeManh    @map("Khỏe mạnh")
   CoVanDe     @map("Có vấn đề")
@@ -118,38 +128,44 @@ model User {
   membership_level  MembershipLevel  @default(CoBan)
 
   // Relations
-  account          Account?
-  refreshTokens    RefreshToken[]
   pets             Pet[]             @relation("PetOwner")
   invoices         Invoice[]
   appointments     Appointment[]
+    accounts         Account[]         @relation("AccountUser")
 
   @@map("users")
 }
 
 model Account {
-  user_id          BigInt    @id
-  username        String    @unique @db.VarChar(255)
+  id               BigInt    @id @default(autoincrement())
+  username         String    @unique @db.VarChar(255)
   hashed_password  String
   is_active        Boolean   @default(false)
-  last_login_at     DateTime? @db.Timestamptz(6)
+  last_login_at    DateTime? @db.Timestamptz(6)
+  account_type     AccountType @default(KhachHang)
+    user_id          BigInt?
+    employee_id      BigInt?
 
   // Relations
-  user            User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+    user             User?     @relation("AccountUser", fields: [user_id], references: [id], onDelete: SetNull)
+    employee         Employee? @relation("AccountEmployee", fields: [employee_id], references: [id], onDelete: SetNull)
+  refreshTokens    RefreshToken[] @relation("AccountRefreshTokens")
 
+  @@index([user_id], map: "idx_accounts_user_id")
+  @@index([employee_id], map: "idx_accounts_employee_id")
   @@map("accounts")
 }
 
 model RefreshToken {
   id         BigInt   @id @default(autoincrement())
-  user_id     BigInt
+  account_id     BigInt
   token      String   @unique
   expires_at  DateTime @db.Timestamptz(6)
 
   // Relations
-  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  account       Account     @relation("AccountRefreshTokens", fields: [account_id], references: [id], onDelete: Cascade)
 
-  @@index([user_id], map: "idx_refresh_tokens_user_id")
+  @@index([account_id], map: "idx_refresh_tokens_account_id")
   @@index([expires_at], map: "idx_refresh_tokens_expires_at")
   @@map("refresh_tokens")
 }
@@ -191,6 +207,7 @@ model Employee {
   base_salary           Decimal @db.Decimal(15, 2)
 
   // Relations
+    accounts             Account[] @relation("AccountEmployee")
   managedBranch        Branch?
   mobilizations        Mobilization[]
   invoices             Invoice[]

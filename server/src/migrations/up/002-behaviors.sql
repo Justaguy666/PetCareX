@@ -347,7 +347,7 @@ RETURNS TRIGGER AS $$
 BEGIN
     UPDATE accounts
     SET last_login_at = NOW()
-    WHERE user_id = NEW.user_id;
+    WHERE id = NEW.account_id;
 
     RETURN NEW;
 END;
@@ -1103,3 +1103,64 @@ CREATE TRIGGER trg_validate_positive_quantity_sell_products
 BEFORE INSERT OR UPDATE ON sell_products
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_positive_quantity();
+
+-- ========================================================================
+-- 20. VALIDATE ACCOUNT OWNER ROLE TRIGGER
+-- ========================================================================
+
+CREATE FUNCTION fn_validate_accounts_owner_role()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.employee_id IS NOT NULL AND NEW.user_id IS NOT NULL THEN
+        RAISE EXCEPTION 'Tài khoản chỉ thuộc về một Nhân viên hoặc một Khách hàng';
+    END IF;
+
+    IF NEW.account_type IN (
+        'Bác sĩ thú y', 'Nhân viên bán hàng', 'Nhân viên tiếp tân', 'Quản lý chi nhánh'
+    ) THEN
+        IF NEW.employee_id IS NULL THEN
+            RAISE EXCEPTION 'Tài khoản với account_type "%" phải liên kết tới một Nhân viên', NEW.account_type;
+        END IF;
+
+        IF NOT EXISTS (
+            SELECT 1
+            FROM employees e
+            WHERE e.id = NEW.employee_id
+              AND (
+                (NEW.account_type = 'Bác sĩ thú y' AND e.role = 'Bác sĩ thú y')
+                OR (NEW.account_type = 'Nhân viên bán hàng' AND e.role = 'Nhân viên bán hàng')
+                OR (NEW.account_type = 'Nhân viên tiếp tân' AND e.role = 'Nhân viên tiếp tân')
+                OR (NEW.account_type = 'Quản lý chi nhánh' AND e.role = 'Quản lý chi nhánh')
+              )
+        ) THEN
+            RAISE EXCEPTION 'Nhân viên % không tồn tại hoặc vai trò không khớp với account_type "%"', 
+                NEW.employee_id, NEW.account_type;
+        END IF;
+    END IF;
+
+    IF NEW.account_type = 'Khách hàng' THEN
+        IF NEW.user_id IS NULL THEN
+            RAISE EXCEPTION 'Tài khoản Khách hàng phải liên kết tới một Người dùng';
+        END IF;
+
+        IF NEW.employee_id IS NOT NULL THEN
+            RAISE EXCEPTION 'Tài khoản Khách hàng không được liên kết tới Nhân viên';
+        END IF;
+
+        IF NOT EXISTS (
+            SELECT 1
+            FROM users
+            WHERE id = NEW.user_id
+        ) THEN
+            RAISE EXCEPTION 'Khách hàng % không tồn tại', NEW.user_id;
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_validate_accounts_owner_role
+BEFORE INSERT OR UPDATE ON accounts
+FOR EACH ROW
+EXECUTE FUNCTION fn_validate_accounts_owner_role();

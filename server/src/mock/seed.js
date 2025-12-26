@@ -47,9 +47,32 @@ async function main() {
     let items;
 
     if (key === "accounts" && insertedIds.users) {
-      items = insertedIds.users.map((uid) => factory({ user_id: uid }));
-    } else if (key === "refreshTokens" && insertedIds.users) {
-      items = insertedIds.users.map((uid) => factory({ user_id: uid }));
+      // Create one account per user and one account per employee.
+      items = [];
+      // User accounts
+      for (const uid of insertedIds.users) {
+        items.push(factory({ user_id: uid, account_type: 'KhachHang' }));
+      }
+
+      // Employee accounts (ensure roles align with employee.role)
+      if (prisma && insertedIds.employees && insertedIds.employees.length > 0) {
+        try {
+          const emps = await prisma.employee.findMany({ where: { id: { in: insertedIds.employees } }, select: { id: true, role: true } });
+          for (const e of emps) {
+            // `e.role` is the Prisma enum key (e.g. 'BacSiThuY') which matches account_type keys
+            items.push(factory({ employee_id: Number(e.id), account_type: e.role }));
+          }
+        } catch (e) {
+          logger.warn(`accounts: could not load employees to assign accounts: ${e.message || e}`, 'other');
+        }
+      } else if (insertedIds.employees) {
+        // If Prisma not available, still create employee accounts with random roles
+        for (const eid of insertedIds.employees) {
+          items.push(factory({ employee_id: eid }));
+        }
+      }
+    } else if (key === "refreshTokens" && insertedIds.accounts) {
+      items = insertedIds.accounts.map((aid) => factory({ account_id: aid }));
     } else if (key === "pets" && insertedIds.users) {
       items = await generateItems(factory, count);
       items = items.map((i) => ({ ...i, owner_id: insertedIds.users[Math.floor(Math.random() * insertedIds.users.length)] }));
@@ -310,8 +333,8 @@ async function main() {
       process.stdout.write('\n');
 
       const clientProp = PRISMA_CLIENT_MAP[key];
-      if (clientProp && prisma[clientProp]) {
-        if (key === "users" || key === "employees" || key === "branches" || key === "products" || key === "medicines" || key === "vaccines" || key === "vaccinePackages" || key === "pets" || key === "invoices" || key === "services") {
+        if (clientProp && prisma[clientProp]) {
+        if (key === "users" || key === "employees" || key === "branches" || key === "products" || key === "medicines" || key === "vaccines" || key === "vaccinePackages" || key === "pets" || key === "invoices" || key === "services" || key === "accounts") {
           const objs = await prisma[clientProp].findMany({ select: { id: true }, orderBy: { id: "desc" }, take: items.length });
           const ids = objs.map((o) => Number(o.id)).reverse();
           insertedIds[key] = ids;

@@ -28,6 +28,7 @@ CREATE EXTENSION btree_gist;
 CREATE TYPE gender AS ENUM ('Nam', 'Nữ');
 CREATE TYPE pet_gender AS ENUM ('Đực', 'Cái');
 CREATE TYPE membership_level AS ENUM ('Cơ bản', 'Thân thiết', 'VIP');
+CREATE TYPE account_type AS ENUM ('Khách hàng', 'Bác sĩ thú y', 'Nhân viên tiếp tân', 'Nhân viên bán hàng', 'Quản lý chi nhánh');
 CREATE TYPE health_status AS ENUM ('Khỏe mạnh', 'Có vấn đề', 'Đang hồi phục', 'Chưa rõ');
 CREATE TYPE employee_role AS ENUM ('Bác sĩ thú y', 'Nhân viên tiếp tân', 'Nhân viên bán hàng', 'Quản lý chi nhánh');
 CREATE TYPE payment_method AS ENUM ('Tiền mặt', 'Chuyển khoản');
@@ -105,48 +106,6 @@ CREATE TABLE users (
     CONSTRAINT uq_users_citizen_id UNIQUE (citizen_id)
 );
 
-CREATE TABLE accounts (
-    user_id             BIGINT NOT NULL,
-    username            CITEXT NOT NULL,
-    hashed_password     TEXT NOT NULL,
-    is_active           BOOLEAN DEFAULT FALSE,
-    last_login_at       TIMESTAMPTZ,
-
-    created_at          TIMESTAMPTZ DEFAULT NOW(),
-    updated_at          TIMESTAMPTZ DEFAULT NOW(),
-
-    PRIMARY KEY (user_id),
-
-    CONSTRAINT uq_accounts_username UNIQUE (username),
-
-    CONSTRAINT fk_account_user 
-        FOREIGN KEY (user_id) 
-        REFERENCES users(id) 
-        ON DELETE CASCADE
-);
-
-CREATE TABLE refresh_tokens (
-    id              BIGSERIAL,
-    user_id         BIGINT NOT NULL,
-    token           TEXT NOT NULL,
-    expires_at      TIMESTAMPTZ NOT NULL,
-
-    created_at      TIMESTAMPTZ DEFAULT NOW(),
-    updated_at      TIMESTAMPTZ DEFAULT NOW(),
-
-    PRIMARY KEY (id),
-
-    CONSTRAINT uq_refresh_tokens_token UNIQUE (token),
-
-    CONSTRAINT fk_refresh_tokens_user 
-        FOREIGN KEY (user_id) 
-        REFERENCES users(id) 
-        ON DELETE CASCADE,
-
-    CONSTRAINT chk_refresh_tokens_expires_at
-        CHECK (expires_at > created_at)
-);
-
 -- =======================================================================
 -- 2. PETS (Thú Cưng)
 -- =======================================================================
@@ -186,6 +145,56 @@ CREATE TABLE employees (
     updated_at          TIMESTAMPTZ DEFAULT NOW(),
 
     PRIMARY KEY (id)
+);
+
+CREATE TABLE accounts (
+    id                  BIGSERIAL NOT NULL,
+    username            CITEXT NOT NULL,
+    hashed_password     TEXT NOT NULL,
+    is_active           BOOLEAN DEFAULT FALSE,
+    last_login_at       TIMESTAMPTZ,
+    account_type        account_type DEFAULT 'Khách hàng',
+    user_id             BIGINT,
+    employee_id         BIGINT,
+
+    created_at          TIMESTAMPTZ DEFAULT NOW(),
+    updated_at          TIMESTAMPTZ DEFAULT NOW(),
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT uq_accounts_username UNIQUE (username),
+    
+    CONSTRAINT fk_account_user 
+        FOREIGN KEY (user_id) 
+        REFERENCES users(id) 
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_account_employee
+        FOREIGN KEY (employee_id) 
+        REFERENCES employees(id) 
+        ON DELETE CASCADE
+);
+
+CREATE TABLE refresh_tokens (
+    id              BIGSERIAL,
+    account_id      BIGINT NOT NULL,
+    token           TEXT NOT NULL,
+    expires_at      TIMESTAMPTZ NOT NULL,
+
+    created_at      TIMESTAMPTZ DEFAULT NOW(),
+    updated_at      TIMESTAMPTZ DEFAULT NOW(),
+
+    PRIMARY KEY (id),
+
+    CONSTRAINT uq_refresh_tokens_token UNIQUE (token),
+
+    CONSTRAINT fk_refresh_tokens_account 
+        FOREIGN KEY (account_id) 
+        REFERENCES accounts(id) 
+        ON DELETE CASCADE,
+
+    CONSTRAINT chk_refresh_tokens_expires_at
+        CHECK (expires_at > created_at)
 );
 
 -- =======================================================================

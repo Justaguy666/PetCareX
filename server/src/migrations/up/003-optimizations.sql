@@ -13,13 +13,36 @@
 -- - Lookup tokens by user_id (e.g., revoke all tokens for a user)
 -- - Cleanup expired tokens by expires_at
 -- ------------------------------------------------------------------------
+
 DO $$
 BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
-        WHERE c.relname = 'idx_refresh_tokens_user_id' AND n.nspname = current_schema()
+        WHERE c.relname = 'idx_accounts_user_id' AND n.nspname = current_schema()
     ) THEN
-        CREATE INDEX idx_refresh_tokens_user_id ON refresh_tokens (user_id);
+        CREATE INDEX idx_accounts_user_id ON accounts (user_id);
+    END IF;
+END
+$$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_accounts_employee_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_accounts_employee_id ON accounts (employee_id);
+    END IF;
+END
+$$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_refresh_tokens_account_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_refresh_tokens_account_id ON refresh_tokens (account_id);
     END IF;
 END
 $$;

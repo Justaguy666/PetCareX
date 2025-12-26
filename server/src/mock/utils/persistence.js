@@ -84,8 +84,8 @@ export async function persistToDb(prisma, modelKey, items, silent = false) {
                     logger.warn(`${modelKey}: createMany failed, falling back to individual inserts`, 'other');
                 }
                 for (let idx = 0; idx < items.length; idx++) {
+                    let payload = { ...items[idx] };
                     try {
-                        let payload = { ...items[idx] };
                         if (modelKey !== "typeOfServices") {
                             delete payload.created_at;
                             delete payload.updated_at;
@@ -149,6 +149,7 @@ export async function persistToDb(prisma, modelKey, items, silent = false) {
                         await client.create({ data: payload });
                     }
                 } catch (singleErr) {
+                    console.error('Failed payload:', payload);
                     const msg = (singleErr && singleErr.message) ? String(singleErr.message) : '';
                     const isInsufficient = /Không đủ/i.test(msg) || singleErr?.code === 'P0001';
                     const isOverlap = /Khuyến mãi đã được áp dụng/i.test(msg) || (/khoảng thời gian/i.test(msg) && singleErr?.code === 'P0001');

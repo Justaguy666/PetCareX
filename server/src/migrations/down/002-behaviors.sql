@@ -22,6 +22,8 @@ BEGIN
     END LOOP;
 END $$;
 
+DROP TRIGGER IF EXISTS trg_validate_accounts_owner_role ON accounts;
+
 DROP TRIGGER IF EXISTS trg_check_manager_role ON branches;
 DROP TRIGGER IF EXISTS trg_check_doctor_role_medical_examinations ON medical_examinations;
 DROP TRIGGER IF EXISTS trg_check_doctor_role_single_injections ON single_injections;
@@ -80,6 +82,7 @@ DROP FUNCTION IF EXISTS fn_get_branch_from_service(BIGINT);
 DROP FUNCTION IF EXISTS fn_update_timestamp();
 DROP FUNCTION IF EXISTS fn_check_manager_role();
 DROP FUNCTION IF EXISTS fn_check_doctor_role();
+DROP FUNCTION IF EXISTS fn_validate_accounts_owner_role();
 DROP FUNCTION IF EXISTS fn_check_service_type();
 DROP FUNCTION IF EXISTS fn_check_pet_ownership();
 DROP FUNCTION IF EXISTS fn_validate_employee_branch_assignment_invoices();
