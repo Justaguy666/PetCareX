@@ -102,6 +102,17 @@ class AuthController {
             message: "New refresh token added",
         });
     }
+
+    me = async (req, res) => {
+        const account = req.account;
+        if(!account) {
+            throw new UnauthorizedError("Missing credentials");
+        }
+
+        const user = await authService.me(account);
+
+        return res.status(200).json({ data: user });
+    }
 }
 
 export default new AuthController();

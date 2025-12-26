@@ -43,7 +43,7 @@ class AuthService {
         await authRepo.updateLastLogin(account.id);
         const refreshToken = generateToken();
         const accessToken = signToken({
-            id: account.user_id,
+            id: account.id,
             role: account.account_type
         }, '15m');
         console.log(account);
@@ -64,33 +64,39 @@ class AuthService {
     }
 
     refresh = async (refreshToken) => {
-        const decoded = verifyToken(refreshToken, process.env.JWT_SECRET);
-
-        const storedToken = await authRepo.findRefreshToken(refreshToken, decoded.account_id);
+        const storedToken = await authRepo.findRefreshToken(refreshToken);
 
         if(!storedToken) {
             throw new UnauthorizedError("Refresh token invalid");
         }
 
-        if (storedToken.expiredAt < new Date()) {
+        if (storedToken.expires_at < new Date()) {
             throw new UnauthorizedError("Refresh token revoked");
         }
 
+        const account = await authRepo.findAccountById(storedToken.account_id);
+
         const newRefreshToken = generateToken();
         const newAccessToken = signToken({
-            id: account.user_id,
-            role: account.role
+            id: account.id,
+            role: account.account_type
         }, '15m');
 
         Promise.all([
-            authRepo.deleteRefreshTokenById(decoded.account_id),
-            authRepo.saveRefreshToken(decoded.account_id, newRefreshToken)
+            authRepo.deleteRefreshTokenById(account.id),
+            authRepo.saveRefreshToken(account.id, newRefreshToken)
         ])
 
         return {
             newAccessToken,
             newRefreshToken
         }
+    }
+
+    me = async (account) => {
+        const accountId = account.id;
+        const result = await authRepo.findUserById(accountId);
+        return result;
     }
 }
 

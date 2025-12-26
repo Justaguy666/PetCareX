@@ -3,10 +3,15 @@ import route from './modules/index.js';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import cors from "cors";
+import cookieParser from 'cookie-parser';
+
 import { errorHandler } from './middlewares/error.middleware.js';
 // import notFound from './middlewares/notFound.js';
 
 const app = express();
+
+// Cookie Parser
+app.use(cookieParser());
 
 // Morgan
 app.use(morgan('dev'));
