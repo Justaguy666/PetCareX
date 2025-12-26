@@ -8,8 +8,8 @@ export function authMiddleware(req, res, next) {
   }
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_ACCESS_KEY);
-    req.user = payload;
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.account = payload;
     next();
   } catch {
     throw new UnauthorizedError("Token invalid");

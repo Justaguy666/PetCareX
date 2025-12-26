@@ -54,6 +54,14 @@ class AuthRepo {
         return result.rows[0];
     }
 
+    findAccountById = async (account_id) => {
+        const query =  `SELECT id, user_id, username, hashed_password, is_active, account_type
+                        FROM accounts
+                        WHERE id = $1`;
+        const result = await db.query(query, [account_id]);
+        return result.rows[0];
+    }
+
     updateLastLogin = async (account_id) => {
         const query =  `UPDATE accounts
                         SET last_login_at = NOW()
@@ -81,12 +89,20 @@ class AuthRepo {
         await db.query(query, [token]);
     }
 
-    findRefreshToken = async (account_id, token) => {
-        const query =  `SELECT
+    findRefreshToken = async (token) => {
+        const query =  `SELECT account_id, expires_at
                         FROM refresh_tokens
-                        WHERE account_id = $1
-                        AND token = $2`
-        const result = await db.query(query, [account_id, token]);
+                        WHERE token = $1`
+        const result = await db.query(query, [token]);
+        return result.rows[0];
+    }
+
+    findUserById = async (account_id) => {
+        const query =  `SELECT u.id, u.full_name, u.email, u.phone_number, u.citizen_id, u.gender, u.date_of_birth, u.membership_level
+                        FROM accounts a
+                        JOIN users u on u.id = a.user_id 
+                        WHERE a.id = $1`
+        const result = await db.query(query, [account_id]);
         return result.rows[0];
     }
 }

@@ -11,7 +11,7 @@ class AuthController {
 
         const result = await authService.register(email, username, password);
 
-        return res.status(200).json({ data: result });
+        return res.status(201).json({ data: result });
     }
 
     login = async (req, res) => {
@@ -101,6 +101,17 @@ class AuthController {
             success: true,
             message: "New refresh token added",
         });
+    }
+
+    me = async (req, res) => {
+        const account = req.account;
+        if(!account) {
+            throw new UnauthorizedError("Missing credentials");
+        }
+
+        const user = await authService.me(account);
+
+        return res.status(200).json({ data: user });
     }
 }
 

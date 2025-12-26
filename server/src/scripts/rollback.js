@@ -13,7 +13,6 @@ async function rollback() {
     console.log('🔄 Starting rollback...');
     await client.query('BEGIN');
 
-    // Read migration files and sort descending (so highest -> lowest)
     const files = fs
       .readdirSync(MIGRATION_DIR)
       .filter(f => f.endsWith('.sql'))
@@ -23,6 +22,7 @@ async function rollback() {
     for (const file of files) {
       console.log(`▶️  Running down ${file}`);
       const sql = fs.readFileSync(path.join(MIGRATION_DIR, file), 'utf8');
+
       await client.query(sql);
     }
 

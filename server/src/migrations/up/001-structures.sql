@@ -37,6 +37,7 @@ CREATE TYPE appointment_service_type AS ENUM ('Khám bệnh', 'Tiêm mũi lẻ',
 CREATE TYPE product_type AS ENUM ('Thức ăn', 'Phụ kiện');
 CREATE TYPE promotion_for_level AS ENUM ('Tất cả', 'Thân thiết trở lên', 'VIP');
 CREATE TYPE status AS ENUM ('Đang chờ xác nhận', 'Đã xác nhận', 'Hoàn thành', 'Hủy bỏ');
+CREATE TYPE account_type AS ENUM ('Khách hàng', 'Bác sĩ thú y', 'Nhân viên tiếp tân', 'Nhân viên bán hàng', 'Quản lý chi nhánh');
 
 -- =======================================================================
 -- DOMAINS
