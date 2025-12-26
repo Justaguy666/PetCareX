@@ -149,6 +149,8 @@ model RefreshToken {
   // Relations
   user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
+  @@index([user_id], map: "idx_refresh_tokens_user_id")
+  @@index([expires_at], map: "idx_refresh_tokens_expires_at")
   @@map("refresh_tokens")
 }
 
@@ -197,6 +199,7 @@ model Employee {
   packageInjections    PackageInjection[]
   appointments         Appointment[]
 
+  @@index([role], map: "idx_employees_role")
   @@map("employees")
 }
 
@@ -261,6 +264,8 @@ model Invoice {
   total_amount                Decimal        @default(0) @db.Decimal(15, 2)
   total_discount              Decimal        @default(0) @db.Decimal(15, 2)
   final_amount                Decimal? @db.Decimal(15, 2)
+  created_at                  DateTime       @default(now()) @db.Timestamptz(6)
+  updated_at                  DateTime       @default(now()) @updatedAt @db.Timestamptz(6)
 
   // Relations
   creator   Employee? @relation(fields: [created_by], references: [id], onDelete: SetNull)
@@ -268,6 +273,10 @@ model Invoice {
   customer  User?     @relation(fields: [customer_id], references: [id], onDelete: Restrict)
   services  Service[]
 
+  @@index([customer_id], map: "idx_invoices_customer_id")
+  @@index([branch_id, created_at], map: "idx_invoices_branch_id_created_at")
+  @@index([created_by], map: "idx_invoices_created_by")
+  @@index([created_at], map: "idx_invoices_created_at")
   @@map("invoices")
 }
 
@@ -300,6 +309,8 @@ model Service {
   unit_price               Decimal @db.Decimal(15, 2)
   discount_amount          Decimal @db.Decimal(15, 2)
   final_amount             Decimal? @db.Decimal(15, 2)
+  created_at               DateTime @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime @default(now()) @updatedAt @db.Timestamptz(6)
 
   // Relations
   invoice             Invoice?            @relation(fields: [invoice_id], references: [id], onDelete: Cascade)
@@ -309,6 +320,9 @@ model Service {
   packageInjection    PackageInjection?
   sellProduct         SellProduct?
 
+  @@index([invoice_id], map: "idx_services_invoice_id")
+  @@index([type_of_service], map: "idx_services_type_of_service")
+  @@index([created_at], map: "idx_services_created_at")
   @@map("services")
 }
 
@@ -400,6 +414,8 @@ model MedicalExamination {
   doctor        Employee       @relation(fields: [doctor_id], references: [id], onDelete: Restrict)
   prescriptions Prescription[]
 
+  @@index([pet_id], map: "idx_medical_examinations_pet_id")
+  @@index([doctor_id], map: "idx_medical_examinations_doctor_id")
   @@map("medical_examinations")
 }
 
@@ -421,6 +437,7 @@ model Prescription {
   medicine           Medicine           @relation(fields: [medicine_id], references: [id], onDelete: Restrict)
 
   @@unique([medical_examination_id, medicine_id])
+  @@index([medicine_id], map: "idx_prescriptions_medicine_id")
   @@map("prescriptions")
 }
 
@@ -493,6 +510,8 @@ model SingleInjection {
   doctor       Employee     @relation(fields: [doctor_id], references: [id], onDelete: Restrict)
   vaccineUses  VaccineUse[]
 
+  @@index([pet_id], map: "idx_single_injections_pet_id")
+  @@index([doctor_id], map: "idx_single_injections_doctor_id")
   @@map("single_injections")
 }
 
@@ -511,6 +530,8 @@ model PackageInjection {
   doctor              Employee            @relation(fields: [doctor_id], references: [id], onDelete: Restrict)
   vaccinePackageUses  VaccinePackageUse[]
 
+  @@index([pet_id], map: "idx_package_injections_pet_id")
+  @@index([doctor_id], map: "idx_package_injections_doctor_id")
   @@map("package_injections")
 }
 
@@ -529,6 +550,7 @@ model VaccineUse {
   vaccine         Vaccine          @relation(fields: [vaccine_id], references: [id], onDelete: Restrict)
 
   @@unique([single_injection_id, vaccine_id])
+  @@index([vaccine_id], map: "idx_vaccine_uses_vaccine_id")
   @@map("vaccine_uses")
 }
 
@@ -566,6 +588,7 @@ model Product {
   sellProducts      SellProduct[]
   productInventory  ProductInventory[]
 
+  @@index([product_type], map: "idx_products_product_type")
   @@map("products")
 }
 
@@ -583,6 +606,7 @@ model SellProduct {
   product Product @relation(fields: [product_id], references: [id], onDelete: Restrict)
 
   @@unique([service_id, product_id])
+  @@index([product_id], map: "idx_sell_products_product_id")
   @@map("sell_products")
 }
 
@@ -601,6 +625,7 @@ model MedicineInventory {
   medicine Medicine @relation(fields: [medicine_id], references: [id], onDelete: Restrict)
 
   @@unique([branch_id, medicine_id])
+  @@index([medicine_id], map: "idx_medicine_inventory_medicine_id")
   @@map("medicine_inventory")
 }
 
@@ -619,6 +644,7 @@ model VaccineInventory {
   vaccine Vaccine @relation(fields: [vaccine_id], references: [id], onDelete: Restrict)
 
   @@unique([branch_id, vaccine_id])
+  @@index([vaccine_id], map: "idx_vaccine_inventory_vaccine_id")
   @@map("vaccine_inventory")
 }
 
@@ -637,6 +663,7 @@ model PackageInventory {
   package VaccinePackage @relation(fields: [package_id], references: [id], onDelete: Restrict)
 
   @@unique([branch_id, package_id])
+  @@index([package_id], map: "idx_package_inventory_package_id")
   @@map("package_inventory")
 }
 
@@ -655,6 +682,7 @@ model ProductInventory {
   product Product @relation(fields: [product_id], references: [id], onDelete: Restrict)
 
   @@unique([branch_id, product_id])
+  @@index([product_id], map: "idx_product_inventory_product_id")
   @@map("product_inventory")
 }
 
@@ -682,5 +710,9 @@ model Appointment {
 
   @@unique([pet_id, appointment_time, service_type])
   @@unique([doctor_id, branch_id, appointment_time])
+  @@index([owner_id, appointment_time], map: "idx_appointments_owner_id_appointment_time")
+  @@index([doctor_id, appointment_time], map: "idx_appointments_doctor_id_appointment_time")
+  @@index([branch_id, appointment_time], map: "idx_appointments_branch_id_appointment_time")
+  @@index([appointment_time], map: "idx_appointments_appointment_time")
   @@map("appointments")
 }

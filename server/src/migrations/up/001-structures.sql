@@ -92,7 +92,7 @@ CREATE TABLE users (
     phone_number        phone_vn,
     citizen_id          citizen_id_vn,
     gender              gender,
-    date_of_birth TIMESTAMPTZ,
+    date_of_birth       TIMESTAMPTZ,
     membership_level    membership_level DEFAULT 'Cơ bản',
 
     created_at          TIMESTAMPTZ DEFAULT NOW(),
