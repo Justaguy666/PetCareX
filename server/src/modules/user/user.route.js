@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import * as userController from './user.controller.js';
+import userController from './user.controller.js';
 
 const router = Router();
 
-router.get('/test', userController.example);
+router.post('/orders/buy', userController.buyProducts);
 
 export default router;
