@@ -1,4 +1,4 @@
-import { GeneratorContext, randomItem } from "./base.js";
+import { randomItem } from "./base.js";
 
 /**
  * Generate prescriptions matching exams to medicines by branch
@@ -39,7 +39,7 @@ export async function generatePrescriptions(ctx) {
                 examsByBranch[bid].push(exam.service_id);
             }
         } catch (e) {
-            console.warn(`⚠️ Could not load exam-branch mapping`);
+            logger.warn(`prescriptions: Could not load exam-branch mapping (${e?.message || 'error'})`, 'other');
         }
     }
 
@@ -58,7 +58,7 @@ export async function generatePrescriptions(ctx) {
                 medicineByBranch[bid].push(record.medicine_id);
             }
         } catch (e) {
-            console.warn(`⚠️ Could not load medicine inventory by branch`);
+            logger.warn(`prescriptions: Could not load medicine inventory by branch (${e?.message || 'error'})`, 'other');
         }
     }
 
@@ -117,7 +117,7 @@ export async function generateVaccineUses(ctx) {
 
     // Check if we have injections
     if (!insertedIds.singleInjections || insertedIds.singleInjections.length === 0) {
-        console.warn(`⚠️ No singleInjections available; skipping vaccineUses`);
+        logger.warn(`vaccineUses: No singleInjections available; skipping`, 'skippedItems');
         return [];
     }
 
@@ -141,7 +141,7 @@ export async function generateVaccineUses(ctx) {
                 }
             }
         } catch (e) {
-            console.warn(`⚠️ Could not load vaccine inventory`);
+            logger.warn(`vaccineUses: Could not load vaccine inventory (${e?.message || 'error'})`, 'other');
         }
     }
 
@@ -174,7 +174,7 @@ export async function generateVaccineUses(ctx) {
                 injectionBranches.set(Number(inj.service_id), branchId);
             }
         } catch (e) {
-            console.warn(`⚠️ Could not load injection-branch mapping`);
+            logger.warn(`vaccineUses: Could not load injection-branch mapping (${e?.message || 'error'})`, 'other');
         }
     }
 
@@ -260,7 +260,7 @@ export async function generateSellProducts(ctx) {
                 }
             }
         } catch (e) {
-            console.warn(`⚠️ Could not load sell product services`);
+            logger.warn(`sellProducts: Could not load sell product services (${e?.message || 'error'})`, 'other');
         }
     }
 
@@ -279,13 +279,13 @@ export async function generateSellProducts(ctx) {
                 productsByBranch[bid].push(record.product_id);
             }
         } catch (e) {
-            console.warn(`⚠️ Could not load product inventory`);
+            logger.warn(`sellProducts: Could not load product inventory (${e?.message || 'error'})`, 'other');
         }
     }
 
     // Only proceed if we have both services and product inventory
     if (Object.keys(sellServicesByBranch).length === 0 || Object.keys(productsByBranch).length === 0) {
-        console.warn(`⚠️ Insufficient data for sellProducts (services=${Object.keys(sellServicesByBranch).length}, product branches=${Object.keys(productsByBranch).length}); skipping`);
+        logger.warn(`sellProducts: Insufficient data (services=${Object.keys(sellServicesByBranch).length}, product branches=${Object.keys(productsByBranch).length}); skipping`, 'skippedItems');
         return [];
     }
 
@@ -303,7 +303,7 @@ export async function generateSellProducts(ctx) {
 
     // Cap to available services (unique constraint)
     if (servicePool.length > 0 && servicePool.length < items.length) {
-        console.warn(`⚠️ Capping sellProducts from ${items.length} to ${servicePool.length} (unique service_id constraint)`);
+        logger.warn(`sellProducts: Capping from ${items.length} to ${servicePool.length} (unique service_id constraint)`, 'skippedItems');
         items = items.slice(0, servicePool.length);
     }
 
@@ -331,7 +331,7 @@ export async function generateSellProducts(ctx) {
         }
 
         if (!foundProduct) {
-            console.warn(`⚠️ Skipping sellProduct - service branch has no product inventory`);
+            logger.warn(`sellProduct: Skipping - service branch has no product inventory`, 'skippedItems');
         }
     }
 

@@ -18,8 +18,11 @@ export async function persistToDb(prisma, modelKey, items, silent = false) {
 
     const client = prisma[clientProp];
     try {
-        // Record current DB count to verify how many rows were added by this operation
-        const beforeCount = await client.count();
+        // Use a single COUNT after the operation and compute delta using
+        // a lightweight in-memory map stored on the `prisma` client to avoid
+        // issuing two COUNT() queries per batch.
+        if (!prisma._lastCounts) prisma._lastCounts = {};
+        const prevCount = prisma._lastCounts[modelKey] ?? 0;
         const enumFields = MODEL_ENUM_FIELDS[modelKey] || {};
         if (Object.keys(enumFields).length > 0) {
             if (!prisma._enumMaps) prisma._enumMaps = await buildEnumMaps();
@@ -172,12 +175,15 @@ export async function persistToDb(prisma, modelKey, items, silent = false) {
         }
 
         const afterCount = await client.count();
-        const actualInserted = afterCount - beforeCount;
+        const actualInserted = Math.max(0, afterCount - prevCount);
+        // Update stored count for subsequent batches
+        prisma._lastCounts[modelKey] = afterCount;
         if (actualInserted < items.length) {
             const skipped = items.length - actualInserted;
-            logger.warn(`${modelKey}: count mismatch (requested ${items.length}, inserted ${actualInserted}, DB before ${beforeCount}, DB after ${afterCount})`, 'skippedItems');
+            logger.warn(`${modelKey}: count mismatch (requested ${items.length}, inserted ${actualInserted}, DB after ${afterCount})`, 'skippedItems');
             warningCounts.skippedItems += skipped;
         }
+        return actualInserted;
     } catch (err) {
         console.error(`❌ Persist failed for ${modelKey}`);
         throw err;

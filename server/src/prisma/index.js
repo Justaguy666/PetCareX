@@ -1,16 +1,16 @@
 import { PrismaClient } from "@prisma/client";
-import dotenv from "dotenv";
+import getEnv from "../utils/env.util.js";
 
-dotenv.config();
+const databaseUrl = getEnv("DATABASE_URL");
 
-if (!process.env.DATABASE_URL) {
+if (!databaseUrl) {
   throw new Error("DATABASE_URL is not defined");
 }
 
 const prisma = new PrismaClient({
   datasources: {
     db: {
-      url: process.env.DATABASE_URL,
+      url: databaseUrl,
     },
   },
   log: ["query", "error", "warn"],

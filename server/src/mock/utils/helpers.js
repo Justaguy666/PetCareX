@@ -1,13 +1,11 @@
 import fs from "fs/promises";
 import path from "path";
-import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { OUT_DIR } from "./constants.js";
-
-dotenv.config();
+import getEnv from "../../utils/env.util.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const SEED_CONFIG = process.env.SEED_CONFIG || "seed.config.json";
+const SEED_CONFIG = getEnv("SEED_CONFIG", "seed.config.json");
 
 /**
  * Ensure output directory exists

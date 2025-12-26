@@ -101,28 +101,47 @@ async function main() {
       });
     } else if (key === "invoices" && insertedIds.employees && insertedIds.branches && insertedIds.users) {
       items = await generateItems(factory, count);
-      let validPairs = [];
+
+      // Try to use actual mobilizations so created_by/branch and created_at align
+      // with a mobilization period. If mobilizations exist in DB, pick one per
+      // invoice and set invoice.created_at within that mobilization's date range.
+      let mobilizations = [];
       if (prisma) {
-        const now = new Date();
         try {
-          const active = await prisma.mobilization.findMany({
-            where: { start_date: { lte: now }, OR: [{ end_date: null }, { end_date: { gte: now } }] },
-            select: { employee_id: true, branch_id: true },
+          const mags = await prisma.mobilization.findMany({
+            select: { employee_id: true, branch_id: true, start_date: true, end_date: true },
+            take: 100000
           });
-          validPairs = active.map((a) => [Number(a.employee_id), Number(a.branch_id)])
-            .filter(([e, b]) => insertedIds.employees.includes(e) && insertedIds.branches.includes(b));
+          const now = new Date();
+          // Only keep mobilizations that are active at `now` (start_date <= now <= end_date OR end_date IS NULL)
+          mobilizations = mags
+            .map((m) => ({
+              employee_id: Number(m.employee_id),
+              branch_id: Number(m.branch_id),
+              start_date: m.start_date ? new Date(m.start_date) : new Date("2023-01-01"),
+              end_date: m.end_date ? new Date(m.end_date) : null,
+            }))
+            .filter((m) => m.start_date <= now && (m.end_date === null || m.end_date >= now));
         } catch (e) { }
       }
+
       items = items.map((i) => {
         const copy = { ...i, customer_id: insertedIds.users[Math.floor(Math.random() * insertedIds.users.length)] };
-        if (validPairs.length > 0) {
-          const [e, b] = validPairs[Math.floor(Math.random() * validPairs.length)];
-          copy.created_by = e;
-          copy.branch_id = b;
+        if (mobilizations.length > 0) {
+          const m = mobilizations[Math.floor(Math.random() * mobilizations.length)];
+          // Use nested relation connect objects so Prisma accepts the create payload
+          copy.creator = { connect: { id: m.employee_id } };
+          copy.branch = { connect: { id: m.branch_id } };
         } else {
-          copy.created_by = insertedIds.employees[Math.floor(Math.random() * insertedIds.employees.length)];
-          copy.branch_id = insertedIds.branches[Math.floor(Math.random() * insertedIds.branches.length)];
+          // No active mobilizations found; to avoid DB trigger failures do not set creator/branch
+          logger.warn(`invoices: No active mobilizations found; creating invoice without creator/branch`, 'skippedItems');
         }
+        // Always set customer via relation connect (customer should exist)
+        copy.customer = { connect: { id: copy.customer_id } };
+        // Remove scalar FK fields to avoid Prisma validation issues
+        delete copy.created_by;
+        delete copy.branch_id;
+        delete copy.customer_id;
         return copy;
       });
     } else if (GENERATOR_REGISTRY[key]) {
@@ -195,12 +214,67 @@ async function main() {
         branch_id: insertedIds.branches[Math.floor(Math.random() * insertedIds.branches.length)],
       }));
     } else if (key === "mobilizations" && insertedIds.employees && insertedIds.branches) {
-      items = insertedIds.employees.slice(0, count).map((eid) => ({
-        employee_id: eid,
-        branch_id: insertedIds.branches[Math.floor(Math.random() * insertedIds.branches.length)],
-        start_date: new Date("2023-01-01").toISOString(),
-        end_date: null,
-      }));
+      // Generate `count` mobilizations while ensuring no overlap per employee.
+      // We allow multiple mobilizations per employee by tracking the next available
+      // start date for each employee and scheduling subsequent mobilizations after
+      // the previous mobilization's end date.
+      items = [];
+      const nextAvailable = {};
+      const baseDate = new Date("2023-01-01");
+      for (const e of insertedIds.employees) {
+        nextAvailable[e] = new Date(baseDate);
+      }
+
+      const now = new Date();
+      const activeProb = 0.25; // fraction of mobilizations that remain active (end_date = null)
+
+      // Pool of employees eligible for new mobilizations (exclude those who already
+      // received an active (= end_date null) mobilization to avoid exclusion conflicts)
+      const employeesPool = insertedIds.employees.slice();
+
+      for (let i = 0; i < count; i++) {
+        if (employeesPool.length === 0) {
+          logger.warn(`mobilizations: No eligible employees left to assign (created ${i} of ${count})`, 'skippedItems');
+          break;
+        }
+        const eid = employeesPool[i % employeesPool.length];
+        const start = new Date(nextAvailable[eid]);
+
+        // Add a small random gap (0-14 days) before the mobilization starts
+        const gapDays = Math.floor(Math.random() * 15);
+        start.setDate(start.getDate() + gapDays);
+
+        let end = null;
+        // Decide if this mobilization should be active now
+        if (Math.random() < activeProb) {
+          // active: set end_date = null
+          end = null;
+        } else {
+          // Random duration between 7 and 365 days (some will extend into the future)
+          const duration = Math.floor(Math.random() * 359) + 7;
+          end = new Date(start);
+          end.setDate(end.getDate() + duration);
+        }
+
+        items.push({
+          employee_id: eid,
+          branch_id: insertedIds.branches[Math.floor(Math.random() * insertedIds.branches.length)],
+          start_date: start.toISOString(),
+          end_date: end ? end.toISOString() : null,
+        });
+
+        // Next mobilization for this employee can start the day after this end (or after now if active)
+        const next = end ? new Date(end) : new Date(now);
+        next.setDate(next.getDate() + 1);
+        nextAvailable[eid] = next;
+
+        // If this mobilization is active (end_date === null), remove the employee
+        // from the pool to avoid creating any further mobilizations for them.
+        if (!end) {
+          const idx = employeesPool.indexOf(eid);
+          if (idx !== -1) employeesPool.splice(idx, 1);
+        }
+      }
     } else if (key === "typeOfServices") {
       const stPath = path.join(__dirname, "enums", "service-type.json");
       try {
@@ -222,16 +296,15 @@ async function main() {
       "utf8"
     );
 
+    let insertedCount = 0;
     if (persist && prisma && !dryRun) {
-
-      let insertedCount = 0;
       const batchSize = (size === "small") ? 500 : (size === "medium") ? 1000 : 5000;
 
       for (let start = 0; start < items.length; start += batchSize) {
         const batch = items.slice(start, start + batchSize);
         const isLast = start + batchSize >= items.length;
-        await persistToDb(prisma, key, batch, !isLast);
-        insertedCount += batch.length;
+        const insertedThis = await persistToDb(prisma, key, batch, !isLast) || 0;
+        insertedCount += insertedThis;
         printProgressBar(Math.min(insertedCount, items.length), items.length, `   Inserting ${prettyKey}`);
       }
       process.stdout.write('\n');
@@ -251,12 +324,12 @@ async function main() {
           insertedIds[key] = ids;
         }
       }
-      process.stdout.write(`\x1b[32m✔️  ${prettyKey}: Inserted ${items.length}\x1b[0m\n`);
+        process.stdout.write(`\x1b[32m✔️  ${prettyKey}: Inserted ${insertedCount}\x1b[0m\n`);
     } else {
       console.log(`[DRY RUN] Skipped DB insert for ${key}`);
     }
 
-    summary.push({ model: key, generated: items.length, persisted: persist && !dryRun });
+    summary.push({ model: key, generated: items.length, inserted: insertedCount, persisted: persist && !dryRun });
   }
 
   try {
