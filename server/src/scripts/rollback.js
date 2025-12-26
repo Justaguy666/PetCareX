@@ -24,9 +24,6 @@ async function rollback() {
       console.log(`▶️  Running down ${file}`);
       const sql = fs.readFileSync(path.join(MIGRATION_DIR, file), 'utf8');
       await client.query(sql);
-
-      // Remove record from schema_migrations if present
-      await client.query('DELETE FROM schema_migrations WHERE version = $1', [file]);
     }
 
     await client.query('COMMIT');
