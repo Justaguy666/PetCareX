@@ -13,7 +13,14 @@ async function rollback() {
     console.log('🔄 Starting rollback...');
     await client.query('BEGIN');
 
-    // Read migration files and sort descending (so highest -> lowest)
+    // Ensure migration tracking table exists
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS schema_migrations (
+        version TEXT PRIMARY KEY,
+        applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `);
+
     const files = fs
       .readdirSync(MIGRATION_DIR)
       .filter(f => f.endsWith('.sql'))
@@ -23,9 +30,10 @@ async function rollback() {
     for (const file of files) {
       console.log(`▶️  Running down ${file}`);
       const sql = fs.readFileSync(path.join(MIGRATION_DIR, file), 'utf8');
+
       await client.query(sql);
 
-      // Remove record from schema_migrations if present
+      // Remove record from schema_migrations
       await client.query('DELETE FROM schema_migrations WHERE version = $1', [file]);
     }
 

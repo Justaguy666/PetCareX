@@ -1,7 +1,3 @@
-// =======================================================================
-// PetCareX Database Schema
-// =======================================================================
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,9 +7,415 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// =======================================================================
-// ENUMS
-// =======================================================================
+model User {
+  id               BigInt          @id @default(autoincrement())
+  full_name        String?         @db.VarChar(50)
+  email            String          @unique @db.VarChar(320)
+  phone_number     String?         @unique @db.VarChar(10)
+  citizen_id       String?         @unique @db.VarChar(12)
+  gender           Gender?
+  date_of_birth    DateTime?       @db.Timestamptz(6)
+  membership_level MembershipLevel @default(CoBan)
+  account          Account?
+  appointments     Appointment[]
+  invoices         Invoice[]
+  pets             Pet[]           @relation("PetOwner")
+  refreshTokens    RefreshToken[]
+
+  @@map("users")
+}
+
+model Account {
+  user_id         BigInt    @id
+  username        String    @unique @db.VarChar(255)
+  hashed_password String
+  is_active       Boolean   @default(false)
+  last_login_at   DateTime? @db.Timestamptz(6)
+  user            User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("accounts")
+}
+
+model RefreshToken {
+  id         BigInt   @id @default(autoincrement())
+  user_id    BigInt
+  token      String   @unique
+  expires_at DateTime @db.Timestamptz(6)
+  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
+}
+
+model Pet {
+  id                  BigInt               @id @default(autoincrement())
+  pet_name            String               @db.VarChar(50)
+  species             String               @db.VarChar(50)
+  breed               String?              @db.VarChar(50)
+  date_of_birth       DateTime?            @db.Timestamptz(6)
+  gender              PetGender
+  owner_id            BigInt
+  health_status       HealthStatus         @default(ChuaRo)
+  appointments        Appointment[]
+  medicalExaminations MedicalExamination[]
+  packageInjections   PackageInjection[]
+  owner               User                 @relation("PetOwner", fields: [owner_id], references: [id])
+  singleInjections    SingleInjection[]
+
+  @@map("pets")
+}
+
+model Employee {
+  id                  BigInt               @id @default(autoincrement())
+  full_name           String               @db.VarChar(50)
+  date_of_birth       DateTime             @db.Timestamptz(6)
+  gender              Gender
+  role                EmployeeRole
+  base_salary         Decimal              @db.Decimal(15, 2)
+  appointments        Appointment[]
+  managedBranch       Branch?
+  invoices            Invoice[]
+  medicalExaminations MedicalExamination[]
+  mobilizations       Mobilization[]
+  packageInjections   PackageInjection[]
+  singleInjections    SingleInjection[]
+
+  @@map("employees")
+}
+
+model Branch {
+  id                BigInt              @id @default(autoincrement())
+  branch_name       String              @db.VarChar(100)
+  address           String              @db.VarChar(200)
+  phone_number      String              @unique @db.VarChar(10)
+  opening_at        DateTime            @default(dbgenerated("'08:00:00'::time without time zone")) @db.Time(6)
+  closing_at        DateTime            @default(dbgenerated("'22:00:00'::time without time zone")) @db.Time(6)
+  manager_id        BigInt?             @unique
+  applyPromotions   ApplyPromotion[]
+  appointments      Appointment[]
+  manager           Employee?           @relation(fields: [manager_id], references: [id])
+  invoices          Invoice[]
+  medicineInventory MedicineInventory[]
+  mobilizations     Mobilization[]
+  packageInventory  PackageInventory[]
+  productInventory  ProductInventory[]
+  vaccineInventory  VaccineInventory[]
+
+  @@map("branches")
+}
+
+model Mobilization {
+  id          BigInt    @id @default(autoincrement())
+  employee_id BigInt
+  branch_id   BigInt
+  start_date  DateTime  @db.Timestamptz(6)
+  end_date    DateTime? @db.Timestamptz(6)
+  branch      Branch    @relation(fields: [branch_id], references: [id])
+  employee    Employee  @relation(fields: [employee_id], references: [id])
+
+  @@unique([employee_id, branch_id, start_date])
+  @@map("mobilizations")
+}
+
+model Invoice {
+  id                          BigInt        @id @default(autoincrement())
+  created_by                  BigInt?
+  branch_id                   BigInt?
+  customer_id                 BigInt?
+  payment_method              PaymentMethod
+  sale_attitude_rating        Int?
+  overall_satisfaction_rating Int?
+  total_amount                Decimal       @default(0) @db.Decimal(15, 2)
+  total_discount              Decimal       @default(0) @db.Decimal(15, 2)
+  final_amount                Decimal?      @db.Decimal(15, 2)
+  branch                      Branch?       @relation(fields: [branch_id], references: [id], onDelete: Restrict)
+  creator                     Employee?     @relation(fields: [created_by], references: [id])
+  customer                    User?         @relation(fields: [customer_id], references: [id], onDelete: Restrict)
+  services                    Service[]
+
+  @@map("invoices")
+}
+
+model TypeOfService {
+  type         ServiceType    @id
+  price        Decimal        @db.Decimal(15, 2)
+  promotionFor PromotionFor[]
+  services     Service[]
+
+  @@map("types_of_services")
+}
+
+model Service {
+  id                       BigInt              @id @default(autoincrement())
+  invoice_id               BigInt?
+  type_of_service          ServiceType?
+  quality_rating           Int?
+  employee_attitude_rating Int?
+  comment                  String?
+  unit_price               Decimal             @db.Decimal(15, 2)
+  discount_amount          Decimal             @db.Decimal(15, 2)
+  final_amount             Decimal?            @db.Decimal(15, 2)
+  medicalExamination       MedicalExamination?
+  packageInjection         PackageInjection?
+  sellProduct              SellProduct?
+  invoice                  Invoice?            @relation(fields: [invoice_id], references: [id], onDelete: Cascade)
+  service_type             TypeOfService?      @relation(fields: [type_of_service], references: [type], onDelete: Restrict)
+  singleInjection          SingleInjection?
+
+  @@map("services")
+}
+
+model Promotion {
+  id              BigInt            @id @default(autoincrement())
+  description     String?
+  apply_for       PromotionForLevel
+  applyPromotions ApplyPromotion[]
+  promotionFor    PromotionFor[]
+
+  @@map("promotions")
+}
+
+model ApplyPromotion {
+  id           BigInt    @id @default(autoincrement())
+  promotion_id BigInt
+  branch_id    BigInt
+  start_date   DateTime  @db.Timestamptz(6)
+  end_date     DateTime  @db.Timestamptz(6)
+  branch       Branch    @relation(fields: [branch_id], references: [id])
+  promotion    Promotion @relation(fields: [promotion_id], references: [id], onDelete: Cascade)
+
+  @@unique([branch_id, promotion_id, start_date])
+  @@map("apply_promotions")
+}
+
+model PromotionFor {
+  id                  BigInt        @id @default(autoincrement())
+  promotion_id        BigInt
+  service_type        ServiceType
+  discount_percentage Int
+  promotion           Promotion     @relation(fields: [promotion_id], references: [id], onDelete: Cascade)
+  type_of_service     TypeOfService @relation(fields: [service_type], references: [type])
+
+  @@unique([promotion_id, service_type])
+  @@map("promotion_for")
+}
+
+model Medicine {
+  id                BigInt              @id @default(autoincrement())
+  medicine_name     String              @db.VarChar(200)
+  description       String?
+  price             Decimal             @db.Decimal(15, 2)
+  medicineInventory MedicineInventory[]
+  prescriptions     Prescription[]
+
+  @@map("medicines")
+}
+
+model MedicalExamination {
+  service_id       BigInt         @id
+  pet_id           BigInt
+  doctor_id        BigInt
+  diagnosis        String?
+  conclusion       String?
+  appointment_date DateTime?      @db.Timestamptz(6)
+  doctor           Employee       @relation(fields: [doctor_id], references: [id])
+  pet              Pet            @relation(fields: [pet_id], references: [id])
+  service          Service        @relation(fields: [service_id], references: [id], onDelete: Cascade)
+  prescriptions    Prescription[]
+
+  @@map("medical_examinations")
+}
+
+model Prescription {
+  id                     BigInt             @id @default(autoincrement())
+  medical_examination_id BigInt
+  medicine_id            BigInt
+  quantity               Int
+  dosage                 String             @db.VarChar(100)
+  duration               String             @db.VarChar(100)
+  instructions           String?
+  medicalExamination     MedicalExamination @relation(fields: [medical_examination_id], references: [service_id], onDelete: Cascade)
+  medicine               Medicine           @relation(fields: [medicine_id], references: [id])
+
+  @@unique([medical_examination_id, medicine_id])
+  @@map("prescriptions")
+}
+
+model Vaccine {
+  id               BigInt             @id @default(autoincrement())
+  vaccine_name     String             @db.VarChar(200)
+  price            Decimal            @db.Decimal(15, 2)
+  includeVaccines  IncludeVaccine[]
+  vaccineInventory VaccineInventory[]
+  vaccineUses      VaccineUse[]
+
+  @@map("vaccines")
+}
+
+model VaccinePackage {
+  id                 BigInt              @id @default(autoincrement())
+  package_name       String              @db.VarChar(200)
+  monthly_milestone  Int
+  cycle              Int
+  price              Decimal             @db.Decimal(15, 2)
+  includeVaccines    IncludeVaccine[]
+  packageInventory   PackageInventory[]
+  vaccinePackageUses VaccinePackageUse[]
+
+  @@map("vaccine_packages")
+}
+
+model IncludeVaccine {
+  id         BigInt         @id @default(autoincrement())
+  package_id BigInt
+  vaccine_id BigInt
+  dosage     Int
+  package    VaccinePackage @relation(fields: [package_id], references: [id], onDelete: Cascade)
+  vaccine    Vaccine        @relation(fields: [vaccine_id], references: [id])
+
+  @@unique([package_id, vaccine_id])
+  @@map("include_vaccines")
+}
+
+model SingleInjection {
+  service_id  BigInt       @id
+  pet_id      BigInt
+  doctor_id   BigInt
+  doctor      Employee     @relation(fields: [doctor_id], references: [id])
+  pet         Pet          @relation(fields: [pet_id], references: [id])
+  service     Service      @relation(fields: [service_id], references: [id], onDelete: Cascade)
+  vaccineUses VaccineUse[]
+
+  @@map("single_injections")
+}
+
+model PackageInjection {
+  service_id         BigInt              @id
+  pet_id             BigInt
+  doctor_id          BigInt
+  doctor             Employee            @relation(fields: [doctor_id], references: [id])
+  pet                Pet                 @relation(fields: [pet_id], references: [id])
+  service            Service             @relation(fields: [service_id], references: [id], onDelete: Cascade)
+  vaccinePackageUses VaccinePackageUse[]
+
+  @@map("package_injections")
+}
+
+model VaccineUse {
+  id                  BigInt           @id @default(autoincrement())
+  single_injection_id BigInt?
+  vaccine_id          BigInt
+  dosage              Int
+  singleInjection     SingleInjection? @relation(fields: [single_injection_id], references: [service_id], onDelete: Cascade)
+  vaccine             Vaccine          @relation(fields: [vaccine_id], references: [id])
+
+  @@unique([single_injection_id, vaccine_id])
+  @@map("vaccine_uses")
+}
+
+model VaccinePackageUse {
+  id                   BigInt            @id @default(autoincrement())
+  package_injection_id BigInt?
+  package_id           BigInt
+  injection_number     Int
+  next_injection_date  DateTime?         @db.Timestamptz(6)
+  is_completed         Boolean           @default(false)
+  package              VaccinePackage    @relation(fields: [package_id], references: [id])
+  packageInjection     PackageInjection? @relation(fields: [package_injection_id], references: [service_id], onDelete: Cascade)
+
+  @@unique([package_injection_id, injection_number])
+  @@map("vaccine_package_uses")
+}
+
+model Product {
+  id               BigInt             @id @default(autoincrement())
+  product_name     String             @db.VarChar(200)
+  product_type     ProductType
+  price            Decimal            @db.Decimal(15, 2)
+  productInventory ProductInventory[]
+  sellProducts     SellProduct[]
+
+  @@map("products")
+}
+
+model SellProduct {
+  service_id BigInt  @id
+  product_id BigInt
+  quantity   Int
+  product    Product @relation(fields: [product_id], references: [id])
+  service    Service @relation(fields: [service_id], references: [id], onDelete: Cascade)
+
+  @@unique([service_id, product_id])
+  @@map("sell_products")
+}
+
+model MedicineInventory {
+  id          BigInt   @id @default(autoincrement())
+  branch_id   BigInt
+  medicine_id BigInt
+  quantity    Int
+  branch      Branch   @relation(fields: [branch_id], references: [id])
+  medicine    Medicine @relation(fields: [medicine_id], references: [id])
+
+  @@unique([branch_id, medicine_id])
+  @@map("medicine_inventory")
+}
+
+model VaccineInventory {
+  id         BigInt  @id @default(autoincrement())
+  branch_id  BigInt
+  vaccine_id BigInt
+  quantity   Int
+  branch     Branch  @relation(fields: [branch_id], references: [id])
+  vaccine    Vaccine @relation(fields: [vaccine_id], references: [id])
+
+  @@unique([branch_id, vaccine_id])
+  @@map("vaccine_inventory")
+}
+
+model PackageInventory {
+  id         BigInt         @id @default(autoincrement())
+  branch_id  BigInt
+  package_id BigInt
+  quantity   Int
+  branch     Branch         @relation(fields: [branch_id], references: [id])
+  package    VaccinePackage @relation(fields: [package_id], references: [id])
+
+  @@unique([branch_id, package_id])
+  @@map("package_inventory")
+}
+
+model ProductInventory {
+  id         BigInt  @id @default(autoincrement())
+  branch_id  BigInt
+  product_id BigInt
+  quantity   Int
+  branch     Branch  @relation(fields: [branch_id], references: [id])
+  product    Product @relation(fields: [product_id], references: [id])
+
+  @@unique([branch_id, product_id])
+  @@map("product_inventory")
+}
+
+model Appointment {
+  id               BigInt                 @id @default(autoincrement())
+  pet_id           BigInt
+  owner_id         BigInt
+  branch_id        BigInt
+  doctor_id        BigInt
+  service_type     AppointmentServiceType
+  appointment_time DateTime               @db.Timestamptz(6)
+  reason           String?
+  status           Status                 @default(DangChoXacNhan)
+  cancelled_reason String?
+  branch           Branch                 @relation(fields: [branch_id], references: [id])
+  doctor           Employee               @relation(fields: [doctor_id], references: [id])
+  owner            User                   @relation(fields: [owner_id], references: [id])
+  pet              Pet                    @relation(fields: [pet_id], references: [id])
+
+  @@unique([pet_id, appointment_time, service_type])
+  @@unique([doctor_id, branch_id, appointment_time])
+  @@map("appointments")
+}
 
 enum Gender {
   Nam @map("Nam")
@@ -47,10 +449,10 @@ enum HealthStatus {
 }
 
 enum EmployeeRole {
-  BacSiThuY        @map("Bác sĩ thú y")
-  NhanVienTiepTan  @map("Nhân viên tiếp tân")
-  NhanVienBanHang  @map("Nhân viên bán hàng")
-  QuanLyChiNhanh   @map("Quản lý chi nhánh")
+  BacSiThuY       @map("Bác sĩ thú y")
+  NhanVienTiepTan @map("Nhân viên tiếp tân")
+  NhanVienBanHang @map("Nhân viên bán hàng")
+  QuanLyChiNhanh  @map("Quản lý chi nhánh")
 
   @@map("employee_role")
 }
@@ -101,586 +503,4 @@ enum Status {
   HuyBo          @map("Hủy bỏ")
 
   @@map("status")
-}
-
-// =======================================================================
-// 1. USERS (Khách Hàng)
-// =======================================================================
-
-model User {
-  id               BigInt           @id @default(autoincrement())
-  full_name         String? @db.VarChar(50)
-  email            String           @unique @db.VarChar(320)
-  phone_number      String?          @unique @db.VarChar(10)
-  citizen_id        String?          @unique @db.VarChar(12)
-  gender           Gender?
-  date_of_birth      DateTime? @db.Timestamptz(6)
-  membership_level  MembershipLevel  @default(CoBan)
-
-  // Relations
-  account          Account?
-  refreshTokens    RefreshToken[]
-  pets             Pet[]             @relation("PetOwner")
-  invoices         Invoice[]
-  appointments     Appointment[]
-
-  @@map("users")
-}
-
-model Account {
-  user_id          BigInt    @id
-  username        String    @unique @db.VarChar(255)
-  hashed_password  String
-  is_active        Boolean   @default(false)
-  last_login_at     DateTime? @db.Timestamptz(6)
-
-  // Relations
-  user            User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-  @@map("accounts")
-}
-
-model RefreshToken {
-  id         BigInt   @id @default(autoincrement())
-  user_id     BigInt
-  token      String   @unique
-  expires_at  DateTime @db.Timestamptz(6)
-
-  // Relations
-  user       User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-
-  @@map("refresh_tokens")
-}
-
-// =======================================================================
-// 2. PETS (Thú Cưng)
-// =======================================================================
-
-model Pet {
-  id            BigInt        @id @default(autoincrement())
-  pet_name       String @db.VarChar(50)
-  species       String        @db.VarChar(50)
-  breed         String?       @db.VarChar(50)
-  date_of_birth   DateTime? @db.Timestamptz(6)
-  gender        PetGender
-  owner_id       BigInt
-  health_status  HealthStatus  @default(ChuaRo)
-
-  // Relations
-  owner                User               @relation("PetOwner", fields: [owner_id], references: [id], onDelete: Restrict)
-  medicalExaminations  MedicalExamination[]
-  singleInjections     SingleInjection[]
-  packageInjections    PackageInjection[]
-  appointments         Appointment[]
-
-  @@map("pets")
-}
-
-// =======================================================================
-// 3. EMPLOYEES (Nhân Viên)
-// =======================================================================
-
-model Employee {
-  id                   BigInt        @id @default(autoincrement())
-  full_name             String @db.VarChar(50)
-  date_of_birth          DateTime @db.Timestamptz(6)
-  gender               Gender
-  role                 EmployeeRole
-  base_salary           Decimal @db.Decimal(15, 2)
-
-  // Relations
-  managedBranch        Branch?
-  mobilizations        Mobilization[]
-  invoices             Invoice[]
-  medicalExaminations  MedicalExamination[]
-  singleInjections     SingleInjection[]
-  packageInjections    PackageInjection[]
-  appointments         Appointment[]
-
-  @@map("employees")
-}
-
-// =======================================================================
-// 4. BRANCHES (Chi Nhánh)
-// =======================================================================
-
-model Branch {
-  id                  BigInt     @id @default(autoincrement())
-  branch_name          String @db.VarChar(100)
-  address             String     @db.VarChar(200)
-  phone_number         String     @unique @db.VarChar(10)
-  opening_at           DateTime   @default(dbgenerated("'08:00:00'::time")) @db.Time(6)
-  closing_at           DateTime   @default(dbgenerated("'22:00:00'::time")) @db.Time(6)
-  manager_id           BigInt?    @unique
-
-  // Relations
-  manager             Employee?          @relation(fields: [manager_id], references: [id], onDelete: SetNull)
-  mobilizations       Mobilization[]
-  invoices            Invoice[]
-  applyPromotions     ApplyPromotion[]
-  medicineInventory   MedicineInventory[]
-  vaccineInventory    VaccineInventory[]
-  packageInventory    PackageInventory[]
-  productInventory    ProductInventory[]
-  appointments        Appointment[]
-
-  @@map("branches")
-}
-
-// =======================================================================
-// 5. MOBILIZATIONS (Lịch Sử Điều Động)
-// =======================================================================
-
-model Mobilization {
-  id          BigInt    @id @default(autoincrement())
-  employee_id  BigInt
-  branch_id    BigInt
-  start_date   DateTime @db.Timestamptz(6)
-  end_date     DateTime? @db.Timestamptz(6)
-
-  // Relations
-  employee    Employee  @relation(fields: [employee_id], references: [id], onDelete: Restrict)
-  branch      Branch    @relation(fields: [branch_id], references: [id], onDelete: Restrict)
-
-  @@unique([employee_id, branch_id, start_date])
-  @@map("mobilizations")
-}
-
-// =======================================================================
-// 6. INVOICES (Hóa Đơn)
-// =======================================================================
-
-model Invoice {
-  id                         BigInt         @id @default(autoincrement())
-  created_by                  BigInt?
-  branch_id                   BigInt?
-  customer_id                 BigInt?
-  payment_method              PaymentMethod
-  sale_attitude_rating         Int?
-  overall_satisfaction_rating  Int?
-  total_amount                Decimal        @default(0) @db.Decimal(15, 2)
-  total_discount              Decimal        @default(0) @db.Decimal(15, 2)
-  final_amount                Decimal? @db.Decimal(15, 2)
-
-  // Relations
-  creator   Employee? @relation(fields: [created_by], references: [id], onDelete: SetNull)
-  branch    Branch?   @relation(fields: [branch_id], references: [id], onDelete: Restrict)
-  customer  User?     @relation(fields: [customer_id], references: [id], onDelete: Restrict)
-  services  Service[]
-
-  @@map("invoices")
-}
-
-// =======================================================================
-// 7. TYPES OF SERVICES (Loại Dịch Vụ)
-// =======================================================================
-
-model TypeOfService {
-  type      ServiceType @id
-  price     Decimal     @db.Decimal(15, 2)
-
-  // Relations
-  services      Service[]
-  promotionFor  PromotionFor[]
-
-  @@map("types_of_services")
-}
-
-// =======================================================================
-// 8. SERVICES (Dịch Vụ)
-// =======================================================================
-
-model Service {
-  id                      BigInt       @id @default(autoincrement())
-  invoice_id               BigInt?
-  type_of_service           ServiceType?
-  quality_rating           Int?
-  employee_attitude_rating  Int?
-  comment                 String?
-  unit_price               Decimal @db.Decimal(15, 2)
-  discount_amount          Decimal @db.Decimal(15, 2)
-  final_amount             Decimal? @db.Decimal(15, 2)
-
-  // Relations
-  invoice             Invoice?            @relation(fields: [invoice_id], references: [id], onDelete: Cascade)
-  service_type         TypeOfService?      @relation(fields: [type_of_service], references: [type], onDelete: Restrict)
-  medicalExamination  MedicalExamination?
-  singleInjection     SingleInjection?
-  packageInjection    PackageInjection?
-  sellProduct         SellProduct?
-
-  @@map("services")
-}
-
-// =======================================================================
-// 9. PROMOTIONS (Ưu đãi)
-// =======================================================================
-
-model Promotion {
-  id              BigInt              @id @default(autoincrement())
-  description     String?
-  apply_for        PromotionForLevel
-
-  // Relations
-  applyPromotions ApplyPromotion[]
-  promotionFor    PromotionFor[]
-
-  @@map("promotions")
-}
-
-// =======================================================================
-// 10. APPLY PROMOTIONS (Áp Dụng Ưu Đãi)
-// =======================================================================
-
-model ApplyPromotion {
-  id           BigInt   @id @default(autoincrement())
-  promotion_id  BigInt
-  branch_id     BigInt
-  start_date    DateTime @db.Timestamptz(6)
-  end_date      DateTime @db.Timestamptz(6)
-
-  // Relations
-  promotion Promotion @relation(fields: [promotion_id], references: [id], onDelete: Cascade)
-  branch    Branch    @relation(fields: [branch_id], references: [id], onDelete: Restrict)
-
-  @@unique([branch_id, promotion_id, start_date])
-  @@map("apply_promotions")
-}
-
-// =======================================================================
-// 11. PROMOTION FOR (Ưu Đãi Dành Cho)
-// =======================================================================
-
-model PromotionFor {
-  id                  BigInt        @id @default(autoincrement())
-  promotion_id         BigInt
-  service_type         ServiceType
-  discount_percentage  Int
-
-  // Relations
-  promotion     Promotion       @relation(fields: [promotion_id], references: [id], onDelete: Cascade)
-  type_of_service TypeOfService   @relation(fields: [service_type], references: [type], onDelete: Restrict)
-
-  @@unique([promotion_id, service_type])
-  @@map("promotion_for")
-}
-
-// =======================================================================
-// 12. MEDICINES (Thuốc)
-// =======================================================================
-
-model Medicine {
-  id               BigInt              @id @default(autoincrement())
-  medicine_name     String @db.VarChar(200)
-  description      String?
-  price            Decimal             @db.Decimal(15, 2)
-
-  // Relations
-  prescriptions        Prescription[]
-  medicineInventory    MedicineInventory[]
-
-  @@map("medicines")
-}
-
-// =======================================================================
-// 13. MEDICAL EXAMINATIONS (Khám Bệnh)
-// =======================================================================
-
-model MedicalExamination {
-  service_id        BigInt    @id
-  pet_id            BigInt
-  doctor_id         BigInt
-  diagnosis        String?
-  conclusion       String?
-  appointment_date  DateTime? @db.Timestamptz(6)
-
-  // Relations
-  service       Service        @relation(fields: [service_id], references: [id], onDelete: Cascade)
-  pet           Pet            @relation(fields: [pet_id], references: [id], onDelete: Restrict)
-  doctor        Employee       @relation(fields: [doctor_id], references: [id], onDelete: Restrict)
-  prescriptions Prescription[]
-
-  @@map("medical_examinations")
-}
-
-// =======================================================================
-// 14. PRESCRIPTIONS (Toa Thuốc)
-// =======================================================================
-
-model Prescription {
-  id                    BigInt             @id @default(autoincrement())
-  medical_examination_id  BigInt
-  medicine_id            BigInt
-  quantity              Int
-  dosage                String             @db.VarChar(100)
-  duration              String             @db.VarChar(100)
-  instructions          String?
-
-  // Relations
-  medicalExamination MedicalExamination @relation(fields: [medical_examination_id], references: [service_id], onDelete: Cascade)
-  medicine           Medicine           @relation(fields: [medicine_id], references: [id], onDelete: Restrict)
-
-  @@unique([medical_examination_id, medicine_id])
-  @@map("prescriptions")
-}
-
-// =======================================================================
-// 15. VACCINES (Vắc-xin)
-// =======================================================================
-
-model Vaccine {
-  id               BigInt            @id @default(autoincrement())
-  vaccine_name      String @db.VarChar(200)
-  price            Decimal           @db.Decimal(15, 2)
-
-  // Relations
-  includeVaccines   IncludeVaccine[]
-  vaccineUses       VaccineUse[]
-  vaccineInventory  VaccineInventory[]
-
-  @@map("vaccines")
-}
-
-// =======================================================================
-// 16. VACCINE PACKAGES (Gói Tiêm)
-// =======================================================================
-
-model VaccinePackage {
-  id                BigInt               @id @default(autoincrement())
-  package_name       String @db.VarChar(200)
-  monthly_milestone  Int
-  cycle             Int
-  price             Decimal              @db.Decimal(15, 2)
-
-  // Relations
-  includeVaccines      IncludeVaccine[]
-  vaccinePackageUses   VaccinePackageUse[]
-  packageInventory     PackageInventory[]
-
-  @@map("vaccine_packages")
-}
-
-// =======================================================================
-// 17. INCLUDE VACCINES (Thành Phần Gói)
-// =======================================================================
-
-model IncludeVaccine {
-  id         BigInt         @id @default(autoincrement())
-  package_id  BigInt
-  vaccine_id  BigInt
-  dosage     Int
-
-  // Relations
-  package VaccinePackage @relation(fields: [package_id], references: [id], onDelete: Cascade)
-  vaccine Vaccine        @relation(fields: [vaccine_id], references: [id], onDelete: Restrict)
-
-  @@unique([package_id, vaccine_id])
-  @@map("include_vaccines")
-}
-
-// =======================================================================
-// 18. SINGLE INJECTIONS (Tiêm Mũi Lẻ)
-// =======================================================================
-
-model SingleInjection {
-  service_id BigInt   @id
-  pet_id     BigInt
-  doctor_id  BigInt
-
-  // Relations
-  service      Service      @relation(fields: [service_id], references: [id], onDelete: Cascade)
-  pet          Pet          @relation(fields: [pet_id], references: [id], onDelete: Restrict)
-  doctor       Employee     @relation(fields: [doctor_id], references: [id], onDelete: Restrict)
-  vaccineUses  VaccineUse[]
-
-  @@map("single_injections")
-}
-
-// =======================================================================
-// 19. PACKAGE INJECTIONS (Tiêm Theo Gói)
-// =======================================================================
-
-model PackageInjection {
-  service_id BigInt   @id
-  pet_id     BigInt
-  doctor_id  BigInt
-
-  // Relations
-  service             Service             @relation(fields: [service_id], references: [id], onDelete: Cascade)
-  pet                 Pet                 @relation(fields: [pet_id], references: [id], onDelete: Restrict)
-  doctor              Employee            @relation(fields: [doctor_id], references: [id], onDelete: Restrict)
-  vaccinePackageUses  VaccinePackageUse[]
-
-  @@map("package_injections")
-}
-
-// =======================================================================
-// 20. VACCINE USES (Sử Dụng Vắc-xin)
-// =======================================================================
-
-model VaccineUse {
-  id                 BigInt          @id @default(autoincrement())
-  single_injection_id  BigInt?
-  vaccine_id          BigInt
-  dosage             Int
-
-  // Relations
-  singleInjection SingleInjection? @relation(fields: [single_injection_id], references: [service_id], onDelete: Cascade)
-  vaccine         Vaccine          @relation(fields: [vaccine_id], references: [id], onDelete: Restrict)
-
-  @@unique([single_injection_id, vaccine_id])
-  @@map("vaccine_uses")
-}
-
-// =======================================================================
-// 21. VACCINE PACKAGE USES (Sử Dụng Gói Tiêm)
-// =======================================================================
-
-model VaccinePackageUse {
-  id                 BigInt           @id @default(autoincrement())
-  package_injection_id BigInt?
-  package_id          BigInt
-  injection_number    Int
-  next_injection_date  DateTime? @db.Timestamptz(6)
-  is_completed        Boolean          @default(false)
-
-  // Relations
-  packageInjection PackageInjection? @relation(fields: [package_injection_id], references: [service_id], onDelete: Cascade)
-  package          VaccinePackage    @relation(fields: [package_id], references: [id], onDelete: Restrict)
-
-  @@unique([package_injection_id, injection_number])
-  @@map("vaccine_package_uses")
-}
-
-// =======================================================================
-// 22. PRODUCTS (Sản Phẩm)
-// =======================================================================
-
-model Product {
-  id               BigInt            @id @default(autoincrement())
-  product_name      String @db.VarChar(200)
-  product_type      ProductType
-  price            Decimal           @db.Decimal(15, 2)
-
-  // Relations
-  sellProducts      SellProduct[]
-  productInventory  ProductInventory[]
-
-  @@map("products")
-}
-
-// =======================================================================
-// 23. SELL PRODUCTS (Bán Sản Phẩm)
-// =======================================================================
-
-model SellProduct {
-  service_id BigInt   @id
-  product_id BigInt
-  quantity  Int
-
-  // Relations
-  service Service @relation(fields: [service_id], references: [id], onDelete: Cascade)
-  product Product @relation(fields: [product_id], references: [id], onDelete: Restrict)
-
-  @@unique([service_id, product_id])
-  @@map("sell_products")
-}
-
-// =======================================================================
-// 24. MEDICINE INVENTORY (Kho Thuốc)
-// =======================================================================
-
-model MedicineInventory {
-  id         BigInt   @id @default(autoincrement())
-  branch_id   BigInt
-  medicine_id BigInt
-  quantity   Int
-
-  // Relations
-  branch   Branch   @relation(fields: [branch_id], references: [id], onDelete: Restrict)
-  medicine Medicine @relation(fields: [medicine_id], references: [id], onDelete: Restrict)
-
-  @@unique([branch_id, medicine_id])
-  @@map("medicine_inventory")
-}
-
-// =======================================================================
-// 25. VACCINE INVENTORY (Kho Vắc-xin)
-// =======================================================================
-
-model VaccineInventory {
-  id        BigInt   @id @default(autoincrement())
-  branch_id  BigInt
-  vaccine_id BigInt
-  quantity  Int
-
-  // Relations
-  branch  Branch  @relation(fields: [branch_id], references: [id], onDelete: Restrict)
-  vaccine Vaccine @relation(fields: [vaccine_id], references: [id], onDelete: Restrict)
-
-  @@unique([branch_id, vaccine_id])
-  @@map("vaccine_inventory")
-}
-
-// =======================================================================
-// 26. PACKAGE INVENTORY (Kho Gói Tiêm)
-// =======================================================================
-
-model PackageInventory {
-  id        BigInt   @id @default(autoincrement())
-  branch_id  BigInt
-  package_id BigInt
-  quantity  Int
-
-  // Relations
-  branch  Branch         @relation(fields: [branch_id], references: [id], onDelete: Restrict)
-  package VaccinePackage @relation(fields: [package_id], references: [id], onDelete: Restrict)
-
-  @@unique([branch_id, package_id])
-  @@map("package_inventory")
-}
-
-// =======================================================================
-// 27. PRODUCT INVENTORY (Kho Sản Phẩm)
-// =======================================================================
-
-model ProductInventory {
-  id        BigInt   @id @default(autoincrement())
-  branch_id  BigInt
-  product_id BigInt
-  quantity  Int
-
-  // Relations
-  branch  Branch  @relation(fields: [branch_id], references: [id], onDelete: Restrict)
-  product Product @relation(fields: [product_id], references: [id], onDelete: Restrict)
-
-  @@unique([branch_id, product_id])
-  @@map("product_inventory")
-}
-
-// =======================================================================
-// 28. APPOINTMENTS (Lịch Hẹn)
-// =======================================================================
-
-model Appointment {
-  id               BigInt                  @id @default(autoincrement())
-  pet_id            BigInt
-  owner_id          BigInt
-  branch_id         BigInt
-  doctor_id         BigInt
-  service_type      AppointmentServiceType
-  appointment_time  DateTime @db.Timestamptz(6)
-  reason           String?
-  status           Status                  @default(DangChoXacNhan)
-  cancelled_reason  String?
-
-  // Relations
-  pet    Pet      @relation(fields: [pet_id], references: [id], onDelete: Restrict)
-  owner  User     @relation(fields: [owner_id], references: [id], onDelete: Restrict)
-  branch Branch   @relation(fields: [branch_id], references: [id], onDelete: Restrict)
-  doctor Employee @relation(fields: [doctor_id], references: [id], onDelete: Restrict)
-
-  @@unique([pet_id, appointment_time, service_type])
-  @@unique([doctor_id, branch_id, appointment_time])
-  @@map("appointments")
 }

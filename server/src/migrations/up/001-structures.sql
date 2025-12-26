@@ -36,6 +36,7 @@ CREATE TYPE appointment_service_type AS ENUM ('Khám bệnh', 'Tiêm mũi lẻ',
 CREATE TYPE product_type AS ENUM ('Thức ăn', 'Phụ kiện');
 CREATE TYPE promotion_for_level AS ENUM ('Tất cả', 'Thân thiết trở lên', 'VIP');
 CREATE TYPE status AS ENUM ('Đang chờ xác nhận', 'Đã xác nhận', 'Hoàn thành', 'Hủy bỏ');
+CREATE TYPE account_type AS ENUM ('Khách hàng', 'Bác sĩ thú y', 'Nhân viên tiếp tân', 'Nhân viên bán hàng', 'Quản lý chi nhánh');
 
 -- =======================================================================
 -- DOMAINS
@@ -105,29 +106,55 @@ CREATE TABLE users (
     CONSTRAINT uq_users_citizen_id UNIQUE (citizen_id)
 );
 
-CREATE TABLE accounts (
-    user_id             BIGINT NOT NULL,
-    username            CITEXT NOT NULL,
-    hashed_password     TEXT NOT NULL,
-    is_active           BOOLEAN DEFAULT FALSE,
-    last_login_at       TIMESTAMPTZ,
+-- =======================================================================
+-- 3. EMPLOYEES (Nhân Viên)
+-- =======================================================================
+CREATE TABLE employees (
+    id                  BIGSERIAL,
+    full_name           name_text NOT NULL,
+    date_of_birth TIMESTAMPTZ NOT NULL,
+    gender              gender NOT NULL,
+    role                employee_role NOT NULL,
+    base_salary         finance NOT NULL,
 
     created_at          TIMESTAMPTZ DEFAULT NOW(),
     updated_at          TIMESTAMPTZ DEFAULT NOW(),
 
-    PRIMARY KEY (user_id),
+    PRIMARY KEY (id)
+);
+
+
+CREATE TABLE accounts (
+    id                  BIGSERIAL NOT NULL,
+    username            CITEXT NOT NULL,
+    hashed_password     TEXT NOT NULL,
+    is_active           BOOLEAN DEFAULT FALSE,
+    last_login_at       TIMESTAMPTZ,
+    account_type        account_type DEFAULT 'Khách hàng',
+    user_id             BIGINT,
+    employee_id         BIGINT,
+
+    created_at          TIMESTAMPTZ DEFAULT NOW(),
+    updated_at          TIMESTAMPTZ DEFAULT NOW(),
+
+    PRIMARY KEY (id),
 
     CONSTRAINT uq_accounts_username UNIQUE (username),
-
+    
     CONSTRAINT fk_account_user 
         FOREIGN KEY (user_id) 
         REFERENCES users(id) 
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_account_employee
+        FOREIGN KEY (employee_id) 
+        REFERENCES employees(id) 
         ON DELETE CASCADE
 );
 
 CREATE TABLE refresh_tokens (
     id              BIGSERIAL,
-    user_id         BIGINT NOT NULL,
+    account_id      BIGINT NOT NULL,
     token           TEXT NOT NULL,
     expires_at      TIMESTAMPTZ NOT NULL,
 
@@ -138,9 +165,9 @@ CREATE TABLE refresh_tokens (
 
     CONSTRAINT uq_refresh_tokens_token UNIQUE (token),
 
-    CONSTRAINT fk_refresh_tokens_user 
-        FOREIGN KEY (user_id) 
-        REFERENCES users(id) 
+    CONSTRAINT fk_refresh_tokens_account 
+        FOREIGN KEY (account_id) 
+        REFERENCES accounts(id) 
         ON DELETE CASCADE,
 
     CONSTRAINT chk_refresh_tokens_expires_at
@@ -169,23 +196,6 @@ CREATE TABLE pets (
         FOREIGN KEY (owner_id) 
         REFERENCES users(id) 
         ON DELETE RESTRICT
-);
-
--- =======================================================================
--- 3. EMPLOYEES (Nhân Viên)
--- =======================================================================
-CREATE TABLE employees (
-    id                  BIGSERIAL,
-    full_name           name_text NOT NULL,
-    date_of_birth TIMESTAMPTZ NOT NULL,
-    gender              gender NOT NULL,
-    role                employee_role NOT NULL,
-    base_salary         finance NOT NULL,
-
-    created_at          TIMESTAMPTZ DEFAULT NOW(),
-    updated_at          TIMESTAMPTZ DEFAULT NOW(),
-
-    PRIMARY KEY (id)
 );
 
 -- =======================================================================

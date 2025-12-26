@@ -342,21 +342,21 @@ EXECUTE FUNCTION fn_recalculate_invoice_totals();
 -- 8. UPDATE LAST LOGIN AT TRIGGER
 -- ========================================================================
 
-CREATE FUNCTION fn_update_last_login_at()
-RETURNS TRIGGER AS $$
-BEGIN
-    UPDATE accounts
-    SET last_login_at = NOW()
-    WHERE user_id = NEW.user_id;
+-- CREATE FUNCTION fn_update_last_login_at()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--     UPDATE accounts
+--     SET last_login_at = NOW()
+--     WHERE account_id = NEW.account_id;
 
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
+--     RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_update_last_login_at
-AFTER INSERT ON refresh_tokens
-FOR EACH ROW
-EXECUTE FUNCTION fn_update_last_login_at();
+-- CREATE TRIGGER trg_update_last_login_at
+-- AFTER INSERT ON refresh_tokens
+-- FOR EACH ROW
+-- EXECUTE FUNCTION fn_update_last_login_at();
 
 -- ========================================================================
 -- 9. STATE MACHINE CONTROLLERS
