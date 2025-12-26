@@ -28,7 +28,6 @@ async function main() {
     console.log("✅ Prisma client initialized");
   }
 
-  const usedAppointments = new Set();
   const summary = [];
   const insertedIds = {};
 
