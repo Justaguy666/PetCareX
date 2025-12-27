@@ -234,3 +234,51 @@ BEGIN
     GROUP BY b.id, b.branch_name;
 END;
 $$;
+
+CREATE FUNCTION fn_statistics_products_revenue_all()
+RETURNS TABLE (
+    id BIGINT,
+    name object_text,
+    total_revenue NUMERIC(15, 2)
+) 
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        p.id,
+        p.product_name,
+        COALESCE(SUM(p.price * sp.quantity), 0)
+    FROM products p
+    LEFT JOIN sell_products sp ON sp.product_id = p.id
+    LEFT JOIN services sv ON sv.id = sp.service_id
+    LEFT JOIN invoices i ON i.id = sv.invoice_id
+    GROUP BY p.id, p.product_name
+    ORDER BY COALESCE(SUM(p.price * sp.quantity), 0) DESC;
+END;
+$$;
+
+CREATE FUNCTION fn_statistics_products_revenue_by_branch(p_branch_id BIGINT)
+RETURNS TABLE (
+    id BIGINT,
+    name object_text,
+    total_revenue NUMERIC(15, 2)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        p.id,
+        p.product_name,
+        COALESCE(SUM(p.price * sp.quantity), 0)
+    FROM products p
+    LEFT JOIN sell_products sp ON sp.product_id = p.id
+    LEFT JOIN services sv ON sv.id = sp.service_id
+    LEFT JOIN invoices i ON i.id = sv.invoice_id
+	LEFT JOIN branches b ON b.id = p_branch_id
+    WHERE i.branch_id = p_branch_id
+    GROUP BY p.id, p.product_name
+    ORDER BY COALESCE(SUM(p.price * sp.quantity), 0) DESC;
+END;
+$$;

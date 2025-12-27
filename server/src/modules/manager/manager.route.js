@@ -11,6 +11,7 @@ router.get('/statistics/appointments', managerController.getAppointmentStatistic
 router.get('/statistics/appointments/:branch_id', managerController.getAppointmentStatistics);
 
 // [GET] /manager/statistics/products - Get revenue from products
-//router.get('/statistics/products', managerController.getProductRevenueStatistics);
+router.get('/statistics/products', managerController.getProductRevenueStatistics);
+router.get('/statistics/products/:branch_id', managerController.getProductRevenueStatistics);
 
 export default router;

@@ -13,11 +13,11 @@ class ManagerService {
         return result;
     };
 
-    // getProductRevenueStatistics = async () => {
-    //     const result = await managerRepo.fetchProductRevenueStatistics();
+    getProductRevenueStatistics = async (branch_id) => {
+        const result = await managerRepo.fetchProductRevenueStatistics(branch_id);
 
-    //     return result;
-    // };
+        return result;
+    };
 };
 
 export default new ManagerService();

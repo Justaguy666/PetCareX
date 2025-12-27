@@ -26,6 +26,20 @@ class ManagerRepo {
 
     return rows;
   };
-  
+
+  fetchProductRevenueStatistics = async (branch_id) => {
+    const query = (
+      branch_id ?
+      `SELECT * FROM fn_statistics_products_revenue_by_branch($1)` :
+      `SELECT * FROM fn_statistics_products_revenue_all()`
+    )
+    
+    const values = branch_id ? [branch_id] : [];
+
+    const { rows } = await db.query(query, values);
+
+    return rows;
+  };
 };
+
 export default new ManagerRepo();
