@@ -3,6 +3,7 @@ import userController from './user.controller.js';
 
 const router = Router();
 
-router.post('/orders/buy', userController.buyProducts);
+router.get('/orders', userController.listOrders);
+router.get('/appointments', userController.listAppointments);
 
 export default router;

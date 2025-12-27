@@ -46,7 +46,6 @@ class AuthService {
             id: account.id,
             role: account.account_type
         }, '15m');
-        console.log(account);
 
         Promise.all([
             authRepo.deleteRefreshTokenById(account.id),

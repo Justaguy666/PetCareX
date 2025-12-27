@@ -34,7 +34,51 @@ CREATE TYPE employee_role AS ENUM ('Bác sĩ thú y', 'Nhân viên tiếp tân',
 CREATE TYPE payment_method AS ENUM ('Tiền mặt', 'Chuyển khoản');
 CREATE TYPE service_type AS ENUM ('Khám bệnh', 'Tiêm mũi lẻ', 'Tiêm theo gói', 'Mua hàng');
 CREATE TYPE appointment_service_type AS ENUM ('Khám bệnh', 'Tiêm mũi lẻ', 'Tiêm theo gói');
-CREATE TYPE product_type AS ENUM ('Thức ăn', 'Phụ kiện');
+CREATE TYPE product_type AS ENUM ('Thức ăn', 'Phụ kiện');INSERT INTO appointments (
+    id,
+    pet_id,
+    owner_id,
+    branch_id,
+    doctor_id,
+    service_type,
+    appointment_time,
+    reason,
+    status
+) VALUES
+(
+    1,
+    1,
+    1,
+    1,
+    1,
+    'Khám tổng quát',
+    NOW() + INTERVAL '1 day',
+    'Khám sức khỏe định kỳ',
+    'Đang chờ xác nhận'
+),
+(
+    2,
+    2,
+    1,
+    1,
+    2,
+    'Tiêm phòng',
+    NOW() + INTERVAL '2 days',
+    'Tiêm vaccine dại',
+    'Đã xác nhận'
+),
+(
+    3,
+    3,
+    1,
+    1,
+    1,
+    'Điều trị',
+    NOW() + INTERVAL '3 days',
+    'Theo dõi tình trạng tiêu hóa',
+    'Đang chờ xác nhận'
+);
+
 CREATE TYPE promotion_for_level AS ENUM ('Tất cả', 'Thân thiết trở lên', 'VIP');
 CREATE TYPE status AS ENUM ('Đang chờ xác nhận', 'Đã xác nhận', 'Hoàn thành', 'Hủy bỏ');
 

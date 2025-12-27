@@ -2,10 +2,16 @@ import authRepo from "../auth/auth.repo.js";
 import userRepo from "./user.repo.js";
 
 class UserService {
-    buyProduct = async (account_id, branch_id, items, payment_method) => {
+    listOrders = async (account_id) => {
         const user = await authRepo.findUserById(account_id);
 
-        return userRepo.buyProducts(user.id, branch_id, items, payment_method);
+        return userRepo.listOrders(user.id);
+    }
+
+    listAppointments = async (account_id) => {
+        const user = await authRepo.findUserById(account_id);
+
+        return userRepo.listAppointments(user.id);
     }
 }
 
