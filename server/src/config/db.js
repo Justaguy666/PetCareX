@@ -5,6 +5,8 @@ dotenv.config();
 const { Pool } = pkg;
 
 const db = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    // Fallback to individual parameters if connectionString is not provided or fails
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     user: process.env.DB_USER,

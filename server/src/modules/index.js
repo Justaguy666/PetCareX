@@ -1,5 +1,6 @@
 import authRouter from './auth/auth.route.js';
 import userRouter from './user/user.route.js';
+import searchRouter from './search/search.route.js';
 import branchRouter from './branch/branch.route.js';
 import petRouter from './pet/pet.route.js';
 import appointmentRouter from './appointment/appointment.route.js';
@@ -30,4 +31,6 @@ export default function route(app) {
 
     // Orders
     app.use('/api/orders', authMiddleware, orderRouter);
+    
+    app.use('/api/search', searchRouter);
 }
