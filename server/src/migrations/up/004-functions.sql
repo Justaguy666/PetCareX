@@ -127,9 +127,9 @@ $$;
 
 CREATE FUNCTION fn_statistics_branches_revenue()
 RETURNS TABLE (
-    id BIGINT,
-    name VARCHAR(100),
-    total_revenue NUMERIC(15, 2)
+    v_id BIGINT,
+    v_name VARCHAR(100),
+    v_total_revenue NUMERIC(15, 2)
 )
 LANGUAGE plpgsql
 AS $$
@@ -148,9 +148,9 @@ $$;
 
 CREATE FUNCTION fn_statistics_doctors_revenue()
 RETURNS TABLE (
-    id BIGINT,
-    name name_text,
-    total_revenue NUMERIC(15, 2)
+    v_id BIGINT,
+    v_name name_text,
+    v_total_revenue NUMERIC(15, 2)
 )
 LANGUAGE plpgsql
 AS $$
@@ -178,5 +178,59 @@ BEGIN
       )
     GROUP BY e.id, e.full_name
     ORDER BY COALESCE(SUM(i.total_amount), 0) DESC;
+END;
+$$;
+
+CREATE FUNCTION fn_statistic_appointments_all()
+RETURNS TABLE (
+    branch_id BIGINT,
+    branch_name VARCHAR(100),
+    total_appointments BIGINT,
+    medical BIGINT,
+    single_injection BIGINT,
+    package_injection BIGINT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        b.id,
+        b.branch_name,
+        COUNT(a.id),
+        COUNT(*) FILTER (WHERE a.service_type = 'Khám bệnh'::appointment_service_type),
+        COUNT(*) FILTER (WHERE a.service_type = 'Tiêm mũi lẻ'::appointment_service_type),
+        COUNT(*) FILTER (WHERE a.service_type = 'Tiêm theo gói'::appointment_service_type)
+    FROM branches b
+    LEFT JOIN appointments a ON a.branch_id = b.id
+    GROUP BY b.id, b.branch_name
+    ORDER BY b.id;
+END;
+$$;
+
+CREATE FUNCTION fn_statistic_appointments_by_branch(p_branch_id BIGINT)
+RETURNS TABLE (
+    branch_id BIGINT,
+    branch_name VARCHAR(100),
+    total_appointments BIGINT,
+    medical BIGINT,
+    single_injection BIGINT,
+    package_injection BIGINT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        b.id,
+        b.branch_name,
+        COUNT(a.id),
+        COUNT(*) FILTER (WHERE a.service_type = 'Khám bệnh'::appointment_service_type),
+        COUNT(*) FILTER (WHERE a.service_type = 'Tiêm mũi lẻ'::appointment_service_type),
+        COUNT(*) FILTER (WHERE a.service_type = 'Tiêm theo gói'::appointment_service_type)
+    FROM branches b
+    LEFT JOIN appointments a ON a.branch_id = b.id
+    WHERE b.id = p_branch_id
+    GROUP BY b.id, b.branch_name;
 END;
 $$;

@@ -7,7 +7,8 @@ const router = Router();
 router.get('/statistics/revenue/:type', managerController.getRevenueStatistics);
 
 // [GET] /manager/statistics/appointments - Get the number of appointments
-//router.get('/statistics/appointments', managerController.getAppointmentStatistics);
+router.get('/statistics/appointments', managerController.getAppointmentStatistics);
+router.get('/statistics/appointments/:branch_id', managerController.getAppointmentStatistics);
 
 // [GET] /manager/statistics/products - Get revenue from products
 //router.get('/statistics/products', managerController.getProductRevenueStatistics);

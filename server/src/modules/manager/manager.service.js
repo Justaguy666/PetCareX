@@ -7,11 +7,11 @@ class ManagerService {
         return result;
     };
     
-    // getAppointmentStatistics = async () => {
-    //     const result = await managerRepo.fetchAppointmentStatistics();
+    getAppointmentStatistics = async (branch_id) => {
+        const result = await managerRepo.fetchAppointmentStatistics(branch_id);
 
-    //     return result;
-    // };
+        return result;
+    };
 
     // getProductRevenueStatistics = async () => {
     //     const result = await managerRepo.fetchProductRevenueStatistics();

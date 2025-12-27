@@ -31,11 +31,22 @@ class ManagerController {
         });
     }
 
-    // getAppointmentStatistics = async (req, res) => {
-    //     const result = await managerService.getAppointmentStatistics();
+    getAppointmentStatistics = async (req, res) => {
+        const { branch_id } = req.params;
+
+        const result = await managerService.getAppointmentStatistics(branch_id);
+
+        const metadata = {
+          branch_id: branch_id || 'all',
+          total_records: result.length,
+          total_appointments: result.reduce((sum, record) => sum + parseInt(record.total_appointments), 0),
+        }
         
-    //     return res.status(200).json({ data: result });
-    // }
+        return res.status(200).json({ 
+          data: result,
+          metadata: metadata,
+        });
+    }
 
     // getProductRevenueStatistics = async (req, res) => {
     //     const result = await managerService.getProductRevenueStatistics();
