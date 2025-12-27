@@ -7,7 +7,7 @@
 -- HELPERS
 -- ========================================================================
 
-CREATE FUNCTION fn_get_branch_from_service(p_service_id BIGINT)
+CREATE OR REPLACE FUNCTION fn_get_branch_from_service(p_service_id BIGINT)
 RETURNS BIGINT AS $$
 DECLARE v_branch_id BIGINT;
 BEGIN
@@ -24,7 +24,7 @@ $$ LANGUAGE plpgsql VOLATILE;
 -- 1. updated_at TRIGGERS
 -- ========================================================================
 
-CREATE FUNCTION fn_update_timestamp()
+CREATE OR REPLACE FUNCTION fn_update_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
     IF TG_OP = 'UPDATE' THEN
@@ -73,7 +73,7 @@ DECLARE
 BEGIN
     FOREACH tbl IN ARRAY tables LOOP
         EXECUTE format(
-            'CREATE TRIGGER trg_%I_updated_at
+            'CREATE OR REPLACE TRIGGER trg_%I_updated_at
              BEFORE UPDATE ON %I
              FOR EACH ROW
              EXECUTE FUNCTION fn_update_timestamp();',
@@ -86,7 +86,7 @@ END $$;
 -- 2. VALIDATE BRANCH MANAGER ROLE TRIGGER
 -- ========================================================================
 
-CREATE FUNCTION fn_check_manager_role()
+CREATE OR REPLACE FUNCTION fn_check_manager_role()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.manager_id IS NOT NULL THEN
@@ -103,7 +103,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_check_manager_role
+CREATE OR REPLACE TRIGGER trg_check_manager_role
 BEFORE INSERT OR UPDATE ON branches
 FOR EACH ROW
 EXECUTE FUNCTION fn_check_manager_role();
@@ -112,7 +112,7 @@ EXECUTE FUNCTION fn_check_manager_role();
 -- 3. VALIDATE DOCTOR ROLE TRIGGER
 -- ========================================================================
 
-CREATE FUNCTION fn_check_doctor_role()
+CREATE OR REPLACE FUNCTION fn_check_doctor_role()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.doctor_id IS NOT NULL AND NOT EXISTS (
@@ -128,22 +128,22 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_check_doctor_role_medical_examinations
+CREATE OR REPLACE TRIGGER trg_check_doctor_role_medical_examinations
 BEFORE INSERT OR UPDATE ON medical_examinations
 FOR EACH ROW
 EXECUTE FUNCTION fn_check_doctor_role();
 
-CREATE TRIGGER trg_check_doctor_role_single_injections
+CREATE OR REPLACE TRIGGER trg_check_doctor_role_single_injections
 BEFORE INSERT OR UPDATE ON single_injections
 FOR EACH ROW
 EXECUTE FUNCTION fn_check_doctor_role();
 
-CREATE TRIGGER trg_check_doctor_role_package_injections
+CREATE OR REPLACE TRIGGER trg_check_doctor_role_package_injections
 BEFORE INSERT OR UPDATE ON package_injections
 FOR EACH ROW
 EXECUTE FUNCTION fn_check_doctor_role();
 
-CREATE TRIGGER trg_check_doctor_role_appointments
+CREATE OR REPLACE TRIGGER trg_check_doctor_role_appointments
 BEFORE INSERT OR UPDATE ON appointments
 FOR EACH ROW
 EXECUTE FUNCTION fn_check_doctor_role();
@@ -152,7 +152,7 @@ EXECUTE FUNCTION fn_check_doctor_role();
 -- 4. SERVICE TYPE CONSTRAINT TRIGGERS
 -- ========================================================================
 
-CREATE FUNCTION fn_check_service_type()
+CREATE OR REPLACE FUNCTION fn_check_service_type()
 RETURNS TRIGGER AS $$
 DECLARE
     expected_type service_type;
@@ -174,22 +174,22 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_check_medical_exam_service
+CREATE OR REPLACE TRIGGER trg_check_medical_exam_service
 BEFORE INSERT OR UPDATE ON medical_examinations
 FOR EACH ROW
 EXECUTE FUNCTION fn_check_service_type('Khám bệnh');
 
-CREATE TRIGGER trg_check_single_injection_service
+CREATE OR REPLACE TRIGGER trg_check_single_injection_service
 BEFORE INSERT OR UPDATE ON single_injections
 FOR EACH ROW
 EXECUTE FUNCTION fn_check_service_type('Tiêm mũi lẻ');
 
-CREATE TRIGGER trg_check_package_injection_service
+CREATE OR REPLACE TRIGGER trg_check_package_injection_service
 BEFORE INSERT OR UPDATE ON package_injections
 FOR EACH ROW
 EXECUTE FUNCTION fn_check_service_type('Tiêm theo gói');
 
-CREATE TRIGGER trg_check_sell_product_service
+CREATE OR REPLACE TRIGGER trg_check_sell_product_service
 BEFORE INSERT OR UPDATE ON sell_products
 FOR EACH ROW
 EXECUTE FUNCTION fn_check_service_type('Mua hàng');
@@ -198,7 +198,7 @@ EXECUTE FUNCTION fn_check_service_type('Mua hàng');
 -- 5. VALIDATE PET OWNERSHIP TRIGGER
 -- ========================================================================
 
-CREATE FUNCTION fn_check_pet_ownership()
+CREATE OR REPLACE FUNCTION fn_check_pet_ownership()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NOT EXISTS (
@@ -216,7 +216,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_check_pet_ownership
+CREATE OR REPLACE TRIGGER trg_check_pet_ownership
 BEFORE INSERT OR UPDATE ON appointments
 FOR EACH ROW
 EXECUTE FUNCTION fn_check_pet_ownership();
@@ -226,7 +226,7 @@ EXECUTE FUNCTION fn_check_pet_ownership();
 -- ========================================================================
 
 -- Validate employee at branch for invoices
-CREATE FUNCTION fn_validate_employee_branch_assignment_invoices()
+CREATE OR REPLACE FUNCTION fn_validate_employee_branch_assignment_invoices()
 RETURNS TRIGGER AS $$
 DECLARE
     v_employee_branch_id BIGINT;
@@ -256,13 +256,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_employee_branch_assignment
+CREATE OR REPLACE TRIGGER trg_validate_employee_branch_assignment
 BEFORE INSERT OR UPDATE ON invoices
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_employee_branch_assignment_invoices();
 
 -- Validate doctor at branch for appointments
-CREATE FUNCTION fn_validate_doctor_at_branch_appointments()
+CREATE OR REPLACE FUNCTION fn_validate_doctor_at_branch_appointments()
 RETURNS TRIGGER AS $$
 DECLARE
     v_doctor_branch_id BIGINT;
@@ -280,7 +280,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_doctor_at_branch
+CREATE OR REPLACE TRIGGER trg_validate_doctor_at_branch
 BEFORE INSERT OR UPDATE ON appointments
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_doctor_at_branch_appointments();
@@ -289,7 +289,7 @@ EXECUTE FUNCTION fn_validate_doctor_at_branch_appointments();
 -- 7. INVOICE TOTAL AMOUNT AND DISCOUNT AMOUNT SYNC TRIGGER
 -- =======================================================================
 
-CREATE FUNCTION fn_recalculate_invoice_totals()
+CREATE OR REPLACE FUNCTION fn_recalculate_invoice_totals()
 RETURNS TRIGGER AS $$
 DECLARE
     v_invoice_id BIGINT;
@@ -328,12 +328,12 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_recalculate_invoice_totals_iu
+CREATE OR REPLACE TRIGGER trg_recalculate_invoice_totals_iu
 AFTER INSERT OR UPDATE ON services
 FOR EACH ROW
 EXECUTE FUNCTION fn_recalculate_invoice_totals();
 
-CREATE TRIGGER trg_recalculate_invoice_totals_d
+CREATE OR REPLACE TRIGGER trg_recalculate_invoice_totals_d
 AFTER DELETE ON services    
 FOR EACH ROW
 EXECUTE FUNCTION fn_recalculate_invoice_totals();
@@ -342,7 +342,7 @@ EXECUTE FUNCTION fn_recalculate_invoice_totals();
 -- 8. UPDATE LAST LOGIN AT TRIGGER
 -- ========================================================================
 
-CREATE FUNCTION fn_update_last_login_at()
+CREATE OR REPLACE FUNCTION fn_update_last_login_at()
 RETURNS TRIGGER AS $$
 BEGIN
     UPDATE accounts
@@ -353,7 +353,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_update_last_login_at
+CREATE OR REPLACE TRIGGER trg_update_last_login_at
 AFTER INSERT ON refresh_tokens
 FOR EACH ROW
 EXECUTE FUNCTION fn_update_last_login_at();
@@ -362,7 +362,7 @@ EXECUTE FUNCTION fn_update_last_login_at();
 -- 9. STATE MACHINE CONTROLLERS
 -- ========================================================================
 
-CREATE FUNCTION fn_validate_pet_health_status_transition()
+CREATE OR REPLACE FUNCTION fn_validate_pet_health_status_transition()
 RETURNS TRIGGER AS $$
 BEGIN
     IF TG_OP = 'UPDATE' AND NEW.health_status = 'Đang hồi phục' AND OLD.health_status != 'Có vấn đề' THEN
@@ -374,12 +374,12 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_pet_health_status_transition
+CREATE OR REPLACE TRIGGER trg_validate_pet_health_status_transition
 BEFORE UPDATE ON pets
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_pet_health_status_transition();
 
-CREATE FUNCTION fn_validate_appointment_status_transition()
+CREATE OR REPLACE FUNCTION fn_validate_appointment_status_transition()
 RETURNS TRIGGER AS $$
 BEGIN
     IF TG_OP = 'UPDATE' THEN
@@ -399,7 +399,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_appointment_status_transition
+CREATE OR REPLACE TRIGGER trg_validate_appointment_status_transition
 BEFORE UPDATE ON appointments
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_appointment_status_transition();
@@ -409,7 +409,7 @@ EXECUTE FUNCTION fn_validate_appointment_status_transition();
 -- ========================================================================
 
 -- Medicine Inventory Check
-CREATE FUNCTION fn_validate_medicine_inventory()
+CREATE OR REPLACE FUNCTION fn_validate_medicine_inventory()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -437,13 +437,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_medicine_inventory
+CREATE OR REPLACE TRIGGER trg_validate_medicine_inventory
 BEFORE INSERT OR UPDATE ON prescriptions
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_medicine_inventory();
 
 -- Vaccine Inventory Check
-CREATE FUNCTION fn_validate_vaccine_inventory()
+CREATE OR REPLACE FUNCTION fn_validate_vaccine_inventory()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -471,13 +471,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_vaccine_inventory
+CREATE OR REPLACE TRIGGER trg_validate_vaccine_inventory
 BEFORE INSERT OR UPDATE ON vaccine_uses
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_vaccine_inventory();
 
 -- Vaccine Package Inventory Check
-CREATE FUNCTION fn_validate_vaccine_package_inventory()
+CREATE OR REPLACE FUNCTION fn_validate_vaccine_package_inventory()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -505,13 +505,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_vaccine_package_inventory
+CREATE OR REPLACE TRIGGER trg_validate_vaccine_package_inventory
 BEFORE INSERT OR UPDATE ON vaccine_package_uses
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_vaccine_package_inventory();
 
 -- Product Inventory Check
-CREATE FUNCTION fn_validate_product_inventory()
+CREATE OR REPLACE FUNCTION fn_validate_product_inventory()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -537,7 +537,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_product_inventory
+CREATE OR REPLACE TRIGGER trg_validate_product_inventory
 BEFORE INSERT OR UPDATE ON sell_products
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_product_inventory();
@@ -547,7 +547,7 @@ EXECUTE FUNCTION fn_validate_product_inventory();
 -- ========================================================================
 
 -- Medicine Inventory Deduction - INSERT
-CREATE FUNCTION fn_deduct_medicine_inventory_insert()
+CREATE OR REPLACE FUNCTION fn_deduct_medicine_inventory_insert()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -567,13 +567,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_deduct_medicine_inventory_insert
+CREATE OR REPLACE TRIGGER trg_deduct_medicine_inventory_insert
 AFTER INSERT ON prescriptions
 FOR EACH ROW
 EXECUTE FUNCTION fn_deduct_medicine_inventory_insert();
 
 -- Medicine Inventory Deduction - UPDATE
-CREATE FUNCTION fn_deduct_medicine_inventory_update()
+CREATE OR REPLACE FUNCTION fn_deduct_medicine_inventory_update()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -608,7 +608,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_deduct_medicine_inventory_update
+CREATE OR REPLACE TRIGGER trg_deduct_medicine_inventory_update
 AFTER UPDATE OF quantity, medicine_id, medical_examination_id ON prescriptions
 FOR EACH ROW
 WHEN (
@@ -619,7 +619,7 @@ WHEN (
 EXECUTE FUNCTION fn_deduct_medicine_inventory_update();
 
 -- Vaccine Inventory Deduction - INSERT
-CREATE FUNCTION fn_deduct_vaccine_inventory_insert()
+CREATE OR REPLACE FUNCTION fn_deduct_vaccine_inventory_insert()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -637,13 +637,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_deduct_vaccine_inventory_insert
+CREATE OR REPLACE TRIGGER trg_deduct_vaccine_inventory_insert
 AFTER INSERT ON vaccine_uses
 FOR EACH ROW
 EXECUTE FUNCTION fn_deduct_vaccine_inventory_insert();
 
 -- Vaccine Inventory Deduction - UPDATE
-CREATE FUNCTION fn_deduct_vaccine_inventory_update()
+CREATE OR REPLACE FUNCTION fn_deduct_vaccine_inventory_update()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -678,7 +678,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_deduct_vaccine_inventory_update
+CREATE OR REPLACE TRIGGER trg_deduct_vaccine_inventory_update
 AFTER UPDATE OF dosage, vaccine_id, single_injection_id ON vaccine_uses
 FOR EACH ROW
 WHEN (
@@ -689,7 +689,7 @@ WHEN (
 EXECUTE FUNCTION fn_deduct_vaccine_inventory_update();
 
 -- Vaccine Package Inventory Deduction - INSERT
-CREATE FUNCTION fn_deduct_vaccine_package_inventory_insert()
+CREATE OR REPLACE FUNCTION fn_deduct_vaccine_package_inventory_insert()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -707,13 +707,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_deduct_vaccine_package_inventory_insert
+CREATE OR REPLACE TRIGGER trg_deduct_vaccine_package_inventory_insert
 AFTER INSERT ON vaccine_package_uses
 FOR EACH ROW
 EXECUTE FUNCTION fn_deduct_vaccine_package_inventory_insert();
 
 -- Vaccine Package Inventory Deduction - UPDATE
-CREATE FUNCTION fn_deduct_vaccine_package_inventory_update()
+CREATE OR REPLACE FUNCTION fn_deduct_vaccine_package_inventory_update()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -738,7 +738,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_deduct_vaccine_package_inventory_update
+CREATE OR REPLACE TRIGGER trg_deduct_vaccine_package_inventory_update
 AFTER UPDATE OF package_id, package_injection_id ON vaccine_package_uses
 FOR EACH ROW
 WHEN (
@@ -748,7 +748,7 @@ WHEN (
 EXECUTE FUNCTION fn_deduct_vaccine_package_inventory_update();
 
 -- Product Inventory Deduction - INSERT
-CREATE FUNCTION fn_deduct_product_inventory_insert()
+CREATE OR REPLACE FUNCTION fn_deduct_product_inventory_insert()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -764,13 +764,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_deduct_product_inventory_insert
+CREATE OR REPLACE TRIGGER trg_deduct_product_inventory_insert
 AFTER INSERT ON sell_products
 FOR EACH ROW
 EXECUTE FUNCTION fn_deduct_product_inventory_insert();
 
 -- Product Inventory Deduction - UPDATE
-CREATE FUNCTION fn_deduct_product_inventory_update()
+CREATE OR REPLACE FUNCTION fn_deduct_product_inventory_update()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -803,7 +803,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_deduct_product_inventory_update
+CREATE OR REPLACE TRIGGER trg_deduct_product_inventory_update
 AFTER UPDATE OF quantity, product_id, service_id ON sell_products
 FOR EACH ROW
 WHEN (
@@ -818,7 +818,7 @@ EXECUTE FUNCTION fn_deduct_product_inventory_update();
 -- ========================================================================
 
 -- Medicine Inventory Restoration
-CREATE FUNCTION fn_restore_medicine_inventory()
+CREATE OR REPLACE FUNCTION fn_restore_medicine_inventory()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -836,13 +836,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_restore_medicine_inventory
+CREATE OR REPLACE TRIGGER trg_restore_medicine_inventory
 AFTER DELETE ON prescriptions
 FOR EACH ROW
 EXECUTE FUNCTION fn_restore_medicine_inventory();   
 
 -- Vaccine Inventory Restoration
-CREATE FUNCTION fn_restore_vaccine_inventory()
+CREATE OR REPLACE FUNCTION fn_restore_vaccine_inventory()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -860,13 +860,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_restore_vaccine_inventory
+CREATE OR REPLACE TRIGGER trg_restore_vaccine_inventory
 AFTER DELETE ON vaccine_uses
 FOR EACH ROW
 EXECUTE FUNCTION fn_restore_vaccine_inventory();
 
 -- Vaccine Package Inventory Restoration
-CREATE FUNCTION fn_restore_vaccine_package_inventory()
+CREATE OR REPLACE FUNCTION fn_restore_vaccine_package_inventory()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -884,13 +884,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_restore_vaccine_package_inventory
+CREATE OR REPLACE TRIGGER trg_restore_vaccine_package_inventory
 AFTER DELETE ON vaccine_package_uses
 FOR EACH ROW
 EXECUTE FUNCTION fn_restore_vaccine_package_inventory();
 
 -- Product Inventory Restoration
-CREATE FUNCTION fn_restore_product_inventory()
+CREATE OR REPLACE FUNCTION fn_restore_product_inventory()
 RETURNS TRIGGER AS $$
 DECLARE
     v_branch_id BIGINT;
@@ -906,7 +906,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_restore_product_inventory
+CREATE OR REPLACE TRIGGER trg_restore_product_inventory
 AFTER DELETE ON sell_products
 FOR EACH ROW
 EXECUTE FUNCTION fn_restore_product_inventory();
@@ -915,7 +915,7 @@ EXECUTE FUNCTION fn_restore_product_inventory();
 -- 13. VALIDATE APPOINTMENT TIME TRIGGER
 -- ========================================================================
 
-CREATE FUNCTION fn_validate_appointment_business_hours()
+CREATE OR REPLACE FUNCTION fn_validate_appointment_business_hours()
 RETURNS TRIGGER AS $$
 DECLARE
     v_opening TIME;
@@ -936,7 +936,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_appointment_business_hours
+CREATE OR REPLACE TRIGGER trg_validate_appointment_business_hours
 BEFORE INSERT OR UPDATE ON appointments
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_appointment_business_hours();
@@ -945,7 +945,7 @@ EXECUTE FUNCTION fn_validate_appointment_business_hours();
 -- 14. PREVENT OVERLAPPING APPOINTMENTS FOR ONE PET TRIGGER
 -- ========================================================================
 
-CREATE FUNCTION fn_prevent_overlapping_pet_appointments()
+CREATE OR REPLACE FUNCTION fn_prevent_overlapping_pet_appointments()
 RETURNS TRIGGER AS $$
 BEGIN
     IF EXISTS (
@@ -970,7 +970,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_prevent_overlapping_pet_appointments
+CREATE OR REPLACE TRIGGER trg_prevent_overlapping_pet_appointments
 BEFORE INSERT OR UPDATE ON appointments
 FOR EACH ROW
 EXECUTE FUNCTION fn_prevent_overlapping_pet_appointments();
@@ -979,7 +979,7 @@ EXECUTE FUNCTION fn_prevent_overlapping_pet_appointments();
 -- 15. AUTOMATICLY UPDATE MEMBERSHIP LEVEL TRIGGER
 -- ========================================================================
 
-CREATE FUNCTION fn_update_membership_level()
+CREATE OR REPLACE FUNCTION fn_update_membership_level()
 RETURNS TRIGGER AS $$
 DECLARE
     v_total_spent NUMERIC;
@@ -990,8 +990,8 @@ BEGIN
 
     SELECT SUM(final_amount) INTO v_total_spent
     FROM invoices
-    WHERE customer_id = NEW.customer_id
-      AND created_at >= NOW() - INTERVAL '1 year';
+        WHERE customer_id = NEW.customer_id
+            AND created_at >= NOW() - INTERVAL '1 year';
 
     UPDATE users
     SET membership_level = CASE
@@ -1005,7 +1005,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_update_membership_level
+CREATE OR REPLACE TRIGGER trg_update_membership_level
 AFTER INSERT OR UPDATE ON invoices
 FOR EACH ROW
 EXECUTE FUNCTION fn_update_membership_level();
@@ -1014,7 +1014,7 @@ EXECUTE FUNCTION fn_update_membership_level();
 -- 15. VALIDATE PROMOTION APPLICABILITY TRIGGER
 -- ========================================================================
 
-CREATE FUNCTION fn_validate_promotion_dates()
+CREATE OR REPLACE FUNCTION fn_validate_promotion_dates()
 RETURNS TRIGGER AS $$
 BEGIN
     IF EXISTS (
@@ -1031,7 +1031,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_promotion_dates
+CREATE OR REPLACE TRIGGER trg_validate_promotion_dates
 BEFORE INSERT OR UPDATE ON apply_promotions
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_promotion_dates();
@@ -1040,7 +1040,7 @@ EXECUTE FUNCTION fn_validate_promotion_dates();
 -- 16. VALIDATE APPOINTMENT DATE TRIGGER
 -- ======================================================================== 
 
-CREATE FUNCTION fn_prevent_past_appointment()
+CREATE OR REPLACE FUNCTION fn_prevent_past_appointment()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.appointment_time < NOW() THEN
@@ -1050,7 +1050,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_prevent_past_appointment
+CREATE OR REPLACE TRIGGER trg_prevent_past_appointment
 BEFORE INSERT OR UPDATE ON appointments
 FOR EACH ROW
 EXECUTE FUNCTION fn_prevent_past_appointment();
@@ -1059,7 +1059,7 @@ EXECUTE FUNCTION fn_prevent_past_appointment();
 -- 17. PREVENTING DELETION OF ACTIVE APPOINTMENTS TRIGGER
 -- ========================================================================
 
-CREATE FUNCTION fn_prevent_delete_active_appointment()
+CREATE OR REPLACE FUNCTION fn_prevent_delete_active_appointment()
 RETURNS TRIGGER AS $$
 BEGIN
     IF OLD.status IN ('Đã xác nhận') AND OLD.appointment_time >= NOW() THEN
@@ -1069,7 +1069,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_prevent_delete_active_appointment
+CREATE OR REPLACE TRIGGER trg_prevent_delete_active_appointment
 BEFORE DELETE ON appointments
 FOR EACH ROW
 EXECUTE FUNCTION fn_prevent_delete_active_appointment();
@@ -1078,7 +1078,7 @@ EXECUTE FUNCTION fn_prevent_delete_active_appointment();
 -- 18. VALIDATE POSITIVE QUANTITY TRIGGERS
 -- ========================================================================
 
-CREATE FUNCTION fn_validate_positive_quantity()
+CREATE OR REPLACE FUNCTION fn_validate_positive_quantity()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.quantity IS NOT NULL AND NEW.quantity <= 0 THEN
@@ -1088,18 +1088,18 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_positive_quantity_prescriptions
+CREATE OR REPLACE TRIGGER trg_validate_positive_quantity_prescriptions
 BEFORE INSERT OR UPDATE ON prescriptions
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_positive_quantity();
 
-CREATE TRIGGER trg_validate_positive_quantity_vaccine_uses
+CREATE OR REPLACE TRIGGER trg_validate_positive_quantity_vaccine_uses
 BEFORE INSERT OR UPDATE ON vaccine_uses
 FOR EACH ROW
 WHEN (NEW.dosage IS NOT NULL AND NEW.dosage <= 0)
 EXECUTE FUNCTION fn_validate_positive_quantity();
 
-CREATE TRIGGER trg_validate_positive_quantity_sell_products
+CREATE OR REPLACE TRIGGER trg_validate_positive_quantity_sell_products
 BEFORE INSERT OR UPDATE ON sell_products
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_positive_quantity();
@@ -1108,7 +1108,7 @@ EXECUTE FUNCTION fn_validate_positive_quantity();
 -- 20. VALIDATE ACCOUNT OWNER ROLE TRIGGER
 -- ========================================================================
 
-CREATE FUNCTION fn_validate_accounts_owner_role()
+CREATE OR REPLACE FUNCTION fn_validate_accounts_owner_role()
 RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.employee_id IS NOT NULL AND NEW.user_id IS NOT NULL THEN
@@ -1160,7 +1160,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER trg_validate_accounts_owner_role
+CREATE OR REPLACE TRIGGER trg_validate_accounts_owner_role
 BEFORE INSERT OR UPDATE ON accounts
 FOR EACH ROW
 EXECUTE FUNCTION fn_validate_accounts_owner_role();

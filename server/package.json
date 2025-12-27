@@ -5,6 +5,7 @@
     "main": "src/server.js",
     "scripts": {
         "migrate": "node src/scripts/migrate.js",
+        "reload": "node src/scripts/reload.js",
         "rollback": "node src/scripts/rollback.js",
         "seed": "node src/mock/seed.js",
         "clear-seed": "node src/mock/clear-seed.js",

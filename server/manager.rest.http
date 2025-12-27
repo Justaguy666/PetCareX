@@ -1,5 +1,11 @@
 @baseUrl = http://localhost:3001
 @accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NTAyIiwicm9sZSI6IlF14bqjbiBsw70gY2hpIG5ow6FuaCIsImlhdCI6MTc2NjgxMDA1NywiZXhwIjoxNzY2ODEwOTU3fQ.7bg2TWGlJHrPvXCKnFd29YgaBuLbW4qeiFsQi-4K1Fw
+@employeeToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NTAxIiwicm9sZSI6IkLDoWMgc8SpIHRow7ogeSIsImlhdCI6MTc2NjgyNTkxMywiZXhwIjoxNzY2ODI2ODEzfQ.DErkFdQjFi7k7yxA5a-wLO50gLL1Me4M0Z27B2WR1Mk
+@receptionistToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NTAyIiwicm9sZSI6Ik5ow6JuIHZpw6puIHRp4bq_cCB0w6JuIiwiaWF0IjoxNzY2ODI1OTMyLCJleHAiOjE3NjY4MjY4MzJ9.Icx7PoSoGPeivS247BqNIqYNbLA7J9WS-zIIJe9fAWw
+@customerId = 35001
+@petId = 35002
+@branchId = 1
+@doctorId = 501
 POST {{baseUrl}}/api/auth/register
 Content-Type: application/json
 
@@ -93,3 +99,47 @@ Cookie: accessToken={{accessToken}}
 GET {{baseUrl}}/api/branch/50
 Content-Type: application/json
 Cookie: accessToken={{accessToken}}
+
+###
+# New accounts: login as employee (created by test script)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "test_employee",
+  "password": "Employee@1234"
+}
+
+###
+
+### Login receptionist (created by test script)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "test_receptionist",
+  "password": "Reception@1234"
+}
+
+###
+
+### Employee — Get pet by id (use `employeeToken` cookie after login)
+GET {{baseUrl}}/api/employee/pets/{{petId}}
+Content-Type: application/json
+Cookie: accessToken={{employeeToken}}
+
+###
+
+### Employee — Create appointment (use `employeeToken` cookie after login)
+POST {{baseUrl}}/api/employee/appointment
+Content-Type: application/json
+Cookie: accessToken={{receptionistToken}}
+
+{
+  "customer_id": {{customerId}},
+  "pet_id": {{petId}},
+  "branch_id": {{branchId}},
+  "doctor_id": {{doctorId}},
+  "appointment_time": "2026-01-09T09:30:00.000Z"
+}
+

@@ -7,7 +7,7 @@
 --                            >>KHÁCH HÀNG<<
 -- ========================================================================
 
-CREATE FUNCTION fn_buy_product(
+CREATE OR REPLACE FUNCTION fn_buy_product(
     p_customer_id BIGINT,
     p_branch_id BIGINT,
     p_items JSONB,
@@ -41,12 +41,12 @@ BEGIN
         RAISE EXCEPTION 'Branch % not found', p_branch_id;
     END IF;
 
-    -- 3) Create invoice
+    -- 3) CREATE OR REPLACE invoice
     INSERT INTO invoices (branch_id, customer_id, payment_method, total_amount, total_discount)
     VALUES (p_branch_id, p_customer_id, p_payment_method, 0::finance, 0::finance)
     RETURNING id INTO v_invoice_id;
 
-    -- 4) Create service "Mua hàng"
+    -- 4) CREATE OR REPLACE service "Mua hàng"
     INSERT INTO services (invoice_id, type_of_service, unit_price, discount_amount)
     VALUES (v_invoice_id, 'Mua hàng'::service_type, 0::finance, 0::finance)
     RETURNING id INTO v_service_id;
@@ -125,7 +125,7 @@ $$;
 --                            >>QUẢN LÝ<<
 -- ========================================================================
 
-CREATE FUNCTION fn_statistics_branches_revenue()
+CREATE OR REPLACE FUNCTION fn_statistics_branches_revenue()
 RETURNS TABLE (
     v_id BIGINT,
     v_name VARCHAR(100),
@@ -146,7 +146,7 @@ BEGIN
 END;
 $$;
 
-CREATE FUNCTION fn_statistics_doctors_revenue()
+CREATE OR REPLACE FUNCTION fn_statistics_doctors_revenue()
 RETURNS TABLE (
     v_id BIGINT,
     v_name name_text,
@@ -181,7 +181,7 @@ BEGIN
 END;
 $$;
 
-CREATE FUNCTION fn_statistic_appointments_all()
+CREATE OR REPLACE FUNCTION fn_statistic_appointments_all()
 RETURNS TABLE (
     branch_id BIGINT,
     branch_name VARCHAR(100),
@@ -208,7 +208,7 @@ BEGIN
 END;
 $$;
 
-CREATE FUNCTION fn_statistic_appointments_by_branch(p_branch_id BIGINT)
+CREATE OR REPLACE FUNCTION fn_statistic_appointments_by_branch(p_branch_id BIGINT)
 RETURNS TABLE (
     branch_id BIGINT,
     branch_name VARCHAR(100),
@@ -235,7 +235,58 @@ BEGIN
 END;
 $$;
 
-CREATE FUNCTION fn_statistics_products_revenue_all()
+CREATE OR REPLACE FUNCTION fn_create_appointment(
+    p_customer_id BIGINT,
+    p_pet_id BIGINT,
+    p_branch_id BIGINT,
+    p_doctor_id BIGINT,
+    p_appointment_time TIMESTAMPTZ
+)
+RETURNS BIGINT
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_appointment_id BIGINT;
+BEGIN
+    -- validate customer
+    PERFORM 1 FROM users WHERE id = p_customer_id;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Customer % not found', p_customer_id;
+    END IF;
+
+    -- validate pet belongs to customer
+    PERFORM 1 FROM pets WHERE id = p_pet_id AND owner_id = p_customer_id;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Pet % not found or does not belong to customer %', p_pet_id, p_customer_id;
+    END IF;
+
+    -- validate branch
+    PERFORM 1 FROM branches WHERE id = p_branch_id;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Branch % not found', p_branch_id;
+    END IF;
+
+    -- validate doctor and role
+    PERFORM 1 FROM employees WHERE id = p_doctor_id AND role = 'Bác sĩ thú y'::employee_role;
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Doctor % not found or not a veterinarian', p_doctor_id;
+    END IF;
+
+    -- appointment time must not be in the past
+    IF p_appointment_time < NOW() THEN
+        RAISE EXCEPTION 'Appointment time % is in the past', p_appointment_time;
+    END IF;
+
+    -- insert appointment (service_type defaults to Khám bệnh)
+    INSERT INTO appointments (pet_id, owner_id, branch_id, doctor_id, service_type, appointment_time, status)
+    VALUES (p_pet_id, p_customer_id, p_branch_id, p_doctor_id, 'Khám bệnh'::appointment_service_type, p_appointment_time, 'Đang chờ xác nhận'::status)
+    RETURNING id INTO v_appointment_id;
+
+    RETURN v_appointment_id;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION fn_statistics_products_revenue_all()
 RETURNS TABLE (
     id BIGINT,
     name object_text,
@@ -258,7 +309,7 @@ BEGIN
 END;
 $$;
 
-CREATE FUNCTION fn_statistics_products_revenue_by_branch(p_branch_id BIGINT)
+CREATE OR REPLACE FUNCTION fn_statistics_products_revenue_by_branch(p_branch_id BIGINT)
 RETURNS TABLE (
     id BIGINT,
     name object_text,
