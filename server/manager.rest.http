@@ -1,0 +1,43 @@
+@baseUrl = http://localhost:3001
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NTAyIiwicm9sZSI6IlF14bqjbiBsw70gY2hpIG5ow6FuaCIsImlhdCI6MTc2NjgwNTA5OSwiZXhwIjoxNzY2ODA1OTk5fQ.AE-CptppBvZbq2ZG7FNShtzlL4NDRuav8HwxNfiGwwU
+
+### Register (creates a customer account)
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "test+manager@example.com",
+  "username": "test_manager",
+  "password": "P@ssw0rd123"
+}
+
+###
+
+### Login (returns cookies `accessToken` and `refreshToken`)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "test_manager_db",
+  "password": "Manager@1234"
+}
+
+###
+
+### Me (optional)
+GET {{baseUrl}}/api/auth/me
+Content-Type: application/json
+Cookie: accessToken={{accessToken}}
+
+###
+
+### Manager endpoint (requires `manager` role)
+GET {{baseUrl}}/api/manager/statistics/revenue/branch
+Content-Type: application/json
+Cookie: accessToken={{accessToken}}
+
+###
+
+# Notes:
+# - `register` creates a regular customer account by default; to test manager-only routes you must login with an account that has `account_type` set to a manager role in the database.
+# - You can promote an account to manager directly in the DB (update `accounts.account_type`) or use an existing seeded manager user.

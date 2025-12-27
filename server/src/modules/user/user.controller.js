@@ -1,6 +1,7 @@
-import { UnauthorizedError, 
-         BadRequestError,
-       } from "../../errors/app.error.js";
+import { 
+  UnauthorizedError, 
+  BadRequestError,
+} from "../../errors/app.error.js";
 import userService from "./user.service.js";
 
 class UserController {

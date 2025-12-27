@@ -7,7 +7,7 @@
 --                            >>KHÁCH HÀNG<<
 -- ========================================================================
 
-CREATE OR REPLACE FUNCTION fn_buy_product(
+CREATE FUNCTION fn_buy_product(
     p_customer_id BIGINT,
     p_branch_id BIGINT,
     p_items JSONB,
@@ -118,5 +118,65 @@ BEGIN
     WHERE id = v_invoice_id;
 
     RETURN v_invoice_id;
+END;
+$$;
+
+-- ========================================================================
+--                            >>QUẢN LÝ<<
+-- ========================================================================
+
+CREATE FUNCTION fn_statistics_branches_revenue()
+RETURNS TABLE (
+    id BIGINT,
+    name VARCHAR(100),
+    total_revenue NUMERIC(15, 2)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    	RETURN QUERY
+        SELECT
+            b.id,
+            b.branch_name,
+            COALESCE(SUM(i.total_amount), 0)
+        FROM branches b
+        LEFT JOIN invoices i ON i.branch_id = b.id
+        GROUP BY b.id, b.branch_name
+        ORDER BY COALESCE(SUM(i.total_amount), 0) DESC;
+END;
+$$;
+
+CREATE FUNCTION fn_statistics_doctors_revenue()
+RETURNS TABLE (
+    id BIGINT,
+    name name_text,
+    total_revenue NUMERIC(15, 2)
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT
+        e.id,
+        e.full_name,
+        COALESCE(SUM(i.total_amount), 0)
+    FROM employees e
+    LEFT JOIN (
+        SELECT doctor_id, service_id FROM medical_examinations
+        UNION ALL
+        SELECT doctor_id, service_id FROM single_injections
+        UNION ALL
+        SELECT doctor_id, service_id FROM package_injections
+    ) ds ON ds.doctor_id = e.id
+    LEFT JOIN services sv ON sv.id = ds.service_id
+    LEFT JOIN invoices i ON i.id = sv.invoice_id
+    WHERE e.role = 'Bác sĩ thú y'::employee_role
+      AND sv.type_of_service IN (
+        'Khám bệnh'::service_type,
+        'Tiêm mũi lẻ'::service_type,
+        'Tiêm theo gói'::service_type
+      )
+    GROUP BY e.id, e.full_name
+    ORDER BY COALESCE(SUM(i.total_amount), 0) DESC;
 END;
 $$;

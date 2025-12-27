@@ -13,8 +13,8 @@ class AuthRepo {
 
     isExistingUsername = async (username) => {
         const query =  `SELECT 1
-                        FROM users
-                        WHERE email = $1
+                        FROM accounts
+                        WHERE username = $1
                         LIMIT 1`;
 
         const { rowCount } = await db.query(query, [username]);
