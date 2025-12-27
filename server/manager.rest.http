@@ -1,6 +1,5 @@
 @baseUrl = http://localhost:3001
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NTAyIiwicm9sZSI6IlF14bqjbiBsw70gY2hpIG5ow6FuaCIsImlhdCI6MTc2NjgwNzk2OCwiZXhwIjoxNzY2ODA4ODY4fQ.PmwMG7JNHNkPfjwo8SsegYyreKzGioCsyMf1A8yr2vY
-### Register (creates a customer account)
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NTAyIiwicm9sZSI6IlF14bqjbiBsw70gY2hpIG5ow6FuaCIsImlhdCI6MTc2NjgxMDA1NywiZXhwIjoxNzY2ODEwOTU3fQ.7bg2TWGlJHrPvXCKnFd29YgaBuLbW4qeiFsQi-4K1Fw
 POST {{baseUrl}}/api/auth/register
 Content-Type: application/json
 
@@ -54,14 +53,43 @@ Content-Type: application/json
 ###
 
 # 2) Call appointments stats (no branch)
-GET {{baseUrl}}/api/manager/statistics/appointments
+GET {{baseUrl}}/api/manager/statistics/products
 Content-Type: application/json
 Cookie: accessToken={{accessToken}}
 
 ###
 
 # 3) Call appointments stats (with branch id)
-GET {{baseUrl}}/api/manager/statistics/appointments/2
+GET {{baseUrl}}/api/manager/statistics/products/51
 Content-Type: application/json
 Cookie: accessToken={{accessToken}}
 
+###
+
+### Manager — Product revenue statistics
+# Get revenue from products (all branches)
+GET {{baseUrl}}/api/manager/statistics/products
+Content-Type: application/json
+Cookie: accessToken={{accessToken}}
+
+###
+
+# Get revenue from products for a specific branch
+GET {{baseUrl}}/api/manager/statistics/products/1
+Content-Type: application/json
+Cookie: accessToken={{accessToken}}
+
+###
+
+### Branches — public endpoints
+# Get all branches
+GET {{baseUrl}}/api/branch
+Content-Type: application/json
+Cookie: accessToken={{accessToken}}
+
+###
+
+# Get branch by id
+GET {{baseUrl}}/api/branch/50
+Content-Type: application/json
+Cookie: accessToken={{accessToken}}
