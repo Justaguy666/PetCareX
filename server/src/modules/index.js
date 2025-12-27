@@ -2,6 +2,7 @@ import authRouter from './auth/auth.route.js';
 import userRouter from './user/user.route.js';
 import searchRouter from './search/search.route.js';
 import branchRouter from './branch/branch.route.js';
+import doctorRouter from './doctor/doctor.route.js';
 import petRouter from './pet/pet.route.js';
 import appointmentRouter from './appointment/appointment.route.js';
 import orderRouter from './order/order.route.js';
@@ -20,7 +21,8 @@ export default function route(app) {
 
     // Manager area
     app.use('/api/manager', authMiddleware, roleMiddleware('Quản lý chi nhánh'), managerRouter);
-
+    app.use('/api/doctor', authMiddleware, doctorRouter);
+    
     // Branches (kept both routes as originally present)
     app.use('/api/branch', authMiddleware, branchRouter);
     app.use('/api/branches', authMiddleware, branchRouter);

@@ -417,6 +417,10 @@ model MedicalExamination {
   diagnosis        String?
   conclusion       String?
   appointment_date  DateTime? @db.Timestamptz(6)
+  weight           Decimal?  @db.Decimal(4, 2)
+  temperature      Decimal?  @db.Decimal(3, 1)
+  blood_pressure    String?   @db.VarChar(20)
+  symptoms         String?
 
   // Relations
   service       Service        @relation(fields: [service_id], references: [id], onDelete: Cascade)
