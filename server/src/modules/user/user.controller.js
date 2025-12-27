@@ -5,25 +5,28 @@ import {
 import userService from "./user.service.js";
 
 class UserController {
-    buyProducts = async (req, res) => {
-        const accountId = req.account.id;
-        const { branch_id, items, payment_method } = req.body;
+    listOrders = async (req, res) => {
+      const accountId = req.account.id;
+      if(!accountId) {
+        throw new UnauthorizedError('Unauthorized');
+      }
 
-        if(!accountId) {
-          throw new UnauthorizedError("Unauthorized");
-        }
+      const orders = await userService.listOrders(accountId);
+      res.status(200).json({
+        data: orders
+      });
+    }
 
-        if(!branch_id || !payment_method) {
-          throw new BadRequestError("Branch_id is required");
-        }
+    listAppointments = async (req, res) => {
+      const accountId = req.account.id;
+      if(!accountId) {
+        throw new UnauthorizedError('Unauthorized');
+      }
 
-        if (!Array.isArray(items) || items.length === 0) {
-          throw new BadRequestError("Items must be a non-empty array");
-        }
-
-        const result = await userService.buyProduct(accountId, branch_id, items, payment_method);
-
-        return res.status(201).json({ data: result });
+      const appointments = await userService.listAppointments(accountId);
+      res.status(200).json({
+        data: appointments
+      });
     }
 }
 

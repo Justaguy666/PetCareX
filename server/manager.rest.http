@@ -1,7 +1,7 @@
 @baseUrl = http://localhost:3001
 @accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NTAyIiwicm9sZSI6IlF14bqjbiBsw70gY2hpIG5ow6FuaCIsImlhdCI6MTc2NjgxMDA1NywiZXhwIjoxNzY2ODEwOTU3fQ.7bg2TWGlJHrPvXCKnFd29YgaBuLbW4qeiFsQi-4K1Fw
-@employeeToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NTAxIiwicm9sZSI6IkLDoWMgc8SpIHRow7ogeSIsImlhdCI6MTc2NjgyNTkxMywiZXhwIjoxNzY2ODI2ODEzfQ.DErkFdQjFi7k7yxA5a-wLO50gLL1Me4M0Z27B2WR1Mk
-@receptionistToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NTAyIiwicm9sZSI6Ik5ow6JuIHZpw6puIHRp4bq_cCB0w6JuIiwiaWF0IjoxNzY2ODI1OTMyLCJleHAiOjE3NjY4MjY4MzJ9.Icx7PoSoGPeivS247BqNIqYNbLA7J9WS-zIIJe9fAWw
+@employeeToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NTAxIiwicm9sZSI6IkLDoWMgc8SpIHRow7ogeSIsImlhdCI6MTc2NjgyOTQ1MCwiZXhwIjoxNzY2ODMwMzUwfQ.AFOP7di8SDMtP-kuEObWxaak5zMinTHwhkNbODx20jo
+@receptionistToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NTAyIiwicm9sZSI6Ik5ow6JuIHZpw6puIHRp4bq_cCB0w6JuIiwiaWF0IjoxNzY2ODI4NDcwLCJleHAiOjE3NjY4MjkzNzB9.1Wv8P37jZBRKHTjzO0nblL6mG1NUXPS8Nhz--M2wam0
 @customerId = 35001
 @petId = 35002
 @branchId = 1
@@ -123,15 +123,41 @@ Content-Type: application/json
 
 ###
 
-### Employee — Get pet by id (use `employeeToken` cookie after login)
-GET {{baseUrl}}/api/employee/pets/{{petId}}
+### Pet — List all pets (use `employeeToken` cookie after login)
+GET {{baseUrl}}/api/pets
+Content-Type: application/json
+Cookie: accessToken={{employeeToken}}
+
+### Pet — List all pets (paginated, with keyword)
+# Example: page 2, 5 items per page, keyword search for owner's name or pet name
+GET {{baseUrl}}/api/pets?page=2&pageSize=5&keyword=Fido
+Content-Type: application/json
+Cookie: accessToken={{employeeToken}}
+
+### Pet — List all pets (first page, default pageSize)
+GET {{baseUrl}}/api/pets?page=1&pageSize=10
+Content-Type: application/json
+Cookie: accessToken={{employeeToken}}
+
+### Pet — Keyword search by owner name (example Vietnamese name)
+GET {{baseUrl}}/api/pets?keyword=Nguyễn&page=1&pageSize=5
+Content-Type: application/json
+Cookie: accessToken={{employeeToken}}
+
+### Pet — No results (page out of range / unlikely keyword)
+GET {{baseUrl}}/api/pets?page=999&pageSize=10&keyword=noresults12345
+Content-Type: application/json
+Cookie: accessToken={{employeeToken}}
+
+### Pet — Get pet by id (use `employeeToken` cookie after login)
+GET {{baseUrl}}/api/pets/{{petId}}
 Content-Type: application/json
 Cookie: accessToken={{employeeToken}}
 
 ###
 
-### Employee — Create appointment (use `employeeToken` cookie after login)
-POST {{baseUrl}}/api/employee/appointment
+### Appointment — Create appointment (use `receptionistToken` cookie after login)
+POST {{baseUrl}}/api/appointments
 Content-Type: application/json
 Cookie: accessToken={{receptionistToken}}
 
@@ -140,6 +166,6 @@ Cookie: accessToken={{receptionistToken}}
   "pet_id": {{petId}},
   "branch_id": {{branchId}},
   "doctor_id": {{doctorId}},
-  "appointment_time": "2026-01-09T09:30:00.000Z"
+  "appointment_time": "2026-01-24T09:30:00.000Z"
 }
 
