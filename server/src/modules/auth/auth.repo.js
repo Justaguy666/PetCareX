@@ -1,108 +1,72 @@
 import db from "../../config/db.js";
+import * as Q from "./auth.query.js";
 
 class AuthRepo {
     isExistingEmail = async (email) => {
-        const query =  `SELECT 1
-                        FROM users
-                        WHERE email = $1
-                        LIMIT 1`;
-    
-        const { rowCount } = await db.query(query, [email]);
+        const { rowCount } = await db.query(Q.CHECK_EMAIL_EXISTS, [email]);
         return rowCount > 0;
     };
 
     isExistingUsername = async (username) => {
-        const query =  `SELECT 1
-                        FROM accounts
-                        WHERE username = $1
-                        LIMIT 1`;
-
-        const { rowCount } = await db.query(query, [username]);
+        const { rowCount } = await db.query(Q.CHECK_USERNAME_EXISTS, [username]);
         return rowCount > 0;
     }
 
     createUser = async (email) => {
-        const query = `INSERT INTO users (email)
-                       VALUES ($1)
-                       RETURNING id`;
-        const result = await db.query(query, [email]);
+        const result = await db.query(Q.CREATE_USER, [email]);
         return result.rows[0].id;
     }
 
     createAccount = async (user_id, username, password) => {
-        const query = `INSERT INTO accounts (user_id, username, hashed_password, is_active)
-                       VALUES ($1, $2, $3, true)
-                       RETURNING *`;
-        const result = await db.query(query, [user_id, username, password]);
+        const result = await db.query(Q.CREATE_ACCOUNT, [user_id, username, password]);
         return result.rows[0];
     }
 
     findAccountByEmail = async (email) => {
-        const query =  `SELECT a.id, a.user_id, a.username, a.hashed_password, a.is_active, a.account_type
-                        FROM users u
-                        JOIN accounts a on a.user_id = u.id
-                        WHERE u.email = $1`;
-        const result = await db.query(query, [email]);
+        const result = await db.query(Q.FIND_ACCOUNT_BY_EMAIL, [email]);
         return result.rows[0];
     }
 
     findAccountByUsername = async (username) => {
-        const query =  `SELECT id, user_id, username, hashed_password, is_active, account_type
-                        FROM accounts
-                        WHERE username = $1`;
-        const result = await db.query(query, [username]);
+        const result = await db.query(Q.FIND_ACCOUNT_BY_USERNAME, [username]);
         return result.rows[0];
     }
 
     findAccountById = async (account_id) => {
-        const query =  `SELECT id, user_id, username, hashed_password, is_active, account_type
-                        FROM accounts
-                        WHERE id = $1`;
-        const result = await db.query(query, [account_id]);
+        const result = await db.query(Q.FIND_ACCOUNT_BY_ID, [account_id]);
         return result.rows[0];
     }
 
     updateLastLogin = async (account_id) => {
-        const query =  `UPDATE accounts
-                        SET last_login_at = NOW()
-                        WHERE id = $1`;
-        await db.query(query, [account_id]);
+        await db.query(Q.UPDATE_LAST_LOGIN, [account_id]);
     }
 
     saveRefreshToken = async (account_id, token) => {
-        const query =  `INSERT INTO refresh_tokens (account_id, token, expires_at)
-                        VALUES ($1, $2, $3)`;
         const expiresAt = new Date();
         expiresAt.setDate(expiresAt.getDate() + 30);
-        await db.query(query, [account_id, token, expiresAt]);
+        await db.query(Q.SAVE_REFRESH_TOKEN, [account_id, token, expiresAt]);
     }
 
     deleteRefreshTokenById = async (account_id) => {
-        const query =  `DELETE FROM refresh_tokens 
-                        WHERE account_id = $1`;
-        await db.query(query, [account_id]);
+        await db.query(Q.DELETE_REFRESH_TOKEN_BY_ID, [account_id]);
     }
 
     deleteRefreshTokenByToken = async (token) => {
-        const query =  `DELETE FROM refresh_tokens 
-                        WHERE token = $1`;
-        await db.query(query, [token]);
+        await db.query(Q.DELETE_REFRESH_TOKEN_BY_TOKEN, [token]);
     }
 
     findRefreshToken = async (token) => {
-        const query =  `SELECT account_id, expires_at
-                        FROM refresh_tokens
-                        WHERE token = $1`
-        const result = await db.query(query, [token]);
+        const result = await db.query(Q.FIND_REFRESH_TOKEN, [token]);
         return result.rows[0];
     }
 
     findUserById = async (account_id) => {
-        const query =  `SELECT u.id, u.full_name, u.email, u.phone_number, u.citizen_id, u.gender, u.date_of_birth, u.membership_level
-                        FROM accounts a
-                        JOIN users u on u.id = a.user_id 
-                        WHERE a.id = $1`
-        const result = await db.query(query, [account_id]);
+        const result = await db.query(Q.FIND_USER_BY_ACCOUNT_ID, [account_id]);
+        return result.rows[0];
+    }
+
+    findEmployeeById = async (account_id) => {
+        const result = await db.query(Q.FIND_EMPLOYEE_BY_ACCOUNT_ID, [account_id]);
         return result.rows[0];
     }
 }

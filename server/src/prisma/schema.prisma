@@ -611,7 +611,7 @@ model Product {
 // =======================================================================
 
 model SellProduct {
-  service_id BigInt   @id
+  service_id BigInt
   product_id BigInt
   quantity  Int
 
@@ -619,7 +619,7 @@ model SellProduct {
   service Service @relation(fields: [service_id], references: [id], onDelete: Cascade)
   product Product @relation(fields: [product_id], references: [id], onDelete: Restrict)
 
-  @@unique([service_id, product_id])
+  @@id([service_id, product_id])
   @@index([product_id], map: "idx_sell_products_product_id")
   @@map("sell_products")
 }

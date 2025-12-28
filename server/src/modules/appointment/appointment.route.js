@@ -5,6 +5,8 @@ const router = Router();
 
 router.post('/', appointmentController.createAppointment);
 router.get('/', appointmentController.listAppointments);
+router.put('/:id', appointmentController.updateAppointment);
+router.delete('/:id', appointmentController.cancelAppointment);
 //router.get('/:appointmentId', appointmentController.getAppointment);
 
 export default router;

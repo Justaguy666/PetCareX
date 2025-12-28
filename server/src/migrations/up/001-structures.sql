@@ -800,10 +800,7 @@ CREATE TABLE sell_products (
     created_at      TIMESTAMPTZ DEFAULT NOW(),
     updated_at      TIMESTAMPTZ DEFAULT NOW(),
 
-    PRIMARY KEY (service_id),
-
-    CONSTRAINT uq_sell_products_service_product
-        UNIQUE (service_id, product_id),
+    PRIMARY KEY (service_id, product_id),
 
     CONSTRAINT fk_sell_products_id
         FOREIGN KEY (service_id)

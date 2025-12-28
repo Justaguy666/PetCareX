@@ -240,7 +240,8 @@ CREATE OR REPLACE FUNCTION fn_create_appointment(
     p_pet_id BIGINT,
     p_branch_id BIGINT,
     p_doctor_id BIGINT,
-    p_appointment_time TIMESTAMPTZ
+    p_appointment_time TIMESTAMPTZ,
+    p_service_type appointment_service_type DEFAULT 'Khám bệnh'::appointment_service_type
 )
 RETURNS BIGINT
 LANGUAGE plpgsql
@@ -277,9 +278,9 @@ BEGIN
         RAISE EXCEPTION 'Appointment time % is in the past', p_appointment_time;
     END IF;
 
-    -- insert appointment (service_type defaults to Khám bệnh)
+    -- insert appointment (service_type is now parameterized with default)
     INSERT INTO appointments (pet_id, owner_id, branch_id, doctor_id, service_type, appointment_time, status)
-    VALUES (p_pet_id, p_customer_id, p_branch_id, p_doctor_id, 'Khám bệnh'::appointment_service_type, p_appointment_time, 'Đang chờ xác nhận'::status)
+    VALUES (p_pet_id, p_customer_id, p_branch_id, p_doctor_id, p_service_type, p_appointment_time, 'Đang chờ xác nhận'::status)
     RETURNING id INTO v_appointment_id;
 
     RETURN v_appointment_id;

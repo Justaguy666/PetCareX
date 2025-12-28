@@ -1,4 +1,4 @@
-import { GeneratorContext, shuffleArray, randomItem } from "./base.js";
+import { shuffleArray, randomItem } from "./base.js";
 
 /**
  * Generate single injections with unique service_id constraint

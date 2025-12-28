@@ -44,6 +44,7 @@ class AuthService {
         const refreshToken = generateToken();
         const accessToken = signToken({
             id: account.id,
+            user_id: account.user_id,
             role: account.account_type
         }, '15m');
 
@@ -78,6 +79,7 @@ class AuthService {
         const newRefreshToken = generateToken();
         const newAccessToken = signToken({
             id: account.id,
+            user_id: account.user_id,
             role: account.account_type
         }, '15m');
 

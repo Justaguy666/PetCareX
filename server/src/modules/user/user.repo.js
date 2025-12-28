@@ -1,56 +1,57 @@
 import db from "../../config/db.js";
+import * as Q from "./user.query.js";
 
 class UserRepo {
-    listOrders = async (user_id) => {
-        const query = `
-            SELECT
-              i.id                         AS invoice_id,
-              i.customer_id,
-              i.branch_id,
-              i.payment_method,
-              i.total_amount,
-              i.total_discount,
-              i.final_amount,
-              i.created_at,
-              i.updated_at,
+  listOrders = async (user_id) => {
+    const result = await db.query(Q.LIST_ORDERS, [user_id]);
+    return result.rows;
+  }
 
-              s.id                         AS service_id,
-              s.type_of_service,
+  listAppointments = async (user_id) => {
+    const result = await db.query(Q.LIST_APPOINTMENTS, [user_id]);
+    return result.rows;
+  }
 
-              jsonb_agg(
-                jsonb_build_object(
-                  'product_id',   p.id,
-                  'product_name', p.product_name,
-                  'product_type', p.product_type,
-                  'quantity',     sp.quantity,
-                  'price',        p.price
-                )
-                ORDER BY p.id
-              ) AS items
-            FROM invoices i
-            JOIN services s       ON s.invoice_id = i.id
-            JOIN sell_products sp ON sp.service_id = s.id
-            JOIN products p       ON p.id = sp.product_id
-            WHERE i.customer_id = $1
-            GROUP BY
-              i.id, i.customer_id, i.branch_id, i.payment_method,
-              i.total_amount, i.total_discount, i.final_amount,
-              i.created_at, i.updated_at,
-              s.id, s.type_of_service
-            ORDER BY i.created_at DESC, i.id DESC;
-        `;
-        const result = await db.query(query, [user_id]);
-        return result.rows;
-    }
+  listPets = async (user_id) => {
+    const result = await db.query(Q.LIST_PETS, [user_id]);
+    return result.rows;
+  }
 
-    listAppointments = async (user_id) => {
-        const query =  `SELECT *
-                        FROM appointments
-                        WHERE owner_id = $1
-                        ORDER BY appointment_time DESC`;
-        const result = await db.query(query, [user_id]);
-        return result.rows;
-    }
+  createPet = async (user_id, petData) => {
+    const { pet_name, species, breed, date_of_birth, gender } = petData;
+    const values = [pet_name, species, breed || null, date_of_birth || null, gender, user_id];
+    const result = await db.query(Q.CREATE_PET, values);
+    return result.rows[0];
+  }
+
+  updateProfile = async (user_id, updateData) => {
+    const { fullName, phone_number, citizen_id, gender, date_of_birth } = updateData;
+    const values = [fullName, phone_number, citizen_id, gender, date_of_birth, user_id];
+    const result = await db.query(Q.UPDATE_PROFILE, values);
+    return result.rows[0];
+  }
+
+  getDashboardStats = async (user_id) => {
+    const petsCountRes = await db.query(Q.COUNT_PETS, [user_id]);
+    const ordersStatsRes = await db.query(Q.COUNT_ORDERS_STATS, [user_id]);
+    const appointmentsCountRes = await db.query(Q.COUNT_UPCOMING_APPOINTMENTS, [user_id]);
+    const recentOrders = await this.listOrders(user_id);
+    const upcomingAppointmentsRes = await db.query(Q.GET_UPCOMING_APPOINTMENTS, [user_id]);
+
+    const totalSpent = parseFloat(ordersStatsRes.rows[0].total_spent || 0);
+    const loyaltyPoints = Math.floor(totalSpent / 100000);
+
+    return {
+      stats: {
+        totalPets: parseInt(petsCountRes.rows[0].count),
+        totalOrders: parseInt(ordersStatsRes.rows[0].count),
+        upcomingAppointments: parseInt(appointmentsCountRes.rows[0].count),
+        loyaltyPoints: loyaltyPoints
+      },
+      recentOrders: recentOrders.slice(0, 3),
+      upcomingAppointments: upcomingAppointmentsRes.rows
+    };
+  }
 }
 
 export default new UserRepo();

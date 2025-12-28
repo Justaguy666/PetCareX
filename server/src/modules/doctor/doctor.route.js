@@ -1,12 +1,10 @@
-import express from 'express';
+import { Router } from 'express';
 import doctorController from './doctor.controller.js';
-import roleMiddleware from '../../middlewares/role.middleware.js';
 
-const router = express.Router();
+const router = Router();
 
-// Only 'Bác sĩ thú y' can access these routes. 
-router.use(roleMiddleware('Bác sĩ thú y'));
-
+router.get('/assigned-pets', doctorController.getAssignedPets);
+router.get('/today-appointments', doctorController.getTodayAppointments);
 router.post('/exam-records', doctorController.createExamRecord);
 
 export default router;

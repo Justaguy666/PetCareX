@@ -1,16 +1,23 @@
 import db from '../../config/db.js';
+import * as Q from './doctor.query.js';
 
 class DoctorRepo {
     getDoctorIdByAccountId = async (accountId) => {
-        const query = `SELECT employee_id FROM accounts WHERE id = $1`;
-        const { rows } = await db.query(query, [accountId]);
+        const { rows } = await db.query(Q.GET_DOCTOR_ID_BY_ACCOUNT, [accountId]);
         return rows[0]?.employee_id;
     };
 
+    getAssignedPets = async (doctorId) => {
+        const { rows } = await db.query(Q.GET_ASSIGNED_PETS, [doctorId]);
+        return rows;
+    };
+
+    getTodayAppointments = async (doctorId) => {
+        const { rows } = await db.query(Q.GET_TODAY_APPOINTMENTS, [doctorId]);
+        return rows;
+    };
+
     createExamRecord = async ({ pet_id, doctor_id, diagnosis, conclusion, appointment_date, weight, temperature, blood_pressure, symptoms }) => {
-        const query = `
-            SELECT fn_create_exam_record($1, $2, $3, $4, $5, $6, $7, $8, $9) as service_id
-        `;
         const values = [
             pet_id, 
             doctor_id, 
@@ -22,8 +29,7 @@ class DoctorRepo {
             blood_pressure || null,
             symptoms || null
         ];
-
-        const { rows } = await db.query(query, values);
+        const { rows } = await db.query(Q.CREATE_EXAM_RECORD, values);
         return rows[0];
     };
 }

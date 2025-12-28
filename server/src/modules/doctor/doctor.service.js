@@ -2,6 +2,22 @@ import doctorRepo from './doctor.repo.js';
 import { NotFoundError } from "../../errors/app.error.js";
 
 class DoctorService {
+    getAssignedPets = async (accountId) => {
+        const doctorId = await doctorRepo.getDoctorIdByAccountId(accountId);
+        if (!doctorId) {
+            throw new NotFoundError("Doctor profile not found for this account.");
+        }
+        return await doctorRepo.getAssignedPets(doctorId);
+    };
+
+    getTodayAppointments = async (accountId) => {
+        const doctorId = await doctorRepo.getDoctorIdByAccountId(accountId);
+        if (!doctorId) {
+            throw new NotFoundError("Doctor profile not found for this account.");
+        }
+        return await doctorRepo.getTodayAppointments(doctorId);
+    };
+
     createExamRecord = async (data, accountId) => {
         const doctorId = await doctorRepo.getDoctorIdByAccountId(accountId);
         if (!doctorId) {
