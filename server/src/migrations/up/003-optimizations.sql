@@ -464,20 +464,6 @@ BEGIN
 END
 $$;
 
--- ------------------------------------------------------------------------
--- Users: filter by membership level
--- ------------------------------------------------------------------------
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
-        WHERE c.relname = 'idx_users_membership_level' AND n.nspname = current_schema()
-    ) THEN
-        CREATE INDEX idx_users_membership_level ON users (membership_level);
-    END IF;
-END
-$$;
-
 -- ========================================================================
 --                          >>PARTITIONS<<
 -- ========================================================================

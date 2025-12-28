@@ -87,8 +87,3 @@ DROP INDEX IF EXISTS idx_promotion_for_promotion_id;
 DROP INDEX IF EXISTS idx_vaccine_package_uses_package_id;
 DROP INDEX IF EXISTS idx_include_vaccines_package_id;
 DROP INDEX IF EXISTS idx_include_vaccines_vaccine_id;
-
--- ------------------------------------------------------------------------
--- Drop User indexes
--- ------------------------------------------------------------------------
-DROP INDEX IF EXISTS idx_users_membership_level;
