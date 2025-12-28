@@ -8,6 +8,7 @@
         "reload": "node src/scripts/reload.js",
         "rollback": "node src/scripts/rollback.js",
         "seed": "node src/mock/seed.js",
+        "seed:table": "node src/mock/seed-single.js",
         "clear-seed": "node src/mock/clear-seed.js",
         "reset": "node src/scripts/reset-db.js",
         "start": "node src/server.js",
