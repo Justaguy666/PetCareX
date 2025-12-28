@@ -6,43 +6,55 @@ import { Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Package, AlertTriangle } from "lucide-react";
 import { BranchInventory, Branch, PetItem, Vaccine, VaccinePackage } from "@shared/types";
+import { apiGet } from "@/api/api";
+import { useToast } from "@/hooks/use-toast";
 
 export default function BranchInventoryPage() {
     const { user } = useAuth();
+    const { toast } = useToast();
     const [inventory, setInventory] = useState<BranchInventory[]>([]);
     const [branches, setBranches] = useState<Branch[]>([]);
     const [products, setProducts] = useState<PetItem[]>([]);
     const [vaccines, setVaccines] = useState<Vaccine[]>([]);
     const [packages, setPackages] = useState<VaccinePackage[]>([]);
     const [selectedBranch, setSelectedBranch] = useState(user?.branchId || "all");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                setLoading(true);
+                const [invRes, branchRes, prodRes, vacRes, pkgRes] = await Promise.all([
+                    apiGet('/inventory/branch'), // Assuming this endpoint exists
+                    apiGet('/branch'),
+                    apiGet('/item'), // Assuming this endpoint for products
+                    apiGet('/vaccine'), // Assuming this endpoint exists
+                    apiGet('/vaccine-package') // Assuming this endpoint exists
+                ]);
+                setInventory(invRes || []);
+                setBranches(branchRes.data || []);
+                setProducts(prodRes || []);
+                setVaccines(vacRes || []);
+                setPackages(pkgRes || []);
+            } catch (err: any) {
+                setError(err.message || 'Failed to fetch data');
+                toast({ title: "Error", description: err.message, variant: "destructive" });
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadData();
+    }, [toast]);
 
     if (!user || user.role !== "admin") {
         return <Navigate to="/login" />;
     }
 
-    useEffect(() => {
-        loadData();
-    }, []);
-
-    const loadData = () => {
-        const invStored = localStorage.getItem("petcare_branch_inventory");
-        if (invStored) setInventory(JSON.parse(invStored));
-
-        const branchStored = localStorage.getItem("petcare_branches");
-        if (branchStored) setBranches(JSON.parse(branchStored));
-
-        const prodStored = localStorage.getItem("petcare_pet_items");
-        if (prodStored) setProducts(JSON.parse(prodStored));
-
-        const vacStored = localStorage.getItem("petcare_vaccines");
-        if (vacStored) setVaccines(JSON.parse(vacStored));
-
-        const pkgStored = localStorage.getItem("petcare_vaccine_packages");
-        if (pkgStored) setPackages(JSON.parse(pkgStored));
-    };
-
     const getBranchName = (branchId: string) => {
-        return branches.find(b => b.id === branchId)?.name || branchId;
+        const branch = branches.find(b => b.id === branchId)?.branch_name || branchId;
+        return branch;
     };
 
     const getProductName = (itemId: string) => {
@@ -80,13 +92,17 @@ export default function BranchInventoryPage() {
                     >
                         <option value="all">All Branches</option>
                         {branches.map(b => (
-                            <option key={b.id} value={b.id}>{b.name}</option>
+                            <option key={b.id} value={b.id}>{b.branch_name}</option>
                         ))}
                     </select>
                 </div>
 
                 <div className="space-y-6">
-                    {filteredInventory.length === 0 ? (
+                    {loading ? (
+                        <Card className="p-8 text-center text-muted-foreground">Loading inventory...</Card>
+                    ) : error ? (
+                        <Card className="p-8 text-center text-destructive">{error}</Card>
+                    ) : filteredInventory.length === 0 ? (
                         <Card className="p-8 text-center text-muted-foreground">
                             No inventory data found
                         </Card>

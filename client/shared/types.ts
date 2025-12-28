@@ -36,10 +36,10 @@ export interface Branch {
   branch_name: string;
   address: string;
   phone_number: string;
-  opening_at: string;
-  closing_at: string;
-  manager_id: string;
-  createdAt: string;
+  opening_at?: string;
+  closing_at?: string;
+  manager_id?: string;
+  createdAt?: string;
 }
 
 // Pets
@@ -378,9 +378,9 @@ export interface BranchInventory {
 export interface BranchInventoryItem {
   itemId: string;
   quantity: number;
-  minStock: number;
-  maxStock: number;
-  reorderPoint: number;
+  minStock?: number;
+  maxStock?: number;
+  reorderPoint?: number;
 }
 
 // Transfer History

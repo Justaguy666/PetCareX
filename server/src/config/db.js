@@ -1,7 +1,7 @@
 import pkg from 'pg';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ quiet: true });
 const { Pool } = pkg;
 
 const db = new Pool({
@@ -15,7 +15,7 @@ const db = new Pool({
 });
 
 db.on('connect', () => {
-    console.log('Connected to the database');
+    //console.log('Connected to the database');
 });
 
 db.on('error', (err) => {

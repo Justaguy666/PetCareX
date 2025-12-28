@@ -12,21 +12,20 @@ import {
   MedicalRecord,
   Vaccination,
 } from "@shared/types";
+import { apiGet, apiPost, apiPut, apiDelete } from "@/api/api";
+import { useToast } from "./use-toast";
 
 // Generic hook for managing data stored in localStorage
 function useLocalStorage<T>(key: string, initialValue: T) {
-  const [storedValue, setStoredValue] = useState<T>(initialValue);
-
-  useEffect(() => {
+  const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = window.localStorage.getItem(key);
-      if (item) {
-        setStoredValue(JSON.parse(item));
-      }
+      return item ? JSON.parse(item) : initialValue;
     } catch (error) {
       console.error(`Error reading from localStorage key ${key}:`, error);
+      return initialValue;
     }
-  }, [key]);
+  });
 
   const setValue = useCallback(
     (value: T | ((val: T) => T)) => {
@@ -46,43 +45,94 @@ function useLocalStorage<T>(key: string, initialValue: T) {
 
 // Branches
 export const useBranches = () => {
-  const [branches, setBranches] = useLocalStorage<Branch[]>("petcare_branches", []);
+  const [branches, setBranches] = useState<Branch[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const fetchBranches = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await apiGet('/branch');
+      setBranches(response || []);
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch branches');
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
+  }, [toast]);
+
+  useEffect(() => {
+    fetchBranches();
+  }, [fetchBranches]);
 
   const getBranch = useCallback((id: string) => branches.find((b) => b.id === id), [branches]);
 
   const createBranch = useCallback(
-    (branch: Omit<Branch, "id" | "createdAt">) => {
-      const newBranch: Branch = {
-        ...branch,
-        id: `branch-${Date.now()}`,
-        createdAt: new Date().toISOString(),
-      };
-      setBranches([...branches, newBranch]);
-      return newBranch;
+    async (branch: Omit<Branch, "id" | "createdAt">) => {
+      try {
+        const newBranch = await apiPost('/branch', branch);
+        setBranches((prev) => [...prev, newBranch]);
+        return newBranch;
+      } catch (err: any) {
+        toast({ title: "Error creating branch", description: err.message, variant: "destructive" });
+      }
     },
-    [branches, setBranches]
+    [toast]
   );
 
   const updateBranch = useCallback(
-    (id: string, updates: Partial<Branch>) => {
-      setBranches(branches.map((b) => (b.id === id ? { ...b, ...updates } : b)));
+    async (id: string, updates: Partial<Branch>) => {
+      try {
+        const updatedBranch = await apiPut(`/branch/${id}`, updates);
+        setBranches((prev) => prev.map((b) => (b.id === id ? updatedBranch : b)));
+      } catch (err: any) {
+        toast({ title: "Error updating branch", description: err.message, variant: "destructive" });
+      }
     },
-    [branches, setBranches]
+    [toast]
   );
 
   const deleteBranch = useCallback(
-    (id: string) => {
-      setBranches(branches.filter((b) => b.id !== id));
+    async (id: string) => {
+      try {
+        await apiDelete(`/branch/${id}`);
+        setBranches((prev) => prev.filter((b) => b.id !== id));
+      } catch (err: any) {
+        toast({ title: "Error deleting branch", description: err.message, variant: "destructive" });
+      }
     },
-    [branches, setBranches]
+    [toast]
   );
 
-  return { branches, getBranch, createBranch, updateBranch, deleteBranch };
+  return { branches, loading, error, getBranch, createBranch, updateBranch, deleteBranch, refetch: fetchBranches };
 };
 
 // Users/Staff
 export const useUsers = () => {
-  const [users, setUsers] = useLocalStorage<User[]>("petcare_users", []);
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const fetchUsers = useCallback(async () => {
+    try {
+      setLoading(true);
+      // Assuming an endpoint /api/staff to get all users with roles other than 'customer'
+      const response = await apiGet('/staff'); 
+      setUsers(response || []);
+    } catch (err: any) {
+      setError(err.message || 'Failed to fetch users');
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    } finally {
+      setLoading(false);
+    }
+  }, [toast]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const getUser = useCallback((id: string) => users.find((u) => u.id === id), [users]);
 
@@ -94,33 +144,43 @@ export const useUsers = () => {
   );
 
   const createUser = useCallback(
-    (user: Omit<User, "id" | "createdAt">) => {
-      const newUser: User = {
-        ...user,
-        id: `user-${Date.now()}`,
-        createdAt: new Date().toISOString(),
-      };
-      setUsers([...users, newUser]);
-      return newUser;
+    async (user: Omit<User, "id" | "createdAt">) => {
+      try {
+        const newUser = await apiPost('/staff', user);
+        setUsers((prev) => [...prev, newUser]);
+        return newUser;
+      } catch (err: any) {
+        toast({ title: "Error creating user", description: err.message, variant: "destructive" });
+      }
     },
-    [users, setUsers]
+    [toast]
   );
 
   const updateUser = useCallback(
-    (id: string, updates: Partial<User>) => {
-      setUsers(users.map((u) => (u.id === id ? { ...u, ...updates } : u)));
+    async (id: string, updates: Partial<User>) => {
+      try {
+        const updatedUser = await apiPut(`/staff/${id}`, updates);
+        setUsers((prev) => prev.map((u) => (u.id === id ? updatedUser : u)));
+      } catch (err: any) {
+        toast({ title: "Error updating user", description: err.message, variant: "destructive" });
+      }
     },
-    [users, setUsers]
+    [toast]
   );
 
   const deleteUser = useCallback(
-    (id: string) => {
-      setUsers(users.filter((u) => u.id !== id));
+    async (id: string) => {
+      try {
+        await apiDelete(`/staff/${id}`);
+        setUsers((prev) => prev.filter((u) => u.id !== id));
+      } catch (err: any) {
+        toast({ title: "Error deleting user", description: err.message, variant: "destructive" });
+      }
     },
-    [users, setUsers]
+    [toast]
   );
 
-  return { users, getUser, getUsersByRole, getUsersByBranch, createUser, updateUser, deleteUser };
+  return { users, loading, error, getUser, getUsersByRole, getUsersByBranch, createUser, updateUser, deleteUser, refetch: fetchUsers };
 };
 
 // Pets
@@ -166,18 +226,18 @@ export const useAppointments = () => {
   const getAppointment = useCallback((id: string) => appointments.find((a) => a.id === id), [appointments]);
 
   const getAppointmentsByCustomer = useCallback(
-    (customerId: string) => appointments.filter((a) => a.customerId === customerId),
+    (customerId: string) => appointments.filter((a) => a.owner_id === customerId),
     [appointments]
   );
 
   const getAppointmentsByBranch = useCallback(
-    (branchId: string) => appointments.filter((a) => a.branchId === branchId),
+    (branchId: string) => appointments.filter((a) => a.branch_id === branchId),
     [appointments]
   );
 
   const getAppointmentsByVeterinarian = useCallback(
     (veterinarianId: string) =>
-      appointments.filter((a) => a.veterinarianId === veterinarianId),
+      appointments.filter((a) => a.doctor_id === veterinarianId),
     [appointments]
   );
 
@@ -205,7 +265,7 @@ export const useAppointments = () => {
 
   const assignVeterinarian = useCallback(
     (appointmentId: string, veterinarianId: string) => {
-      updateAppointment(appointmentId, { veterinarianId });
+      updateAppointment(appointmentId, { doctor_id: veterinarianId });
     },
     [updateAppointment]
   );
