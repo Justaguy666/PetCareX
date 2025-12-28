@@ -328,7 +328,7 @@ model Service {
   medicalExamination  MedicalExamination?
   singleInjection     SingleInjection?
   packageInjection    PackageInjection?
-  sellProduct         SellProduct?
+  sellProducts        SellProduct[]
 
   @@index([invoice_id], map: "idx_services_invoice_id")
   @@index([type_of_service], map: "idx_services_type_of_service")
