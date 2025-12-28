@@ -126,6 +126,7 @@ model User {
   appointments     Appointment[]
     accounts         Account[]         @relation("AccountUser")
 
+  @@index([membership_level], map: "idx_users_membership_level")
   @@map("users")
 }
 
@@ -184,6 +185,7 @@ model Pet {
   packageInjections    PackageInjection[]
   appointments         Appointment[]
 
+  @@index([owner_id], map: "idx_pets_owner_id")
   @@map("pets")
 }
 
@@ -256,6 +258,8 @@ model Mobilization {
   branch      Branch    @relation(fields: [branch_id], references: [id], onDelete: Restrict)
 
   @@unique([employee_id, branch_id, start_date])
+  @@index([employee_id], map: "idx_mobilizations_employee_id")
+  @@index([branch_id], map: "idx_mobilizations_branch_id")
   @@map("mobilizations")
 }
 
@@ -368,6 +372,8 @@ model ApplyPromotion {
   branch    Branch    @relation(fields: [branch_id], references: [id], onDelete: Restrict)
 
   @@unique([branch_id, promotion_id, start_date])
+  @@index([promotion_id], map: "idx_apply_promotions_promotion_id")
+  @@index([branch_id], map: "idx_apply_promotions_branch_id")
   @@map("apply_promotions")
 }
 
@@ -386,6 +392,7 @@ model PromotionFor {
   type_of_service TypeOfService   @relation(fields: [service_type], references: [type], onDelete: Restrict)
 
   @@unique([promotion_id, service_type])
+  @@index([promotion_id], map: "idx_promotion_for_promotion_id")
   @@map("promotion_for")
 }
 
@@ -506,6 +513,8 @@ model IncludeVaccine {
   vaccine Vaccine        @relation(fields: [vaccine_id], references: [id], onDelete: Restrict)
 
   @@unique([package_id, vaccine_id])
+  @@index([package_id], map: "idx_include_vaccines_package_id")
+  @@index([vaccine_id], map: "idx_include_vaccines_vaccine_id")
   @@map("include_vaccines")
 }
 
@@ -585,6 +594,7 @@ model VaccinePackageUse {
   package          VaccinePackage    @relation(fields: [package_id], references: [id], onDelete: Restrict)
 
   @@unique([package_injection_id, injection_number])
+  @@index([package_id], map: "idx_vaccine_package_uses_package_id")
   @@map("vaccine_package_uses")
 }
 
@@ -728,5 +738,7 @@ model Appointment {
   @@index([doctor_id, appointment_time], map: "idx_appointments_doctor_id_appointment_time")
   @@index([branch_id, appointment_time], map: "idx_appointments_branch_id_appointment_time")
   @@index([appointment_time], map: "idx_appointments_appointment_time")
+  @@index([pet_id], map: "idx_appointments_pet_id")
+  @@index([status], map: "idx_appointments_status")
   @@map("appointments")
 }

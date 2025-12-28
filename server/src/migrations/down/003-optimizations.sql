@@ -58,3 +58,39 @@ DROP INDEX IF EXISTS idx_package_injections_doctor_id;
 -- ------------------------------------------------------------------------
 DROP INDEX IF EXISTS idx_products_product_type;
 DROP INDEX IF EXISTS idx_employees_role;
+
+-- ------------------------------------------------------------------------
+-- Drop Pet indexes
+-- ------------------------------------------------------------------------
+DROP INDEX IF EXISTS idx_pets_owner_id;
+
+-- ------------------------------------------------------------------------
+-- Drop Mobilization indexes
+-- ------------------------------------------------------------------------
+DROP INDEX IF EXISTS idx_mobilizations_employee_id;
+DROP INDEX IF EXISTS idx_mobilizations_branch_id;
+
+-- ------------------------------------------------------------------------
+-- Drop additional Appointment indexes
+-- ------------------------------------------------------------------------
+DROP INDEX IF EXISTS idx_appointments_pet_id;
+DROP INDEX IF EXISTS idx_appointments_status;
+
+-- ------------------------------------------------------------------------
+-- Drop Promotion indexes
+-- ------------------------------------------------------------------------
+DROP INDEX IF EXISTS idx_apply_promotions_promotion_id;
+DROP INDEX IF EXISTS idx_apply_promotions_branch_id;
+DROP INDEX IF EXISTS idx_promotion_for_promotion_id;
+
+-- ------------------------------------------------------------------------
+-- Drop Vaccine Package Use and Include Vaccine indexes
+-- ------------------------------------------------------------------------
+DROP INDEX IF EXISTS idx_vaccine_package_uses_package_id;
+DROP INDEX IF EXISTS idx_include_vaccines_package_id;
+DROP INDEX IF EXISTS idx_include_vaccines_vaccine_id;
+
+-- ------------------------------------------------------------------------
+-- Drop User indexes
+-- ------------------------------------------------------------------------
+DROP INDEX IF EXISTS idx_users_membership_level;

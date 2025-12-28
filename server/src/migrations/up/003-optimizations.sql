@@ -368,6 +368,162 @@ BEGIN
 END
 $$;
 
+-- ------------------------------------------------------------------------
+-- Pets: lookup by owner
+-- ------------------------------------------------------------------------
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_pets_owner_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_pets_owner_id ON pets (owner_id);
+    END IF;
+END
+$$;
+
+-- ------------------------------------------------------------------------
+-- Mobilizations: lookup by employee and branch for scheduling
+-- ------------------------------------------------------------------------
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_mobilizations_employee_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_mobilizations_employee_id ON mobilizations (employee_id);
+    END IF;
+END
+$$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_mobilizations_branch_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_mobilizations_branch_id ON mobilizations (branch_id);
+    END IF;
+END
+$$;
+
+-- ------------------------------------------------------------------------
+-- Appointments: additional indexes for pet lookup and status filtering
+-- ------------------------------------------------------------------------
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_appointments_pet_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_appointments_pet_id ON appointments (pet_id);
+    END IF;
+END
+$$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_appointments_status' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_appointments_status ON appointments (status);
+    END IF;
+END
+$$;
+
+-- ------------------------------------------------------------------------
+-- Apply Promotions: lookup by promotion and branch
+-- ------------------------------------------------------------------------
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_apply_promotions_promotion_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_apply_promotions_promotion_id ON apply_promotions (promotion_id);
+    END IF;
+END
+$$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_apply_promotions_branch_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_apply_promotions_branch_id ON apply_promotions (branch_id);
+    END IF;
+END
+$$;
+
+-- ------------------------------------------------------------------------
+-- Promotion For: lookup by promotion
+-- ------------------------------------------------------------------------
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_promotion_for_promotion_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_promotion_for_promotion_id ON promotion_for (promotion_id);
+    END IF;
+END
+$$;
+
+-- ------------------------------------------------------------------------
+-- Vaccine Package Uses: lookup by package
+-- ------------------------------------------------------------------------
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_vaccine_package_uses_package_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_vaccine_package_uses_package_id ON vaccine_package_uses (package_id);
+    END IF;
+END
+$$;
+
+-- ------------------------------------------------------------------------
+-- Include Vaccines: lookup by package and vaccine
+-- ------------------------------------------------------------------------
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_include_vaccines_package_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_include_vaccines_package_id ON include_vaccines (package_id);
+    END IF;
+END
+$$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_include_vaccines_vaccine_id' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_include_vaccines_vaccine_id ON include_vaccines (vaccine_id);
+    END IF;
+END
+$$;
+
+-- ------------------------------------------------------------------------
+-- Users: filter by membership level
+-- ------------------------------------------------------------------------
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
+        WHERE c.relname = 'idx_users_membership_level' AND n.nspname = current_schema()
+    ) THEN
+        CREATE INDEX idx_users_membership_level ON users (membership_level);
+    END IF;
+END
+$$;
+
 -- ========================================================================
 --                          >>PARTITIONS<<
 -- ========================================================================

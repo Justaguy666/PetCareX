@@ -335,7 +335,7 @@ BEGIN
 END;
 $$;
 
--- [ADDED] Vitals for Medical Examinations
+-- Medical Examinations
 ALTER TABLE medical_examinations
     ADD COLUMN IF NOT EXISTS weight NUMERIC(4,2),
     ADD COLUMN IF NOT EXISTS temperature NUMERIC(3,1),
