@@ -171,17 +171,6 @@ DO $$
 BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
-        WHERE c.relname = 'idx_services_type_of_service' AND n.nspname = current_schema()
-    ) THEN
-        CREATE INDEX idx_services_type_of_service ON services (type_of_service);
-    END IF;
-END
-$$;
-
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
         WHERE c.relname = 'idx_services_created_at' AND n.nspname = current_schema()
     ) THEN
         CREATE INDEX idx_services_created_at ON services (created_at);
@@ -343,30 +332,6 @@ BEGIN
 END
 $$;
 
--- ------------------------------------------------------------------------
--- Products and employees: useful filters for product listing and employee lookups
--- ------------------------------------------------------------------------
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
-        WHERE c.relname = 'idx_products_product_type' AND n.nspname = current_schema()
-    ) THEN
-        CREATE INDEX idx_products_product_type ON products (product_type);
-    END IF;
-END
-$$;
-
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
-        WHERE c.relname = 'idx_employees_role' AND n.nspname = current_schema()
-    ) THEN
-        CREATE INDEX idx_employees_role ON employees (role);
-    END IF;
-END
-$$;
 
 -- ------------------------------------------------------------------------
 -- Pets: lookup by owner
@@ -417,17 +382,6 @@ BEGIN
         WHERE c.relname = 'idx_appointments_pet_id' AND n.nspname = current_schema()
     ) THEN
         CREATE INDEX idx_appointments_pet_id ON appointments (pet_id);
-    END IF;
-END
-$$;
-
-DO $$
-BEGIN
-    IF NOT EXISTS (
-        SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace
-        WHERE c.relname = 'idx_appointments_status' AND n.nspname = current_schema()
-    ) THEN
-        CREATE INDEX idx_appointments_status ON appointments (status);
     END IF;
 END
 $$;

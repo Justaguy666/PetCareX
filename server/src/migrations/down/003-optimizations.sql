@@ -4,9 +4,15 @@
 -- ========================================================================
 
 -- ------------------------------------------------------------------------
--- Drop Auth & Token indexes
+-- Drop Account indexes
 -- ------------------------------------------------------------------------
-DROP INDEX IF EXISTS idx_refresh_tokens_user_id;
+DROP INDEX IF EXISTS idx_accounts_user_id;
+DROP INDEX IF EXISTS idx_accounts_employee_id;
+
+-- ------------------------------------------------------------------------
+-- Drop Refresh Token indexes
+-- ------------------------------------------------------------------------
+DROP INDEX IF EXISTS idx_refresh_tokens_account_id;
 DROP INDEX IF EXISTS idx_refresh_tokens_expires_at;
 
 -- ------------------------------------------------------------------------
@@ -25,7 +31,6 @@ DROP INDEX IF EXISTS idx_invoices_branch_id_created_at;
 DROP INDEX IF EXISTS idx_invoices_created_by;
 DROP INDEX IF EXISTS idx_invoices_created_at;
 DROP INDEX IF EXISTS idx_services_invoice_id;
-DROP INDEX IF EXISTS idx_services_type_of_service;
 DROP INDEX IF EXISTS idx_services_created_at;
 
 -- ------------------------------------------------------------------------
@@ -54,12 +59,6 @@ DROP INDEX IF EXISTS idx_package_injections_pet_id;
 DROP INDEX IF EXISTS idx_package_injections_doctor_id;
 
 -- ------------------------------------------------------------------------
--- Drop Product and Employee indexes
--- ------------------------------------------------------------------------
-DROP INDEX IF EXISTS idx_products_product_type;
-DROP INDEX IF EXISTS idx_employees_role;
-
--- ------------------------------------------------------------------------
 -- Drop Pet indexes
 -- ------------------------------------------------------------------------
 DROP INDEX IF EXISTS idx_pets_owner_id;
@@ -74,7 +73,6 @@ DROP INDEX IF EXISTS idx_mobilizations_branch_id;
 -- Drop additional Appointment indexes
 -- ------------------------------------------------------------------------
 DROP INDEX IF EXISTS idx_appointments_pet_id;
-DROP INDEX IF EXISTS idx_appointments_status;
 
 -- ------------------------------------------------------------------------
 -- Drop Promotion indexes
