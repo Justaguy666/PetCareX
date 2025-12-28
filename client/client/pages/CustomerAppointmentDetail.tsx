@@ -68,7 +68,7 @@ export default function CustomerAppointmentDetail() {
             const allAppointments = JSON.parse(localStorage.getItem("petcare_appointments") || "[]");
             const foundAppointment = allAppointments.find((a: Appointment) => a.id === appointmentId);
 
-            if (!foundAppointment || foundAppointment.customerId !== user.id) {
+            if (!foundAppointment || foundAppointment.owner_id !== user.id) {
                 toast({
                     title: "Appointment not found",
                     description: "The requested appointment could not be found.",
@@ -82,7 +82,7 @@ export default function CustomerAppointmentDetail() {
 
             // Load pet
             const allPets = JSON.parse(localStorage.getItem("petcare_pets") || "[]");
-            const foundPet = allPets.find((p: Pet) => p.id === foundAppointment.petId);
+            const foundPet = allPets.find((p: Pet) => p.id === foundAppointment.pet_id);
             setPet(foundPet || null);
 
             // Load all veterinarians
@@ -106,25 +106,25 @@ export default function CustomerAppointmentDetail() {
             setVets(branchVets);
 
             // Load veterinarian
-            if (foundAppointment.veterinarianId) {
-                const foundVet = allUsers.find((u: UserType) => u.id === foundAppointment.veterinarianId);
+            if (foundAppointment.doctor_id) {
+                const foundVet = allUsers.find((u: UserType) => u.id === foundAppointment.doctor_id);
                 setVet(foundVet || null);
             }
 
             // Load vaccine if single-dose
-            if (foundAppointment.serviceType === "single-vaccine") {
+            if (foundAppointment.service_type === "single-vaccine") {
                 const allVaccines = JSON.parse(localStorage.getItem("petcare_vaccines") || "[]");
-                // Extract vaccine name from reasonForVisit
-                const vaccineName = foundAppointment.reasonForVisit.replace("Single-Dose Injection: ", "");
+                // Extract vaccine name from reason
+                const vaccineName = (foundAppointment.reason || "").replace("Single-Dose Injection: ", "");
                 const foundVaccine = allVaccines.find((v: Vaccine) => v.name === vaccineName);
                 setVaccine(foundVaccine || null);
             }
 
             // Load vaccine package if package
-            if (foundAppointment.serviceType === "vaccine-package") {
+            if (foundAppointment.service_type === "vaccine-package") {
                 const allPackages = JSON.parse(localStorage.getItem("petcare_vaccine_packages") || "[]");
-                // Extract package name from reasonForVisit
-                const packageName = foundAppointment.reasonForVisit.replace("Package Injection: ", "");
+                // Extract package name from reason
+                const packageName = (foundAppointment.reason || "").replace("Package Injection: ", "");
                 const foundPackage = allPackages.find((p: VaccinePackage) => p.name === packageName);
                 setVaccinePackage(foundPackage || null);
             }
@@ -176,11 +176,16 @@ export default function CustomerAppointmentDetail() {
     const openRescheduleModal = () => {
         if (!appointment) return;
 
+        // Extract date and time from appointment_time
+        const appointmentDateTime = new Date(appointment.appointment_time);
+        const dateStr = appointmentDateTime.toISOString().split('T')[0];
+        const timeStr = appointmentDateTime.toTimeString().slice(0, 5);
+
         setRescheduleForm({
-            date: appointment.appointmentDate,
-            time: appointment.appointmentTime,
-            veterinarianId: appointment.veterinarianId || "",
-            notes: appointment.notes || "",
+            date: dateStr,
+            time: timeStr,
+            veterinarianId: appointment.doctor_id || "",
+            notes: appointment.reason || "",
         });
         setRescheduleModalOpen(true);
     };
@@ -214,12 +219,12 @@ export default function CustomerAppointmentDetail() {
             const allAppointments = JSON.parse(localStorage.getItem("petcare_appointments") || "[]");
             const updatedAppointments = allAppointments.map((a: Appointment) => {
                 if (a.id === appointment.id) {
+                    const newAppointmentTime = new Date(`${rescheduleForm.date}T${rescheduleForm.time}:00`).toISOString();
                     return {
                         ...a,
-                        appointmentDate: rescheduleForm.date,
-                        appointmentTime: rescheduleForm.time,
-                        veterinarianId: rescheduleForm.veterinarianId || a.veterinarianId,
-                        notes: rescheduleForm.notes,
+                        appointment_time: newAppointmentTime,
+                        doctor_id: rescheduleForm.veterinarianId || a.doctor_id,
+                        reason: rescheduleForm.notes,
                     };
                 }
                 return a;
@@ -379,7 +384,7 @@ export default function CustomerAppointmentDetail() {
                         <Card>
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
-                                    {getServiceIcon(appointment.serviceType)}
+                                    {getServiceIcon(appointment.service_type)}
                                     Service Information
                                 </CardTitle>
                             </CardHeader>
@@ -387,28 +392,28 @@ export default function CustomerAppointmentDetail() {
                                 <div>
                                     <Label className="text-muted-foreground">Service Type</Label>
                                     <p className="font-medium text-lg">
-                                        {getServiceTypeDisplay(appointment.serviceType)}
+                                        {getServiceTypeDisplay(appointment.service_type)}
                                     </p>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <Calendar className="h-4 w-4 text-muted-foreground" />
                                     <div>
                                         <Label className="text-muted-foreground">Date</Label>
-                                        <p className="font-medium">{formatDate(appointment.appointmentDate)}</p>
+                                        <p className="font-medium">{formatDate(appointment.appointment_time)}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <Clock className="h-4 w-4 text-muted-foreground" />
                                     <div>
                                         <Label className="text-muted-foreground">Time</Label>
-                                        <p className="font-medium">{appointment.appointmentTime}</p>
+                                        <p className="font-medium">{new Date(appointment.appointment_time).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <Building2 className="h-4 w-4 text-muted-foreground" />
                                     <div>
                                         <Label className="text-muted-foreground">Branch</Label>
-                                        <p className="font-medium">{getBranchName(appointment.branchId)}</p>
+                                        <p className="font-medium">{getBranchName(appointment.branch_id)}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-3">
@@ -425,10 +430,10 @@ export default function CustomerAppointmentDetail() {
                                         </p>
                                     </div>
                                 </div>
-                                {appointment.notes && (
+                                {appointment.reason && (
                                     <div>
                                         <Label className="text-muted-foreground">Notes</Label>
-                                        <p className="text-sm mt-1 p-3 bg-muted rounded-md">{appointment.notes}</p>
+                                        <p className="text-sm mt-1 p-3 bg-muted rounded-md">{appointment.reason}</p>
                                     </div>
                                 )}
                             </CardContent>
@@ -482,7 +487,7 @@ export default function CustomerAppointmentDetail() {
                     {/* Right Column */}
                     <div className="space-y-6">
                         {/* Single-Dose Vaccine Details */}
-                        {appointment.serviceType === "single-vaccine" && vaccine && (
+                        {appointment.service_type === "single-vaccine" && vaccine && (
                             <Card>
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
@@ -516,7 +521,7 @@ export default function CustomerAppointmentDetail() {
                         )}
 
                         {/* Package Vaccine Details */}
-                        {appointment.serviceType === "vaccine-package" && vaccinePackage && (
+                        {appointment.service_type === "vaccine-package" && vaccinePackage && (
                             <Card>
                                 <CardHeader>
                                     <CardTitle className="flex items-center gap-2">
@@ -574,7 +579,7 @@ export default function CustomerAppointmentDetail() {
                         )}
 
                         {/* Medical Exam Info */}
-                        {appointment.serviceType === "medical-exam" && (
+                        {appointment.service_type === "medical-exam" && (
                             <Card className="border-blue-200 bg-blue-50">
                                 <CardHeader>
                                     <CardTitle className="text-blue-900">Medical Examination</CardTitle>
@@ -756,13 +761,13 @@ export default function CustomerAppointmentDetail() {
                         {appointment && (
                             <div className="py-4 space-y-2">
                                 <p className="text-sm">
-                                    <strong>Date:</strong> {formatDate(appointment.appointmentDate)}
+                                    <strong>Date:</strong> {formatDate(appointment.appointment_time)}
                                 </p>
                                 <p className="text-sm">
-                                    <strong>Time:</strong> {appointment.appointmentTime}
+                                    <strong>Time:</strong> {new Date(appointment.appointment_time).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
                                 </p>
                                 <p className="text-sm">
-                                    <strong>Service:</strong> {getServiceTypeDisplay(appointment.serviceType)}
+                                    <strong>Service:</strong> {getServiceTypeDisplay(appointment.service_type)}
                                 </p>
                             </div>
                         )}

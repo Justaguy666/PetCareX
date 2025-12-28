@@ -335,30 +335,12 @@ BEGIN
 END;
 $$;
 
--- Medical Examinations
-ALTER TABLE medical_examinations
-    ADD COLUMN IF NOT EXISTS weight NUMERIC(4,2),
-    ADD COLUMN IF NOT EXISTS temperature NUMERIC(3,1),
-    ADD COLUMN IF NOT EXISTS blood_pressure VARCHAR(20),
-    ADD COLUMN IF NOT EXISTS symptoms TEXT;
-
-ALTER TABLE medical_examinations
-    DROP CONSTRAINT IF EXISTS chk_medical_examinations_symptoms_length;
-
-ALTER TABLE medical_examinations
-    ADD CONSTRAINT chk_medical_examinations_symptoms_length 
-    CHECK (symptoms IS NULL OR length(symptoms) <= 1000);
-
 CREATE OR REPLACE FUNCTION fn_create_exam_record(
     p_pet_id BIGINT,
     p_doctor_id BIGINT,
     p_diagnosis TEXT,
     p_conclusion TEXT,
-    p_appointment_date TIMESTAMPTZ DEFAULT NULL,
-    p_weight NUMERIC(4,2) DEFAULT NULL,
-    p_temperature NUMERIC(3,1) DEFAULT NULL,
-    p_blood_pressure VARCHAR(20) DEFAULT NULL,
-    p_symptoms TEXT DEFAULT NULL
+    p_appointment_date TIMESTAMPTZ DEFAULT NULL
 )
 RETURNS BIGINT
 LANGUAGE plpgsql
@@ -386,19 +368,16 @@ BEGIN
     END IF;
 
     -- 4. Create Service record
-    -- Note: invoice_id is nullable ?
     INSERT INTO services (type_of_service, unit_price, discount_amount)
     VALUES ('Khám bệnh'::service_type, v_price, 0)
     RETURNING id INTO v_service_id;
 
     -- 5. Create MedicalExamination record
     INSERT INTO medical_examinations (
-        service_id, pet_id, doctor_id, diagnosis, conclusion, appointment_date, 
-        weight, temperature, blood_pressure, symptoms
+        service_id, pet_id, doctor_id, diagnosis, conclusion, appointment_date
     )
     VALUES (
-        v_service_id, p_pet_id, p_doctor_id, p_diagnosis, p_conclusion, p_appointment_date,
-        p_weight, p_temperature, p_blood_pressure, p_symptoms
+        v_service_id, p_pet_id, p_doctor_id, p_diagnosis, p_conclusion, p_appointment_date
     );
 
     RETURN v_service_id;

@@ -28,5 +28,5 @@ export const GET_TODAY_APPOINTMENTS = `
 `;
 
 export const CREATE_EXAM_RECORD = `
-  SELECT fn_create_exam_record($1, $2, $3, $4, $5, $6, $7, $8, $9) as service_id
+  SELECT fn_create_exam_record($1, $2, $3, $4, $5) as service_id
 `;

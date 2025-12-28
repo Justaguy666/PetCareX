@@ -17,17 +17,13 @@ class DoctorRepo {
         return rows;
     };
 
-    createExamRecord = async ({ pet_id, doctor_id, diagnosis, conclusion, appointment_date, weight, temperature, blood_pressure, symptoms }) => {
+    createExamRecord = async ({ pet_id, doctor_id, diagnosis, conclusion, appointment_date }) => {
         const values = [
             pet_id, 
             doctor_id, 
             diagnosis, 
             conclusion, 
-            appointment_date || null,
-            weight || null,
-            temperature || null,
-            blood_pressure || null,
-            symptoms || null
+            appointment_date || null
         ];
         const { rows } = await db.query(Q.CREATE_EXAM_RECORD, values);
         return rows[0];
