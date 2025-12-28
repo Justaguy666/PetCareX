@@ -9,7 +9,7 @@ export default function Register() {
   const navigate = useNavigate();
   const { signup } = useAuth();
   const [formData, setFormData] = useState({
-    fullName: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -30,8 +30,8 @@ export default function Register() {
     setError("");
 
     // Validation
-    if (!formData.fullName.trim()) {
-      setError("Full name is required");
+    if (!formData.username.trim()) {
+      setError("Username is required");
       return;
     }
 
@@ -54,7 +54,7 @@ export default function Register() {
 
     try {
       // Register as customer
-      await signup(formData.email, formData.password, formData.fullName, "customer");
+      await signup(formData.email, formData.password, formData.username, "customer");
       navigate("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed");
@@ -91,15 +91,15 @@ export default function Register() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
-              Full Name
+              Username
             </label>
             <input
               type="text"
-              name="fullName"
-              value={formData.fullName}
+              name="username"
+              value={formData.username}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="John Doe"
+              placeholder="johndoe123"
               required
             />
           </div>

@@ -96,7 +96,11 @@ class AuthService {
 
     me = async (account) => {
         const accountId = account.id;
-        const result = await authRepo.findUserById(accountId);
+        // Try to find user first, if not found try employee
+        let result = await authRepo.findUserById(accountId);
+        if (!result) {
+            result = await authRepo.findEmployeeById(accountId);
+        }
         return result;
     }
 }

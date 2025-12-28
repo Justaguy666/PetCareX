@@ -1,40 +1,400 @@
 [
   {
-    "branch_name": "Gleichner, Borer and Heathcote",
-    "address": "672 Woodside Road",
-    "phone_number": "0854777704",
+    "branch_name": "Blanda Inc",
+    "address": "938 Winnifred Station",
+    "phone_number": "0351406743",
     "opening_at": "1970-01-01T08:00:00.000Z",
     "closing_at": "1970-01-01T22:00:00.000Z",
     "manager_id": null
   },
   {
-    "branch_name": "Streich Inc",
-    "address": "31442 E 1st Street",
-    "phone_number": "0874074512",
+    "branch_name": "Hoeger - Gleason",
+    "address": "7775 Cyrus View",
+    "phone_number": "0771097525",
     "opening_at": "1970-01-01T08:00:00.000Z",
     "closing_at": "1970-01-01T22:00:00.000Z",
     "manager_id": null
   },
   {
-    "branch_name": "Cartwright - Brown",
-    "address": "9253 Bernardo Fords",
-    "phone_number": "0446726781",
+    "branch_name": "Jacobson Inc",
+    "address": "39254 Nitzsche Land",
+    "phone_number": "0552535236",
     "opening_at": "1970-01-01T08:00:00.000Z",
     "closing_at": "1970-01-01T22:00:00.000Z",
     "manager_id": null
   },
   {
-    "branch_name": "Wehner - Osinski",
-    "address": "403 Berge Route",
-    "phone_number": "0157306051",
+    "branch_name": "Ullrich and Sons",
+    "address": "60580 Victoria Road",
+    "phone_number": "0452597180",
     "opening_at": "1970-01-01T08:00:00.000Z",
     "closing_at": "1970-01-01T22:00:00.000Z",
     "manager_id": null
   },
   {
-    "branch_name": "Wisoky Group",
-    "address": "9111 State Street",
-    "phone_number": "0315114422",
+    "branch_name": "Hilpert - Ryan",
+    "address": "7414 Vicarage Close",
+    "phone_number": "0508870178",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Waelchi Inc",
+    "address": "3758 Hyatt Summit",
+    "phone_number": "0661713827",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Senger Group",
+    "address": "619 Ali Turnpike",
+    "phone_number": "0024790633",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Bashirian Inc",
+    "address": "313 O'Hara Harbor",
+    "phone_number": "0776540329",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Hackett and Sons",
+    "address": "3097 O'Conner Underpass",
+    "phone_number": "0558255513",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Kuphal Group",
+    "address": "970 5th Avenue",
+    "phone_number": "0765436468",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Windler LLC",
+    "address": "489 Mount Street",
+    "phone_number": "0756316488",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Bayer - Rath",
+    "address": "8511 W Pine Street",
+    "phone_number": "0233666878",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Franey - Veum",
+    "address": "24442 King's Road",
+    "phone_number": "0405825716",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Rutherford Inc",
+    "address": "135 Riverside Drive",
+    "phone_number": "0542195306",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Tromp - Metz",
+    "address": "4958 Chester Road",
+    "phone_number": "0612300143",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Denesik, Ullrich and Kub",
+    "address": "725 Turcotte Centers",
+    "phone_number": "0481576477",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Leuschke, Mertz and Kilback",
+    "address": "3006 Sycamore Street",
+    "phone_number": "0460603618",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Hane - Will",
+    "address": "986 Meadow Drive",
+    "phone_number": "0069678758",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Grant - Padberg",
+    "address": "36262 Buckingham Road",
+    "phone_number": "0449027814",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Hayes - Raynor",
+    "address": "49057 Block Expressway",
+    "phone_number": "0439769694",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Pfannerstill - Wiza",
+    "address": "6132 Chyna Hill",
+    "phone_number": "0603083168",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Spinka LLC",
+    "address": "9543 N Chestnut Street",
+    "phone_number": "0628552555",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Harber, O'Hara and Lehner",
+    "address": "7290 Sycamore Street",
+    "phone_number": "0671283699",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Wiza and Sons",
+    "address": "44515 Bramley Close",
+    "phone_number": "0086204795",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Hansen Inc",
+    "address": "2639 Armani Neck",
+    "phone_number": "0878714436",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Williamson and Sons",
+    "address": "69820 Reyes Forge",
+    "phone_number": "0214936363",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Mann LLC",
+    "address": "7803 Douglas Spur",
+    "phone_number": "0197570269",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Harber, Heller and Bogisich",
+    "address": "858 Kiarra Views",
+    "phone_number": "0160249619",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Parisian Group",
+    "address": "276 Marcel Landing",
+    "phone_number": "0278824309",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Hodkiewicz Inc",
+    "address": "139 Kunde Street",
+    "phone_number": "0737884598",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Ryan LLC",
+    "address": "25907 Denesik Crescent",
+    "phone_number": "0714597426",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Romaguera Inc",
+    "address": "5237 Pascale Track",
+    "phone_number": "0048647739",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Feil - Kessler",
+    "address": "601 Aileen Creek",
+    "phone_number": "0473705306",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Miller - Walker",
+    "address": "9529 Trantow Via",
+    "phone_number": "0085280450",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Morissette, Fadel and Schimmel",
+    "address": "4254 Layla Passage",
+    "phone_number": "0481690338",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Champlin, Bradtke and Keebler",
+    "address": "7798 Jaylon Manor",
+    "phone_number": "0206030474",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Lang Group",
+    "address": "348 S Front Street",
+    "phone_number": "0408511176",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Fisher - Spencer",
+    "address": "28083 Lavinia Hollow",
+    "phone_number": "0468127844",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Beier LLC",
+    "address": "101 Dickinson Prairie",
+    "phone_number": "0347988359",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Little - Stark",
+    "address": "528 Nolan Field",
+    "phone_number": "0279099506",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Dietrich - Schiller",
+    "address": "675 Bret Cliffs",
+    "phone_number": "0803897320",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Labadie Group",
+    "address": "711 Wiegand Light",
+    "phone_number": "0470730387",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Kirlin - Upton",
+    "address": "5835 Gerhold Glen",
+    "phone_number": "0056469092",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Zieme, Parker and Schmitt",
+    "address": "51474 Shea Land",
+    "phone_number": "0873466972",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Jacobi Group",
+    "address": "586 Christiansen Forge",
+    "phone_number": "0153055111",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Schoen - Hessel",
+    "address": "70737 Willow Road",
+    "phone_number": "0129042786",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Wolff, Fadel and Bergstrom",
+    "address": "53471 Scarlett Creek",
+    "phone_number": "0307059175",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Windler - Daugherty",
+    "address": "81234 Leonardo Mews",
+    "phone_number": "0124602373",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Kassulke Inc",
+    "address": "9530 Marta Garden",
+    "phone_number": "0856235382",
+    "opening_at": "1970-01-01T08:00:00.000Z",
+    "closing_at": "1970-01-01T22:00:00.000Z",
+    "manager_id": null
+  },
+  {
+    "branch_name": "Hahn LLC",
+    "address": "34377 Fay Neck",
+    "phone_number": "0331252095",
     "opening_at": "1970-01-01T08:00:00.000Z",
     "closing_at": "1970-01-01T22:00:00.000Z",
     "manager_id": null

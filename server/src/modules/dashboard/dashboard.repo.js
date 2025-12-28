@@ -89,11 +89,12 @@ class DashboardRepo {
     getVetStats = async (employee_id) => {
         const today = new Date().toISOString().split('T')[0];
 
-        const [todayAppts, assignedPets, recentActivity] = await Promise.all([
+        const [todayAppts, assignedPets, pendingAppts, recentActivity] = await Promise.all([
             db.query("SELECT COUNT(*) FROM appointments WHERE doctor_id = $1 AND appointment_time::date = $2", [employee_id, today]),
             db.query("SELECT COUNT(DISTINCT pet_id) FROM appointments WHERE doctor_id = $1", [employee_id]),
+            db.query("SELECT COUNT(*) FROM appointments WHERE doctor_id = $1 AND status = 'Đang chờ xác nhận'", [employee_id]),
             db.query(`
-        SELECT 'appointment' as type, a.status, p.pet_name, a.appointment_time as time, a.service_type
+        SELECT a.id, 'appointment' as type, a.status, p.pet_name, a.appointment_time as time, a.service_type
         FROM appointments a
         JOIN pets p ON p.id = a.pet_id
         WHERE a.doctor_id = $1
@@ -105,7 +106,7 @@ class DashboardRepo {
         return {
             stats: {
                 todaysAppointments: parseInt(todayAppts.rows[0].count),
-                pendingRecords: 0, // Placeholder as we don't have a record status yet
+                pendingRecords: parseInt(pendingAppts.rows[0].count),
                 assignedPets: parseInt(assignedPets.rows[0].count),
                 unreadNotifications: 0
             },

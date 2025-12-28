@@ -14,13 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
 import { Syringe, Calendar, User, PawPrint, DollarSign, FileText, Package, ChevronDown, ChevronUp, AlertTriangle, PackageX } from "lucide-react";
 import type { Pet, Vaccine, VaccinePackage, ServiceType, ServiceInstance, User as UserType } from "@shared/types";
-import {
-    getVaccineStock,
-    validateVaccineStock,
-    deductVaccineStock,
-    getStockStatus,
-    getStockBadgeClass
-} from "@/lib/inventoryUtils";
+import { apiGet, apiPost } from "@/api/api";
 
 export default function PackageInjections() {
     const { user } = useAuth();
@@ -41,7 +35,7 @@ export default function PackageInjections() {
     const [notes, setNotes] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [showPackageDetails, setShowPackageDetails] = useState(false);
-    const [vaccineStockLevels, setVaccineStockLevels] = useState<Record<string, number>>({});
+    const [loading, setLoading] = useState(true);
 
     // Track which vaccines were administered and their dosages
     const [vaccineAdministration, setVaccineAdministration] = useState<{
@@ -53,55 +47,79 @@ export default function PackageInjections() {
         return <Navigate to="/login" />;
     }
 
-    // Load data from localStorage
+    // Load data from API
     useEffect(() => {
-        try {
-            const loadedPets = JSON.parse(localStorage.getItem("petcare_pets") || "[]");
-            const loadedCustomers = JSON.parse(localStorage.getItem("petcare_users") || "[]").filter(
-                (u: UserType) => u.role === "customer"
-            );
-            const loadedVaccines = JSON.parse(localStorage.getItem("petcare_vaccines") || "[]");
-            const loadedPackages = JSON.parse(localStorage.getItem("petcare_vaccine_packages") || "[]");
-            const loadedServiceTypes = JSON.parse(localStorage.getItem("petcare_service_types") || "[]");
-            const loadedInstances = JSON.parse(localStorage.getItem("petcare_service_instances") || "[]");
+        let mounted = true;
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const [petsRes, packagesRes, vaccinesRes] = await Promise.all([
+                    apiGet('/doctor/pets-by-type/Tiêm theo gói'),
+                    apiGet('/doctor/package-inventory'),
+                    apiGet('/doctor/vaccine-inventory')
+                ]);
 
-            setPets(loadedPets);
-            setCustomers(loadedCustomers);
-            setVaccines(loadedVaccines);
-            setVaccinePackages(loadedPackages);
-            setServiceTypes(loadedServiceTypes);
-            setServiceInstances(loadedInstances);
+                if (!mounted) return;
 
-            // Load vaccine stock levels
-            const branchId = user.branchId || "branch-1";
-            const stockLevels: Record<string, number> = {};
-            loadedVaccines.forEach((vaccine: Vaccine) => {
-                stockLevels[vaccine.id] = getVaccineStock(branchId, vaccine.id);
-            });
-            setVaccineStockLevels(stockLevels);
+                const loadedPets = (petsRes?.data ?? []).map((p: any) => ({
+                    id: String(p.id),
+                    name: p.name || p.pet_name,
+                    type: p.species || p.type,
+                    breed: p.breed,
+                    customerId: p.owner_id ? String(p.owner_id) : '',
+                    ownerName: p.ownerName || '',
+                    ownerPhone: p.ownerPhone || ''
+                }));
 
-            // Check if data is empty and show warning
-            if (loadedPackages.length === 0) {
-                toast({
-                    title: "No Vaccine Packages Available",
-                    description: "Please ask admin to add vaccine packages first.",
-                    variant: "destructive",
-                });
+                const loadedPackages = (packagesRes?.data ?? []).map((pkg: any) => ({
+                    id: String(pkg.id),
+                    name: pkg.name || pkg.package_name,
+                    price: Number(pkg.price) || 0,
+                    description: pkg.description || '',
+                    stock: Number(pkg.stock) || 0,
+                    vaccines: pkg.vaccines || []
+                }));
+
+                const loadedVaccines = (vaccinesRes?.data ?? []).map((v: any) => ({
+                    id: String(v.id),
+                    name: v.name || v.vaccine_name,
+                    price: Number(v.price) || 0,
+                    description: v.description || '',
+                    stock: Number(v.stock) || 0
+                }));
+
+                setPets(loadedPets);
+                setVaccinePackages(loadedPackages);
+                setVaccines(loadedVaccines);
+
+                if (loadedPackages.length === 0) {
+                    toast({
+                        title: "No Vaccine Packages Available",
+                        description: "Please ask admin to add vaccine packages first.",
+                        variant: "destructive",
+                    });
+                }
+
+                // Pre-select pet from query parameter
+                const petIdFromQuery = searchParams.get("petId");
+                if (petIdFromQuery && loadedPets.some((p: any) => p.id === petIdFromQuery)) {
+                    setSelectedPetId(petIdFromQuery);
+                }
+            } catch (error) {
+                console.error("Error loading data:", error);
+                if (mounted) {
+                    toast({
+                        title: "Error",
+                        description: "Failed to load data. Please refresh the page.",
+                        variant: "destructive",
+                    });
+                }
+            } finally {
+                if (mounted) setLoading(false);
             }
-
-            // Pre-select pet from query parameter
-            const petIdFromQuery = searchParams.get("petId");
-            if (petIdFromQuery && loadedPets.some((p: Pet) => p.id === petIdFromQuery)) {
-                setSelectedPetId(petIdFromQuery);
-            }
-        } catch (error) {
-            console.error("Error loading data:", error);
-            toast({
-                title: "Error",
-                description: "Failed to load data. Please refresh the page.",
-                variant: "destructive",
-            });
-        }
+        };
+        fetchData();
+        return () => { mounted = false; };
     }, [searchParams, toast]);
 
     // Reset vaccine administration when package changes
@@ -159,7 +177,7 @@ export default function PackageInjections() {
     };
 
     // Handle save injection
-    const handleSaveInjection = () => {
+    const handleSaveInjection = async () => {
         // Validation
         if (!selectedPetId) {
             toast({ title: "Error", description: "Please select a pet", variant: "destructive" });
@@ -169,120 +187,41 @@ export default function PackageInjections() {
             toast({ title: "Error", description: "Please select a vaccine package", variant: "destructive" });
             return;
         }
-        if (!packageServiceType) {
-            toast({ title: "Error", description: "Service type not found", variant: "destructive" });
+
+        // Check package stock
+        const pkg = vaccinePackages.find(p => p.id === selectedPackageId) as any;
+        if (pkg && pkg.stock <= 0) {
+            toast({
+                title: "Insufficient Package Stock",
+                description: "This package is out of stock.",
+                variant: "destructive",
+            });
             return;
-        }
-
-        // Check if at least one vaccine is administered
-        const administeredVaccines = Object.entries(vaccineAdministration).filter(
-            ([_, data]) => data.administered
-        );
-        if (administeredVaccines.length === 0) {
-            toast({ title: "Error", description: "Please select at least one vaccine to administer", variant: "destructive" });
-            return;
-        }
-
-        // Validate dosages for administered vaccines
-        for (const [vaccineId, data] of administeredVaccines) {
-            if (!data.dosage || Number(data.dosage) <= 0) {
-                const vaccine = getVaccineDetails(vaccineId);
-                toast({
-                    title: "Error",
-                    description: `Please enter a valid dosage for ${vaccine?.name}`,
-                    variant: "destructive",
-                });
-                return;
-            }
-        }
-
-        // Validate vaccine stock for all administered vaccines
-        const branchId = user.branchId || "branch-1";
-        for (const [vaccineId, data] of administeredVaccines) {
-            const validation = validateVaccineStock(branchId, vaccineId, 1);
-            if (!validation.valid) {
-                const vaccine = getVaccineDetails(vaccineId);
-                toast({
-                    title: "Insufficient Vaccine Stock",
-                    description: `Cannot administer ${vaccine?.name}: ${validation.message}`,
-                    variant: "destructive",
-                });
-                return;
-            }
         }
 
         setIsLoading(true);
 
         try {
-            const vaccinesUsed = administeredVaccines.map(([vaccineId, data]) => {
-                const vaccine = getVaccineDetails(vaccineId);
-                return {
-                    vaccineId,
-                    vaccineName: vaccine?.name || "Unknown",
-                    dosage: Number(data.dosage),
-                    administered: true,
-                    monthMark: selectedPackage?.monthMark,
-                };
+            await apiPost('/doctor/package-injection', {
+                pet_id: Number(selectedPetId),
+                package_id: Number(selectedPackageId),
+                cycle_stage: Number(cycleStage),
+                notes: notes.trim() || null
             });
-
-            const newInstance: ServiceInstance = {
-                id: `si-${Date.now()}`,
-                serviceType: "vaccine-package",
-                veterinarianId: user.id,
-                veterinarianName: user.fullName,
-                petId: selectedPetId,
-                petName: selectedPet!.name,
-                customerId: selectedPet!.customerId,
-                customerName: petOwner?.fullName || "Unknown",
-                branchId: user.branchId || "default-branch",
-                basePrice: packageServiceType.basePrice,
-                packageCost: selectedPackage!.price,
-                packageId: selectedPackageId,
-                vaccinesUsed,
-                datePerformed: new Date().toISOString(),
-                notes: notes.trim() || undefined,
-                createdAt: new Date().toISOString(),
-            };
-
-            const updatedInstances = [...serviceInstances, newInstance];
-            localStorage.setItem("petcare_service_instances", JSON.stringify(updatedInstances));
-            setServiceInstances(updatedInstances);
-
-            // Deduct vaccine stock for all administered vaccines
-            const failedDeductions: string[] = [];
-            for (const [vaccineId, _] of administeredVaccines) {
-                const stockDeducted = deductVaccineStock(branchId, vaccineId, 1);
-                if (!stockDeducted) {
-                    const vaccine = getVaccineDetails(vaccineId);
-                    failedDeductions.push(vaccine?.name || vaccineId);
-                }
-            }
-
-            // Update stock levels
-            const updatedStockLevels = { ...vaccineStockLevels };
-            vaccines.forEach((vaccine: Vaccine) => {
-                updatedStockLevels[vaccine.id] = getVaccineStock(branchId, vaccine.id);
-            });
-            setVaccineStockLevels(updatedStockLevels);
-
-            if (failedDeductions.length > 0) {
-                console.warn(`Failed to deduct stock for: ${failedDeductions.join(", ")}`);
-            }
 
             // Reset form
             setSelectedPackageId("");
             setCycleStage("1");
             setNotes("");
-            setVaccineAdministration({});
 
             toast({
                 title: "Success",
                 description: "Package injection saved successfully",
             });
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 title: "Error",
-                description: "Failed to save package injection",
+                description: error?.message || "Failed to save package injection",
                 variant: "destructive",
             });
         } finally {
@@ -351,12 +290,8 @@ export default function PackageInjections() {
                                             <Badge variant="outline">{selectedPet.type}</Badge>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="font-medium">Age:</span>
-                                            <span>{selectedPet.age} years ({selectedPet.age * 12} months)</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <span className="font-medium">Weight:</span>
-                                            <span>{selectedPet.weight} kg</span>
+                                            <span className="font-medium">Breed:</span>
+                                            <span>{selectedPet.breed || 'N/A'}</span>
                                         </div>
                                     </div>
                                 )}
@@ -410,106 +345,6 @@ export default function PackageInjections() {
                                                 <span className="font-medium">Description:</span>
                                                 <span className="text-sm">{selectedPackage.description || "N/A"}</span>
                                             </div>
-                                        </div>
-
-                                        {/* Expandable Vaccine List */}
-                                        <div className="border rounded-lg">
-                                            <button
-                                                onClick={() => setShowPackageDetails(!showPackageDetails)}
-                                                className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-900"
-                                            >
-                                                <span className="font-medium">Vaccines in Package ({selectedPackage.vaccines.length})</span>
-                                                {showPackageDetails ? (
-                                                    <ChevronUp className="w-4 h-4" />
-                                                ) : (
-                                                    <ChevronDown className="w-4 h-4" />
-                                                )}
-                                            </button>
-
-                                            {showPackageDetails && (
-                                                <div className="border-t p-4 space-y-4">
-                                                    {selectedPackage.vaccines.map((packageVaccine) => {
-                                                        const vaccine = getVaccineDetails(packageVaccine.vaccineId);
-                                                        if (!vaccine) return null;
-
-                                                        const admin = vaccineAdministration[packageVaccine.vaccineId] || {
-                                                            administered: false,
-                                                            dosage: packageVaccine.dosage.toString(),
-                                                        };
-
-                                                        const stock = vaccineStockLevels[packageVaccine.vaccineId] || 0;
-                                                        const stockStatus = getStockStatus(stock);
-                                                        const badgeClass = getStockBadgeClass(stockStatus);
-                                                        const isOutOfStock = stock === 0;
-
-                                                        return (
-                                                            <div
-                                                                key={packageVaccine.vaccineId}
-                                                                className={`p-3 border rounded-lg space-y-3 ${isOutOfStock ? 'bg-red-50 dark:bg-red-950 border-red-300' : ''}`}
-                                                            >
-                                                                <div className="flex items-start gap-3">
-                                                                    <Checkbox
-                                                                        checked={admin.administered}
-                                                                        disabled={isOutOfStock}
-                                                                        onCheckedChange={(checked) =>
-                                                                            handleAdministeredChange(
-                                                                                packageVaccine.vaccineId,
-                                                                                checked as boolean
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                    <div className="flex-1">
-                                                                        <div className="flex items-center gap-2">
-                                                                            <span className="font-medium">{vaccine.name}</span>
-                                                                            {isOutOfStock && (
-                                                                                <PackageX className="w-4 h-4 text-red-600" />
-                                                                            )}
-                                                                        </div>
-                                                                        <div className="text-sm text-muted-foreground">
-                                                                            Manufacturer: {vaccine.manufacturer || "N/A"}
-                                                                        </div>
-                                                                        <div className="text-sm text-muted-foreground">
-                                                                            Recommended: {packageVaccine.dosage} dose(s)
-                                                                        </div>
-                                                                        <div className="flex items-center gap-2 mt-1">
-                                                                            <span className="text-sm text-muted-foreground">Stock:</span>
-                                                                            <span className="text-sm font-semibold">{stock} doses</span>
-                                                                            <Badge variant="outline" className={`${badgeClass} text-xs`}>
-                                                                                {stockStatus === "out" && "Out"}
-                                                                                {stockStatus === "critical" && "Critical"}
-                                                                                {stockStatus === "low" && "Low"}
-                                                                                {stockStatus === "normal" && "Available"}
-                                                                            </Badge>
-                                                                        </div>
-                                                                        {isOutOfStock && (
-                                                                            <p className="text-xs text-red-600 mt-1">
-                                                                                Cannot administer - no doses available
-                                                                            </p>
-                                                                        )}
-                                                                    </div>
-                                                                </div>
-
-                                                                {admin.administered && (
-                                                                    <div>
-                                                                        <Label className="text-xs">Dosage (ml) *</Label>
-                                                                        <Input
-                                                                            type="number"
-                                                                            step="0.1"
-                                                                            min="0"
-                                                                            value={admin.dosage}
-                                                                            onChange={(e) =>
-                                                                                handleDosageChange(packageVaccine.vaccineId, e.target.value)
-                                                                            }
-                                                                            placeholder="Enter dosage"
-                                                                            className="mt-1"
-                                                                        />
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                        );
-                                                    })}
-                                                </div>
-                                            )}
                                         </div>
 
                                         <div>

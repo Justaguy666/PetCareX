@@ -7,9 +7,9 @@ interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (identifier: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
-  signup: (email: string, password: string, fullName: string, role: UserRole) => Promise<void>;
+  signup: (email: string, password: string, username: string, role: UserRole) => Promise<void>;
   refreshUser: () => Promise<void>;
 }
 
@@ -57,9 +57,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     loadUser();
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (identifier: string, password: string) => {
+    // Determine if identifier is email or username
+    const isEmail = identifier.includes('@');
+    const payload = isEmail 
+      ? { email: identifier, password } 
+      : { username: identifier, password };
+    
     // Call backend login API - cookies will be set automatically
-    await apiPost("/auth/login", { email, password });
+    await apiPost("/auth/login", payload);
 
     // After login, fetch user data from /auth/me
     const response = await apiGet("/auth/me");
@@ -91,13 +97,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const signup = async (email: string, password: string, fullName: string, role: UserRole) => {
+  const signup = async (email: string, password: string, username: string, role: UserRole) => {
     // Call backend register API
-    // Backend expects: { email, username, password }
-    // We'll use fullName as username for now
     await apiPost("/auth/register", {
       email,
-      username: fullName, // Use fullName as username
+      username,
       password
     });
 
@@ -166,7 +170,11 @@ function mapBackendUserToFrontend(backendUser: any): User {
     gender: backendUser.gender || null,
     dateOfBirth: backendUser.date_of_birth || null,
     createdAt: backendUser.created_at || new Date().toISOString(),
-  };
+    // Employee-specific fields
+    branchId: backendUser.branch_id || null,
+    branchName: backendUser.branch_name || null,
+    baseSalary: backendUser.base_salary || null,
+  } as any;
 }
 
 export const useAuth = () => {

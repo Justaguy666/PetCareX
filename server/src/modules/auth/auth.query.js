@@ -77,11 +77,17 @@ export const FIND_EMPLOYEE_BY_ACCOUNT_ID = `
   SELECT 
     e.id, 
     e.full_name, 
-    e.role,
     e.gender, 
     e.date_of_birth,
-    a.account_type as role
+    e.base_salary,
+    a.account_type as role,
+    b.id as branch_id,
+    b.branch_name
   FROM accounts a
-  JOIN employees e on e.id = a.employee_id 
+  JOIN employees e ON e.id = a.employee_id 
+  LEFT JOIN mobilizations m ON m.employee_id = e.id 
+    AND m.start_date <= CURRENT_DATE 
+    AND (m.end_date IS NULL OR m.end_date >= CURRENT_DATE)
+  LEFT JOIN branches b ON b.id = m.branch_id
   WHERE a.id = $1
 `;

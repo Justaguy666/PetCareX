@@ -246,57 +246,28 @@ export default function StaffPage() {
                         setFormData({ ...formData, licenseNumber: e.target.value })
                       }
                     />
-                            )}
-                          </div>
-                          <div className="flex gap-6 mt-3 text-sm text-muted-foreground">
-                            {member.email && (
-                              <div className="flex items-center gap-2">
-                                <Mail className="w-4 h-4" />
-                                {member.email}
-                              </div>
-                            )}
-                            {member.phone && (
-                              <div className="flex items-center gap-2">
-                                <Phone className="w-4 h-4" />
-                                {member.phone}
-                              </div>
-                            )}
-                          </div>
-                          {member.role === "veterinarian" && member.specialization && (
-                            <div className="mt-2 p-2 bg-blue-50 rounded text-sm text-blue-700">
-                              Specialization: {member.specialization}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => handleEditStaff(member)}
-                      >
-                        <Edit className="w-4 h-4" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="text-destructive hover:text-destructive"
-                        onClick={() => {
-                          if (confirm(`Delete ${member.fullName}?`)) {
-                            deleteUser(member.id);
-                          }
-                        }}
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
                   </div>
-                </Card>
-              );
-            })
-          )}
-        </div>
+                )}
+                <div className="flex gap-4 justify-end mt-6">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      setShowForm(false);
+                      setEditingId(null);
+                      setFormData(EMPTY_FORM_DATA);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button type="submit">
+                    {editingId ? "Update" : "Create"}
+                  </Button>
+                </div>
+              </form>
+            </Card>
+          </div>
+        )}
       </div>
     </AdminLayout>
   );

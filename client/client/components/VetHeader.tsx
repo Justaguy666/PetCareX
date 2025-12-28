@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
-import { Menu, X, LayoutDashboard, Calendar, FileText, PawPrint, Bell, User, LogOut, Syringe, ChevronDown } from "lucide-react";
+import { Menu, X, LayoutDashboard, Calendar, FileText, User, LogOut, Syringe, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import {
     DropdownMenu,
@@ -27,8 +27,6 @@ export default function VetHeader() {
         { label: "Dashboard", path: "/vet", icon: LayoutDashboard },
         { label: "Today's Appointments", path: "/vet/appointments-today", icon: Calendar },
         { label: "Medical Records", path: "/vet/medical-records", icon: FileText },
-        { label: "Assigned Pets", path: "/vet/assigned-pets", icon: PawPrint },
-        { label: "Notifications", path: "/vet/notifications", icon: Bell },
         { label: "My Profile", path: "/vet/profile", icon: User },
     ];
 
@@ -51,7 +49,7 @@ export default function VetHeader() {
                     </Link>
 
                     <nav className="hidden lg:flex items-center gap-2">
-                        {navItems.slice(0, 4).map((item) => {
+                        {navItems.slice(0, 3).map((item) => {
                             const Icon = item.icon;
                             return (
                                 <Link key={item.path} to={item.path}>
@@ -83,7 +81,7 @@ export default function VetHeader() {
                             </DropdownMenuContent>
                         </DropdownMenu>
 
-                        {navItems.slice(4).map((item) => {
+                        {navItems.slice(3).map((item) => {
                             const Icon = item.icon;
                             return (
                                 <Link key={item.path} to={item.path}>

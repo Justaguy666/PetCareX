@@ -425,43 +425,41 @@ export default function Appointments() {
                   <TabsContent value="single">
                     <form className="space-y-10" onSubmit={async (e) => {
                       e.preventDefault();
-                      await handleBooking(singleDoseForm, 'Tiêm mũi lẻ');
-                      setSingleDoseForm({ petId: "", branchId: "", vaccineId: "", doctorId: "", date: "", time: "", reason: "" });
+                      const ok = await handleBooking(singleDoseForm, 'Tiêm mũi lẻ');
+                      if (ok) setSingleDoseForm({ petId: "", branchId: "", vaccineId: "", doctorId: "", date: "", time: "", reason: "" });
                     }}>
                       <div className="grid md:grid-cols-2 gap-8">
                         <FormGroup label="Companion *">
                           <Select value={singleDoseForm.petId} onValueChange={v => setSingleDoseForm(f => ({ ...f, petId: v }))}>
-                            <SelectTrigger className="h-12 rounded-xl bg-slate-50"><SelectValue placeholder="Select pet" /></SelectTrigger>
-                            <SelectContent>{pets.map(p => <SelectItem key={p.id} value={String(p.id)}>{p.name}</SelectItem>)}</SelectContent>
+                            <SelectTrigger className="h-12 rounded-xl bg-slate-50 border-slate-100 focus:ring-2 focus:ring-indigo-600 focus:bg-white transition-all"><SelectValue placeholder="Select pet" /></SelectTrigger>
+                            <SelectContent className="rounded-xl drop-shadow-2xl">{pets.map(p => <SelectItem key={p.id} value={String(p.id)}>{p.name}</SelectItem>)}</SelectContent>
                           </Select>
                         </FormGroup>
-                        <FormGroup label="Clinic Branch *">
+                        <FormGroup label="Branch Location *">
                           <Select value={singleDoseForm.branchId} onValueChange={v => { setSingleDoseForm(f => ({ ...f, branchId: v, doctorId: "", time: "", date: "" })); fetchDoctorsByBranch(v); }}>
-                            <SelectTrigger className="h-12 rounded-xl bg-slate-50"><SelectValue placeholder="Choose branch" /></SelectTrigger>
-                            <SelectContent>{branches.map(b => <SelectItem key={b.id} value={String(b.id)}>{b.branch_name}</SelectItem>)}</SelectContent>
+                            <SelectTrigger className="h-12 rounded-xl bg-slate-50 border-slate-100 focus:ring-2 focus:ring-indigo-600 focus:bg-white transition-all"><SelectValue placeholder="Choose a clinic" /></SelectTrigger>
+                            <SelectContent className="rounded-xl drop-shadow-2xl">{branches.map(b => <SelectItem key={b.id} value={String(b.id)}>{b.branch_name}</SelectItem>)}</SelectContent>
                           </Select>
                         </FormGroup>
-                        <FormGroup label="Vaccine Type *">
-                          <Select value={singleDoseForm.vaccineId} onValueChange={v => setSingleDoseForm(f => ({ ...f, vaccineId: v }))} disabled={!singleDoseForm.branchId}>
-                            <SelectTrigger className="h-12 rounded-xl bg-slate-50"><SelectValue placeholder={singleDoseForm.branchId ? "Select Vaccine" : "Select branch first"} /></SelectTrigger>
-                            <SelectContent>{vaccines.map(v => <SelectItem key={v.id} value={String(v.id)}>{v.name}</SelectItem>)}</SelectContent>
-                          </Select>
-                        </FormGroup>
-                        <FormGroup label="Clinician *">
-                          <Select value={singleDoseForm.doctorId} onValueChange={v => setSingleDoseForm(f => ({ ...f, doctorId: v }))} disabled={!singleDoseForm.branchId}>
-                            <SelectTrigger className="h-12 rounded-xl bg-slate-50"><SelectValue placeholder={singleDoseForm.branchId ? "Choose provider" : "Select branch first"} /></SelectTrigger>
-                            <SelectContent>{vets.map(v => <SelectItem key={v.id} value={String(v.id)}>{v.fullName}</SelectItem>)}</SelectContent>
-                          </Select>
-                        </FormGroup>
-                        <FormGroup label="Date *">
-                          <Input type="date" className="h-12 rounded-xl bg-slate-50" value={singleDoseForm.date} min={new Date().toISOString().split('T')[0]} onChange={e => setSingleDoseForm(f => ({ ...f, date: e.target.value }))} disabled={!singleDoseForm.branchId} />
+                      </div>
+                      <FormGroup label="Medical Expert *">
+                        <Select value={singleDoseForm.doctorId} onValueChange={v => setSingleDoseForm(f => ({ ...f, doctorId: v }))} disabled={!singleDoseForm.branchId}>
+                          <SelectTrigger className="h-12 rounded-xl bg-slate-50 border-slate-100 focus:ring-2 focus:ring-indigo-600 focus:bg-white transition-all"><SelectValue placeholder={singleDoseForm.branchId ? "Pick a veterinarian" : "Select branch first"} /></SelectTrigger>
+                          <SelectContent className="rounded-xl drop-shadow-2xl">{vets.map(v => <SelectItem key={v.id} value={String(v.id)}>{v.fullName}</SelectItem>)}</SelectContent>
+                        </Select>
+                      </FormGroup>
+                      <div className="grid md:grid-cols-2 gap-8">
+                        <FormGroup label="Preferred Date *">
+                          <Input type="date" className="h-12 rounded-xl bg-slate-50 border-slate-100 focus:ring-2 focus:ring-indigo-600 focus:bg-white transition-all" value={singleDoseForm.date} min={new Date().toISOString().split('T')[0]} onChange={e => setSingleDoseForm(f => ({ ...f, date: e.target.value }))} disabled={!singleDoseForm.branchId} />
                         </FormGroup>
                         <FormGroup label="Preferred Time *">
-                          <Input type="time" className="h-12 rounded-xl bg-slate-50" value={singleDoseForm.time} onChange={e => setSingleDoseForm(f => ({ ...f, time: e.target.value }))} disabled={!singleDoseForm.branchId} min={branches.find(b => String(b.id) === singleDoseForm.branchId)?.opening_at?.toString().slice(0,5) || "08:00"} max={branches.find(b => String(b.id) === singleDoseForm.branchId)?.closing_at?.toString().slice(0,5) || "22:00"} />
+                          <Input type="time" className="h-12 rounded-xl bg-slate-50 border-slate-100 focus:ring-2 focus:ring-indigo-600 focus:bg-white transition-all" value={singleDoseForm.time} onChange={e => setSingleDoseForm(f => ({ ...f, time: e.target.value }))} disabled={!singleDoseForm.branchId} min={branches.find(b => String(b.id) === singleDoseForm.branchId)?.opening_at?.toString().slice(0,5) || "08:00"} max={branches.find(b => String(b.id) === singleDoseForm.branchId)?.closing_at?.toString().slice(0,5) || "22:00"} />
                         </FormGroup>
                       </div>
 
-                      <Button type="submit" className="w-full h-16 rounded-2xl bg-indigo-600 hover:bg-slate-900 text-white font-black text-xl shadow-xl shadow-indigo-100 transition-all" disabled={isSubmitting}>Confirm Vaccination Slot</Button>
+                      <Button type="submit" className="w-full h-16 rounded-2xl bg-indigo-600 hover:bg-slate-900 text-white font-black text-xl shadow-xl shadow-indigo-100 transition-all" disabled={isSubmitting}>
+                        {isSubmitting ? "Finalizing Schedule..." : "Confirm Vaccination Appointment"}
+                      </Button>
                     </form>
                   </TabsContent>
 
@@ -469,49 +467,41 @@ export default function Appointments() {
                   <TabsContent value="package">
                     <form className="space-y-10" onSubmit={async (e) => {
                       e.preventDefault();
-                      await handleBooking(packageForm, 'Tiêm theo gói');
-                      setPackageForm({ petId: "", branchId: "", packageId: "", doctorId: "", date: "", time: "", reason: "" });
+                      const ok = await handleBooking(packageForm, 'Tiêm theo gói');
+                      if (ok) setPackageForm({ petId: "", branchId: "", packageId: "", doctorId: "", date: "", time: "", reason: "" });
                     }}>
                       <div className="grid md:grid-cols-2 gap-8">
                         <FormGroup label="Companion *">
                           <Select value={packageForm.petId} onValueChange={v => setPackageForm(f => ({ ...f, petId: v }))}>
-                            <SelectTrigger className="h-12 rounded-xl bg-slate-50"><SelectValue placeholder="Select pet" /></SelectTrigger>
-                            <SelectContent>{pets.map(p => <SelectItem key={p.id} value={String(p.id)}>{p.name}</SelectItem>)}</SelectContent>
+                            <SelectTrigger className="h-12 rounded-xl bg-slate-50 border-slate-100 focus:ring-2 focus:ring-indigo-600 focus:bg-white transition-all"><SelectValue placeholder="Select pet" /></SelectTrigger>
+                            <SelectContent className="rounded-xl drop-shadow-2xl">{pets.map(p => <SelectItem key={p.id} value={String(p.id)}>{p.name}</SelectItem>)}</SelectContent>
                           </Select>
                         </FormGroup>
-                        <FormGroup label="Clinic Branch *">
+                        <FormGroup label="Branch Location *">
                           <Select value={packageForm.branchId} onValueChange={v => { setPackageForm(f => ({ ...f, branchId: v, doctorId: "", time: "", date: "" })); fetchDoctorsByBranch(v); }}>
-                            <SelectTrigger className="h-12 rounded-xl bg-slate-50"><SelectValue placeholder="Choose branch" /></SelectTrigger>
-                            <SelectContent>{branches.map(b => <SelectItem key={b.id} value={String(b.id)}>{b.branch_name}</SelectItem>)}</SelectContent>
+                            <SelectTrigger className="h-12 rounded-xl bg-slate-50 border-slate-100 focus:ring-2 focus:ring-indigo-600 focus:bg-white transition-all"><SelectValue placeholder="Choose a clinic" /></SelectTrigger>
+                            <SelectContent className="rounded-xl drop-shadow-2xl">{branches.map(b => <SelectItem key={b.id} value={String(b.id)}>{b.branch_name}</SelectItem>)}</SelectContent>
                           </Select>
                         </FormGroup>
-                        <FormGroup label="Wellness Package *">
-                          <Select value={packageForm.packageId} onValueChange={v => { setPackageForm(f => ({ ...f, packageId: v })); setSelectedPackageDetails(packages.find(p => p.id === v) || null); }} disabled={!packageForm.branchId}>
-                            <SelectTrigger className="h-12 rounded-xl bg-slate-50"><SelectValue placeholder={packageForm.branchId ? "Choose Package" : "Select branch first"} /></SelectTrigger>
-                            <SelectContent>{packages.map(p => <SelectItem key={p.id} value={String(p.id)}>{p.name}</SelectItem>)}</SelectContent>
-                          </Select>
-                        </FormGroup>
-                        <FormGroup label="Lead Doctor *">
-                          <Select value={packageForm.doctorId} onValueChange={v => setPackageForm(f => ({ ...f, doctorId: v }))} disabled={!packageForm.branchId}>
-                            <SelectTrigger className="h-12 rounded-xl bg-slate-50"><SelectValue placeholder={packageForm.branchId ? "Choose provider" : "Select branch first"} /></SelectTrigger>
-                            <SelectContent>{vets.map(v => <SelectItem key={v.id} value={String(v.id)}>{v.fullName}</SelectItem>)}</SelectContent>
-                          </Select>
-                        </FormGroup>
-                        <FormGroup label="Start Date *">
-                          <Input type="date" className="h-12 rounded-xl bg-slate-50" value={packageForm.date} min={new Date().toISOString().split('T')[0]} onChange={e => setPackageForm(f => ({ ...f, date: e.target.value }))} disabled={!packageForm.branchId} />
+                      </div>
+                      <FormGroup label="Medical Expert *">
+                        <Select value={packageForm.doctorId} onValueChange={v => setPackageForm(f => ({ ...f, doctorId: v }))} disabled={!packageForm.branchId}>
+                          <SelectTrigger className="h-12 rounded-xl bg-slate-50 border-slate-100 focus:ring-2 focus:ring-indigo-600 focus:bg-white transition-all"><SelectValue placeholder={packageForm.branchId ? "Pick a veterinarian" : "Select branch first"} /></SelectTrigger>
+                          <SelectContent className="rounded-xl drop-shadow-2xl">{vets.map(v => <SelectItem key={v.id} value={String(v.id)}>{v.fullName}</SelectItem>)}</SelectContent>
+                        </Select>
+                      </FormGroup>
+                      <div className="grid md:grid-cols-2 gap-8">
+                        <FormGroup label="Preferred Date *">
+                          <Input type="date" className="h-12 rounded-xl bg-slate-50 border-slate-100 focus:ring-2 focus:ring-indigo-600 focus:bg-white transition-all" value={packageForm.date} min={new Date().toISOString().split('T')[0]} onChange={e => setPackageForm(f => ({ ...f, date: e.target.value }))} disabled={!packageForm.branchId} />
                         </FormGroup>
                         <FormGroup label="Preferred Time *">
-                          <Input type="time" className="h-12 rounded-xl bg-slate-50" value={packageForm.time} onChange={e => setPackageForm(f => ({ ...f, time: e.target.value }))} disabled={!packageForm.branchId} min={branches.find(b => String(b.id) === packageForm.branchId)?.opening_at?.toString().slice(0,5) || "08:00"} max={branches.find(b => String(b.id) === packageForm.branchId)?.closing_at?.toString().slice(0,5) || "22:00"} />
+                          <Input type="time" className="h-12 rounded-xl bg-slate-50 border-slate-100 focus:ring-2 focus:ring-indigo-600 focus:bg-white transition-all" value={packageForm.time} onChange={e => setPackageForm(f => ({ ...f, time: e.target.value }))} disabled={!packageForm.branchId} min={branches.find(b => String(b.id) === packageForm.branchId)?.opening_at?.toString().slice(0,5) || "08:00"} max={branches.find(b => String(b.id) === packageForm.branchId)?.closing_at?.toString().slice(0,5) || "22:00"} />
                         </FormGroup>
                       </div>
 
-                      {selectedPackageDetails && (
-                        <div className="p-6 bg-slate-50 rounded-2xl border-l-4 border-indigo-600">
-                          <h4 className="font-black text-slate-900 flex items-center gap-2"><Shield className="w-5 h-5 text-indigo-600" /> {selectedPackageDetails.name}</h4>
-                          <p className="text-slate-500 text-sm mt-2 leading-relaxed">{selectedPackageDetails.description}</p>
-                        </div>
-                      )}
-                      <Button type="submit" className="w-full h-16 rounded-2xl bg-indigo-600 hover:bg-slate-900 text-white font-black text-xl shadow-xl shadow-indigo-100 transition-all" disabled={isSubmitting}>Activate Package Plan</Button>
+                      <Button type="submit" className="w-full h-16 rounded-2xl bg-indigo-600 hover:bg-slate-900 text-white font-black text-xl shadow-xl shadow-indigo-100 transition-all" disabled={isSubmitting}>
+                        {isSubmitting ? "Finalizing Schedule..." : "Confirm Package Appointment"}
+                      </Button>
                     </form>
                   </TabsContent>
                 </Tabs>

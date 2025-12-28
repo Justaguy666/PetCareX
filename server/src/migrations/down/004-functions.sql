@@ -23,4 +23,8 @@ DROP FUNCTION IF EXISTS fn_statistics_products_revenue_all() CASCADE;
 -- Drop buy product function
 DROP FUNCTION IF EXISTS fn_buy_product(BIGINT, BIGINT, JSONB, payment_method) CASCADE;
 
+-- Drop exam record function (both versions)
+DROP FUNCTION IF EXISTS fn_create_exam_record(BIGINT, BIGINT, TEXT, TEXT, TIMESTAMPTZ) CASCADE;
+DROP FUNCTION IF EXISTS fn_create_exam_record(BIGINT, BIGINT, TEXT, TEXT) CASCADE;
+
 COMMIT;

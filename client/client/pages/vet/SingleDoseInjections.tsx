@@ -13,13 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
 import { Syringe, Calendar, User, PawPrint, DollarSign, FileText, AlertTriangle, PackageX } from "lucide-react";
 import type { Pet, Vaccine, ServiceType, ServiceInstance, User as UserType } from "@shared/types";
-import {
-    getVaccineStock,
-    validateVaccineStock,
-    deductVaccineStock,
-    getStockStatus,
-    getStockBadgeClass
-} from "@/lib/inventoryUtils";
+import { apiGet, apiPost } from "@/api/api";
 
 export default function SingleDoseInjections() {
     const { user } = useAuth();
@@ -38,60 +32,76 @@ export default function SingleDoseInjections() {
     const [dosage, setDosage] = useState("");
     const [notes, setNotes] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [vaccineStockLevels, setVaccineStockLevels] = useState<Record<string, number>>({});
+    const [loading, setLoading] = useState(true);
 
     // Redirect if not authenticated
     if (!user || user.role !== "veterinarian") {
         return <Navigate to="/login" />;
     }
 
-    // Load data from localStorage
+    // Load data from API
     useEffect(() => {
-        try {
-            const loadedPets = JSON.parse(localStorage.getItem("petcare_pets") || "[]");
-            const loadedCustomers = JSON.parse(localStorage.getItem("petcare_users") || "[]").filter(
-                (u: UserType) => u.role === "customer"
-            );
-            const loadedVaccines = JSON.parse(localStorage.getItem("petcare_vaccines") || "[]");
-            const loadedServiceTypes = JSON.parse(localStorage.getItem("petcare_service_types") || "[]");
-            const loadedInstances = JSON.parse(localStorage.getItem("petcare_service_instances") || "[]");
+        let mounted = true;
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const [petsRes, vaccinesRes] = await Promise.all([
+                    apiGet('/doctor/pets-by-type/Tiêm mũi lẻ'),
+                    apiGet('/doctor/vaccine-inventory')
+                ]);
 
-            setPets(loadedPets);
-            setCustomers(loadedCustomers);
-            setVaccines(loadedVaccines);
-            setServiceTypes(loadedServiceTypes);
-            setServiceInstances(loadedInstances);
+                if (!mounted) return;
 
-            // Load vaccine stock levels
-            const branchId = user.branchId || "branch-1";
-            const stockLevels: Record<string, number> = {};
-            loadedVaccines.forEach((vaccine: Vaccine) => {
-                stockLevels[vaccine.id] = getVaccineStock(branchId, vaccine.id);
-            });
-            setVaccineStockLevels(stockLevels);
+                const loadedPets = (petsRes?.data ?? []).map((p: any) => ({
+                    id: String(p.id),
+                    name: p.name || p.pet_name,
+                    type: p.species || p.type,
+                    breed: p.breed,
+                    dateOfBirth: p.date_of_birth || p.dateOfBirth || null,
+                    customerId: p.owner_id ? String(p.owner_id) : '',
+                    ownerName: p.ownerName || '',
+                    ownerPhone: p.ownerPhone || ''
+                }));
+                
+                const loadedVaccines = (vaccinesRes?.data ?? []).map((v: any) => ({
+                    id: String(v.id),
+                    name: v.name || v.vaccine_name,
+                    price: Number(v.price) || 0,
+                    description: v.description || '',
+                    stock: Number(v.stock) || 0
+                }));
 
-            // Check if data is empty and show warning
-            if (loadedVaccines.length === 0) {
-                toast({
-                    title: "No Vaccines Available",
-                    description: "Please ask admin to add vaccines first.",
-                    variant: "destructive",
-                });
+                setPets(loadedPets);
+                setVaccines(loadedVaccines);
+
+                if (loadedVaccines.length === 0) {
+                    toast({
+                        title: "No Vaccines Available",
+                        description: "Please ask admin to add vaccines first.",
+                        variant: "destructive",
+                    });
+                }
+
+                // Pre-select pet from query parameter
+                const petIdFromQuery = searchParams.get("petId");
+                if (petIdFromQuery && loadedPets.some((p: any) => p.id === petIdFromQuery)) {
+                    setSelectedPetId(petIdFromQuery);
+                }
+            } catch (error) {
+                console.error("Error loading data:", error);
+                if (mounted) {
+                    toast({
+                        title: "Error",
+                        description: "Failed to load data. Please refresh the page.",
+                        variant: "destructive",
+                    });
+                }
+            } finally {
+                if (mounted) setLoading(false);
             }
-
-            // Pre-select pet from query parameter
-            const petIdFromQuery = searchParams.get("petId");
-            if (petIdFromQuery && loadedPets.some((p: Pet) => p.id === petIdFromQuery)) {
-                setSelectedPetId(petIdFromQuery);
-            }
-        } catch (error) {
-            console.error("Error loading data:", error);
-            toast({
-                title: "Error",
-                description: "Failed to load data. Please refresh the page.",
-                variant: "destructive",
-            });
-        }
+        };
+        fetchData();
+        return () => { mounted = false; };
     }, [searchParams, toast]);
 
     // Get selected pet and vaccine details
@@ -114,7 +124,7 @@ export default function SingleDoseInjections() {
         : [];
 
     // Handle save injection
-    const handleSaveInjection = () => {
+    const handleSaveInjection = async () => {
         // Validation
         if (!selectedPetId) {
             toast({ title: "Error", description: "Please select a pet", variant: "destructive" });
@@ -128,19 +138,13 @@ export default function SingleDoseInjections() {
             toast({ title: "Error", description: "Please enter a valid dosage", variant: "destructive" });
             return;
         }
-        if (!singleDoseServiceType) {
-            toast({ title: "Error", description: "Service type not found", variant: "destructive" });
-            return;
-        }
 
-        // Validate vaccine stock availability
-        const branchId = user.branchId || "branch-1";
-        const validation = validateVaccineStock(branchId, selectedVaccineId, 1);
-
-        if (!validation.valid) {
+        // Check stock from loaded vaccines
+        const vaccine = vaccines.find(v => v.id === selectedVaccineId) as any;
+        if (vaccine && vaccine.stock <= 0) {
             toast({
                 title: "Insufficient Vaccine Stock",
-                description: validation.message,
+                description: "This vaccine is out of stock.",
                 variant: "destructive",
             });
             return;
@@ -149,45 +153,19 @@ export default function SingleDoseInjections() {
         setIsLoading(true);
 
         try {
-            const newInstance: ServiceInstance = {
-                id: `si-${Date.now()}`,
-                serviceType: "single-vaccine",
-                veterinarianId: user.id,
-                veterinarianName: user.fullName,
-                petId: selectedPetId,
-                petName: selectedPet!.name,
-                customerId: selectedPet!.customerId,
-                customerName: petOwner?.fullName || "Unknown",
-                branchId: user.branchId || "default-branch",
-                basePrice: singleDoseServiceType.basePrice,
-                vaccineCost: selectedVaccine!.price,
-                vaccinesUsed: [
-                    {
-                        vaccineId: selectedVaccineId,
-                        vaccineName: selectedVaccine!.name,
-                        dosage: Number(dosage),
-                        administered: true,
-                    },
-                ],
-                datePerformed: new Date().toISOString(),
-                notes: notes.trim() || undefined,
-                createdAt: new Date().toISOString(),
-            };
+            await apiPost('/doctor/single-injection', {
+                pet_id: Number(selectedPetId),
+                vaccine_id: Number(selectedVaccineId),
+                dosage: Number(dosage),
+                notes: notes.trim() || null
+            });
 
-            const updatedInstances = [...serviceInstances, newInstance];
-            localStorage.setItem("petcare_service_instances", JSON.stringify(updatedInstances));
-            setServiceInstances(updatedInstances);
-
-            // Deduct vaccine stock
-            const stockDeducted = deductVaccineStock(branchId, selectedVaccineId, 1);
-            if (stockDeducted) {
-                // Update stock levels
-                const updatedStockLevels = { ...vaccineStockLevels };
-                updatedStockLevels[selectedVaccineId] = getVaccineStock(branchId, selectedVaccineId);
-                setVaccineStockLevels(updatedStockLevels);
-            } else {
-                console.warn("Failed to deduct vaccine stock, but injection was saved");
-            }
+            // Update local vaccine stock
+            setVaccines(prev => prev.map(v => 
+                v.id === selectedVaccineId 
+                    ? { ...v, stock: ((v as any).stock || 0) - 1 } as any
+                    : v
+            ));
 
             // Reset form
             setSelectedVaccineId("");
@@ -198,10 +176,10 @@ export default function SingleDoseInjections() {
                 title: "Success",
                 description: "Injection saved successfully",
             });
-        } catch (error) {
+        } catch (error: any) {
             toast({
                 title: "Error",
-                description: "Failed to save injection",
+                description: error?.message || "Failed to save injection",
                 variant: "destructive",
             });
         } finally {
@@ -245,14 +223,11 @@ export default function SingleDoseInjections() {
                                                     No pets available. Please add pets first.
                                                 </div>
                                             ) : (
-                                                pets.map((pet) => {
-                                                    const owner = customers.find((c) => c.id === pet.customerId);
-                                                    return (
-                                                        <SelectItem key={pet.id} value={pet.id}>
-                                                            {pet.name} ({pet.type}) - Owner: {owner?.fullName || "Unknown"}
-                                                        </SelectItem>
-                                                    );
-                                                })
+                                                pets.map((pet) => (
+                                                    <SelectItem key={pet.id} value={pet.id}>
+                                                        {pet.name} ({pet.type}) - Owner: {(pet as any).ownerName || "Unknown"}
+                                                    </SelectItem>
+                                                ))
                                             )}
                                         </SelectContent>
                                     </Select>
@@ -263,7 +238,7 @@ export default function SingleDoseInjections() {
                                         <div className="flex items-center gap-2">
                                             <User className="w-4 h-4 text-blue-600" />
                                             <span className="font-medium">Owner:</span>
-                                            <span>{petOwner?.fullName || "Unknown"}</span>
+                                            <span>{(selectedPet as any).ownerName || "Unknown"}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <span className="font-medium">Type:</span>
@@ -271,15 +246,26 @@ export default function SingleDoseInjections() {
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <span className="font-medium">Breed:</span>
-                                            <span>{selectedPet.breed}</span>
+                                            <span>{selectedPet.breed || 'N/A'}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <span className="font-medium">Age:</span>
-                                            <span>{selectedPet.age} years</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <span className="font-medium">Weight:</span>
-                                            <span>{selectedPet.weight} kg</span>
+                                            <span>
+                                                {(() => {
+                                                    const dob = (selectedPet as any).dateOfBirth;
+                                                    if (!dob) return 'N/A';
+                                                    const birthDate = new Date(dob);
+                                                    const today = new Date();
+                                                    let years = today.getFullYear() - birthDate.getFullYear();
+                                                    let months = today.getMonth() - birthDate.getMonth();
+                                                    if (months < 0) {
+                                                        years--;
+                                                        months += 12;
+                                                    }
+                                                    if (years > 0) return `${years} year${years > 1 ? 's' : ''} ${months} month${months !== 1 ? 's' : ''}`;
+                                                    return `${months} month${months !== 1 ? 's' : ''}`;
+                                                })()}
+                                            </span>
                                         </div>
                                     </div>
                                 )}
@@ -308,10 +294,10 @@ export default function SingleDoseInjections() {
                                                     No vaccines available. Please contact admin.
                                                 </div>
                                             ) : (
-                                                vaccines.map((vaccine) => {
-                                                    const stock = vaccineStockLevels[vaccine.id] || 0;
-                                                    const stockStatus = getStockStatus(stock);
+                                                vaccines.map((vaccine: any) => {
+                                                    const stock = vaccine.stock || 0;
                                                     const isOutOfStock = stock === 0;
+                                                    const isLowStock = stock > 0 && stock <= 5;
                                                     return (
                                                         <SelectItem
                                                             key={vaccine.id}
@@ -320,7 +306,8 @@ export default function SingleDoseInjections() {
                                                         >
                                                             {vaccine.name} - {vaccine.price.toLocaleString()} VND
                                                             {isOutOfStock && " (OUT OF STOCK)"}
-                                                            {!isOutOfStock && stockStatus !== "normal" && ` (${stock} doses - ${stockStatus.toUpperCase()})`}
+                                                            {isLowStock && ` (${stock} doses - LOW)`}
+                                                            {!isOutOfStock && !isLowStock && ` (${stock} in stock)`}
                                                         </SelectItem>
                                                     );
                                                 })
@@ -343,21 +330,19 @@ export default function SingleDoseInjections() {
                                         </div>
 
                                         {(() => {
-                                            const stock = vaccineStockLevels[selectedVaccine.id] || 0;
-                                            const stockStatus = getStockStatus(stock);
-                                            const badgeClass = getStockBadgeClass(stockStatus);
-                                            const isLowOrCritical = stockStatus === "low" || stockStatus === "critical";
-                                            const isOutOfStock = stockStatus === "out";
+                                            const stock = (selectedVaccine as any).stock || 0;
+                                            const isOutOfStock = stock === 0;
+                                            const isLowStock = stock > 0 && stock <= 5;
 
                                             return (
                                                 <div className={`p-4 rounded-lg border-2 ${isOutOfStock ? "bg-red-50 dark:bg-red-950 border-red-300" :
-                                                        isLowOrCritical ? "bg-orange-50 dark:bg-orange-950 border-orange-300" :
+                                                        isLowStock ? "bg-orange-50 dark:bg-orange-950 border-orange-300" :
                                                             "bg-blue-50 dark:bg-blue-950 border-blue-300"
                                                     }`}>
                                                     <div className="flex items-center gap-3">
                                                         {isOutOfStock ? (
                                                             <PackageX className="w-5 h-5 text-red-600" />
-                                                        ) : isLowOrCritical ? (
+                                                        ) : isLowStock ? (
                                                             <AlertTriangle className="w-5 h-5 text-orange-600" />
                                                         ) : (
                                                             <Syringe className="w-5 h-5 text-blue-600" />
@@ -366,11 +351,10 @@ export default function SingleDoseInjections() {
                                                             <div className="flex items-center gap-2">
                                                                 <span className="font-medium">Stock Available:</span>
                                                                 <span className="text-lg font-bold">{stock} doses</span>
-                                                                <Badge variant="outline" className={badgeClass}>
-                                                                    {stockStatus === "out" && "Out of Stock"}
-                                                                    {stockStatus === "critical" && "Critical"}
-                                                                    {stockStatus === "low" && "Low Stock"}
-                                                                    {stockStatus === "normal" && "In Stock"}
+                                                                <Badge variant="outline" className={isOutOfStock ? "border-red-500 text-red-600" : isLowStock ? "border-orange-500 text-orange-600" : "border-blue-500 text-blue-600"}>
+                                                                    {isOutOfStock && "Out of Stock"}
+                                                                    {isLowStock && "Low Stock"}
+                                                                    {!isOutOfStock && !isLowStock && "In Stock"}
                                                                 </Badge>
                                                             </div>
                                                             {isOutOfStock && (
@@ -378,9 +362,9 @@ export default function SingleDoseInjections() {
                                                                     Cannot administer - no doses available at this branch
                                                                 </p>
                                                             )}
-                                                            {isLowOrCritical && (
+                                                            {isLowStock && (
                                                                 <p className="text-sm text-orange-600 mt-1">
-                                                                    Warning: Stock level is {stockStatus} - consider restocking
+                                                                    Warning: Stock level is low - consider restocking
                                                                 </p>
                                                             )}
                                                         </div>

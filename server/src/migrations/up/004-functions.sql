@@ -347,6 +347,9 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
     v_service_id BIGINT;
+    v_invoice_id BIGINT;
+    v_branch_id BIGINT;
+    v_customer_id BIGINT;
     v_price finance;
 BEGIN
     -- 1. Validate doctor exists
@@ -355,24 +358,37 @@ BEGIN
         RAISE EXCEPTION 'Doctor % not found or is not a veterinarian', p_doctor_id;
     END IF;
 
-    -- 2. Validate pet exists
-    PERFORM 1 FROM pets WHERE id = p_pet_id;
-    IF NOT FOUND THEN
+    -- 2. Validate pet exists and get owner
+    SELECT owner_id INTO v_customer_id FROM pets WHERE id = p_pet_id;
+    IF v_customer_id IS NULL THEN
         RAISE EXCEPTION 'Pet % not found', p_pet_id;
     END IF;
 
-    -- 3. Get price for 'Khám bệnh'
+    -- 3. Get doctor's current branch
+    SELECT current_branch_id INTO v_branch_id 
+    FROM v_employee_current_branch 
+    WHERE employee_id = p_doctor_id;
+    IF v_branch_id IS NULL THEN
+        RAISE EXCEPTION 'Doctor % has no assigned branch', p_doctor_id;
+    END IF;
+
+    -- 4. Get price for 'Khám bệnh'
     SELECT price INTO v_price FROM types_of_services WHERE type = 'Khám bệnh'::service_type;
     IF v_price IS NULL THEN
         RAISE EXCEPTION 'Service type "Khám bệnh" not found';
     END IF;
 
-    -- 4. Create Service record
-    INSERT INTO services (type_of_service, unit_price, discount_amount)
-    VALUES ('Khám bệnh'::service_type, v_price, 0)
+    -- 5. Create Invoice record
+    INSERT INTO invoices (created_by, branch_id, customer_id, payment_method, total_amount)
+    VALUES (p_doctor_id, v_branch_id, v_customer_id, 'Tiền mặt'::payment_method, v_price)
+    RETURNING id INTO v_invoice_id;
+
+    -- 6. Create Service record with invoice_id
+    INSERT INTO services (invoice_id, type_of_service, unit_price, discount_amount)
+    VALUES (v_invoice_id, 'Khám bệnh'::service_type, v_price, 0)
     RETURNING id INTO v_service_id;
 
-    -- 5. Create MedicalExamination record
+    -- 7. Create MedicalExamination record
     INSERT INTO medical_examinations (
         service_id, pet_id, doctor_id, diagnosis, conclusion, appointment_date
     )

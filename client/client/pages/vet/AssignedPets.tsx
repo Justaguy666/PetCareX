@@ -100,11 +100,11 @@ export default function AssignedPets() {
                                                     </div>
                                                     <div className="text-sm">
                                                         <div className="text-muted-foreground">Owner</div>
-                                                        <div>{getCustomerName(pet.customerId)}</div>
+                                                        <div>{(pet as any).ownerName || 'Unknown'}</div>
                                                     </div>
                                                     <div className="text-sm">
-                                                        <div className="text-muted-foreground">Age / Weight</div>
-                                                        <div>{pet.age} years / {pet.weight} kg</div>
+                                                        <div className="text-muted-foreground">Age</div>
+                                                        <div>{(pet as any).dateOfBirth ? `${Math.floor((Date.now() - new Date((pet as any).dateOfBirth).getTime()) / (365.25 * 24 * 60 * 60 * 1000))} years` : 'N/A'}</div>
                                                     </div>
                                                     <div className="text-sm">
                                                         <Badge variant="outline">

@@ -3,12 +3,14 @@ import { Link, Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
-import { Calendar, FileText, Bell, PawPrint, ClipboardList, Activity } from "lucide-react";
+import { Calendar, FileText, PawPrint, Activity } from "lucide-react";
 import { useState, useEffect } from "react";
-import { apiGet } from "@/api/api";
+import { apiGet, apiPut } from "@/api/api";
+import { useToast } from "@/hooks/use-toast";
 
 export default function VetDashboard() {
     const { user } = useAuth();
+    const { toast } = useToast();
     const [dashboardData, setDashboardData] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -68,8 +70,8 @@ export default function VetDashboard() {
                 </div>
 
                 {/* Summary Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <Card>
+                <div className="flex flex-col md:flex-row justify-center gap-6 mb-8 px-4">
+                    <Card className="w-full md:w-100">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">Today's Appointments</CardTitle>
                             <Calendar className="h-4 w-4 text-muted-foreground" />
@@ -80,7 +82,7 @@ export default function VetDashboard() {
                         </CardContent>
                     </Card>
 
-                    <Card>
+                    <Card className="w-full md:w-100">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">Pending Records</CardTitle>
                             <FileText className="h-4 w-4 text-muted-foreground" />
@@ -91,7 +93,7 @@ export default function VetDashboard() {
                         </CardContent>
                     </Card>
 
-                    <Card>
+                    <Card className="w-full md:w-100">
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">Assigned Pets</CardTitle>
                             <PawPrint className="h-4 w-4 text-muted-foreground" />
@@ -102,48 +104,8 @@ export default function VetDashboard() {
                         </CardContent>
                     </Card>
 
-                    <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Notifications</CardTitle>
-                            <Bell className="h-4 w-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">{stats.unreadNotifications}</div>
-                            <p className="text-xs text-muted-foreground">Unread messages</p>
-                        </CardContent>
-                    </Card>
                 </div>
 
-                {/* Quick Actions */}
-                <div className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Quick Actions</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <Link to="/vet/appointments-today">
-                            <Button className="w-full h-20 flex flex-col items-center justify-center gap-2 bg-primary text-white">
-                                <Calendar className="h-5 w-5" />
-                                <span>View Appointments</span>
-                            </Button>
-                        </Link>
-                        <Link to="/vet/medical-records">
-                            <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2">
-                                <FileText className="h-5 w-5" />
-                                <span>Medical Records</span>
-                            </Button>
-                        </Link>
-                        <Link to="/vet/assigned-pets">
-                            <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2">
-                                <PawPrint className="h-5 w-5" />
-                                <span>Assigned Pets</span>
-                            </Button>
-                        </Link>
-                        <Link to="/vet/notifications">
-                            <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2">
-                                <Bell className="h-5 w-5" />
-                                <span>Notifications</span>
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
 
                 {/* Recent Activity */}
                 <Card>
@@ -164,10 +126,50 @@ export default function VetDashboard() {
                                             {new Intl.DateTimeFormat('vi-VN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(activity.time))}
                                         </p>
                                     </div>
-                                    <span className={`px-2 py-0.5 rounded-full text-[10px] ${activity.status === 'Đã xác nhận' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+                                    <div className="flex items-center gap-2">
+                                        {activity.status === 'Đang chờ xác nhận' && (
+                                            <>
+                                                <Button
+                                                    size="sm"
+                                                    onClick={async () => {
+                                                        try {
+                                                            await apiPut(`/doctor/appointments/${activity.id}/confirm`);
+                                                            toast({ title: 'Đã xác nhận', description: 'Lịch hẹn đã được xác nhận.' });
+                                                            const response = await apiGet('/dashboard/stats');
+                                                            setDashboardData(response?.data);
+                                                        } catch (error) {
+                                                            toast({ title: 'Lỗi', description: 'Không thể xác nhận lịch hẹn.', variant: 'destructive' });
+                                                        }
+                                                    }}
+                                                >
+                                                    Xác nhận
+                                                </Button>
+                                                <Button
+                                                    size="sm"
+                                                    variant="destructive"
+                                                    onClick={async () => {
+                                                        try {
+                                                            await apiPut(`/doctor/appointments/${activity.id}/cancel`, { reason: 'Bác sĩ hủy' });
+                                                            toast({ title: 'Đã hủy', description: 'Lịch hẹn đã được hủy.' });
+                                                            const response = await apiGet('/dashboard/stats');
+                                                            setDashboardData(response?.data);
+                                                        } catch (error) {
+                                                            toast({ title: 'Lỗi', description: 'Không thể hủy lịch hẹn.', variant: 'destructive' });
+                                                        }
+                                                    }}
+                                                >
+                                                    Hủy
+                                                </Button>
+                                            </>
+                                        )}
+                                        <span className={`px-2 py-0.5 rounded-full text-[10px] ${
+                                            activity.status === 'Đã xác nhận' ? 'bg-green-100 text-green-700' : 
+                                            activity.status === 'Hủy bỏ' ? 'bg-red-100 text-red-700' : 
+                                            'bg-yellow-100 text-yellow-700'
                                         }`}>
-                                        {activity.status}
-                                    </span>
+                                            {activity.status}
+                                        </span>
+                                    </div>
                                 </div>
                             ))}
                             {recentActivity.length === 0 && (

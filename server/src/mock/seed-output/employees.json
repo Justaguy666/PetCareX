@@ -1,352 +1,3502 @@
 [
   {
-    "full_name": "Camille Carter",
-    "date_of_birth": "1961-03-10T05:04:15.843Z",
+    "full_name": "Miss Caroline McClure",
+    "date_of_birth": "1989-11-27T22:00:48.956Z",
     "gender": "Nam",
     "role": "Bác sĩ thú y",
-    "base_salary": 9078.586850200805
+    "base_salary": 16612.824202916257
   },
   {
-    "full_name": "Jacqueline Mosciski",
-    "date_of_birth": "1960-07-25T13:57:11.254Z",
-    "gender": "Nam",
-    "role": "Bác sĩ thú y",
-    "base_salary": 14598.072960603771
-  },
-  {
-    "full_name": "Mrs Elena Friesen",
-    "date_of_birth": "1974-03-15T22:41:06.220Z",
-    "gender": "Nam",
-    "role": "Nhân viên tiếp tân",
-    "base_salary": 12864.381854888778
-  },
-  {
-    "full_name": "Jackie Boehm",
-    "date_of_birth": "1972-07-27T02:58:59.597Z",
+    "full_name": "Lamar Connelly",
+    "date_of_birth": "1961-08-06T12:47:48.002Z",
     "gender": "Nữ",
     "role": "Quản lý chi nhánh",
-    "base_salary": 13044.356745673236
+    "base_salary": 14250.457060393546
   },
   {
-    "full_name": "Hilda Greenfelder",
-    "date_of_birth": "1987-01-28T04:58:13.796Z",
+    "full_name": "Ora Cummerata",
+    "date_of_birth": "1963-08-10T07:32:59.132Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 5462.950125929485
+  },
+  {
+    "full_name": "Dr Nathaniel Tromp",
+    "date_of_birth": "1991-01-21T18:45:02.949Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 4604.2848470681465
+  },
+  {
+    "full_name": "Patrick Medhurst",
+    "date_of_birth": "1985-01-05T00:17:37.778Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 5135.698850267174
+  },
+  {
+    "full_name": "Santos Rau",
+    "date_of_birth": "1979-05-10T09:46:25.776Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 3500.8524029793966
+  },
+  {
+    "full_name": "Dana Spencer",
+    "date_of_birth": "1969-11-01T10:51:37.829Z",
     "gender": "Nam",
     "role": "Nhân viên bán hàng",
-    "base_salary": 12463.821290502487
+    "base_salary": 12432.149082985245
   },
   {
-    "full_name": "Jared Schmidt",
-    "date_of_birth": "1992-01-27T05:26:54.005Z",
+    "full_name": "Keith Crona-Johnston",
+    "date_of_birth": "1972-05-26T05:03:48.110Z",
     "gender": "Nam",
     "role": "Nhân viên tiếp tân",
-    "base_salary": 16036.418389406199
+    "base_salary": 15730.929890282112
   },
   {
-    "full_name": "Dianne Feest",
-    "date_of_birth": "1961-10-25T08:58:49.901Z",
-    "gender": "Nam",
-    "role": "Quản lý chi nhánh",
-    "base_salary": 16652.715751625692
-  },
-  {
-    "full_name": "Dexter Botsford",
-    "date_of_birth": "1968-03-19T17:32:07.026Z",
-    "gender": "Nam",
-    "role": "Nhân viên bán hàng",
-    "base_salary": 6721.874161143183
-  },
-  {
-    "full_name": "Mable Gibson",
-    "date_of_birth": "1988-05-19T03:42:28.939Z",
-    "gender": "Nam",
-    "role": "Nhân viên tiếp tân",
-    "base_salary": 14651.624822002803
-  },
-  {
-    "full_name": "Juana Russel",
-    "date_of_birth": "1983-10-29T15:17:15.963Z",
+    "full_name": "Lynda Farrell Sr",
+    "date_of_birth": "1974-09-23T10:24:34.076Z",
     "gender": "Nữ",
-    "role": "Nhân viên bán hàng",
-    "base_salary": 18945.522013167127
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9272.38247863621
   },
   {
-    "full_name": "Miss Katrina Rodriguez",
-    "date_of_birth": "1993-04-03T03:41:29.171Z",
+    "full_name": "Derrick Gleason",
+    "date_of_birth": "1993-10-12T18:17:22.890Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 10920.101986714202
+  },
+  {
+    "full_name": "Glenda Ledner",
+    "date_of_birth": "1964-12-30T08:55:47.332Z",
     "gender": "Nam",
     "role": "Quản lý chi nhánh",
-    "base_salary": 19837.178120896184
+    "base_salary": 9072.182682000654
   },
   {
-    "full_name": "Ervin Zboncak",
-    "date_of_birth": "1984-12-21T21:11:27.209Z",
+    "full_name": "Kristie Bahringer",
+    "date_of_birth": "1961-11-23T22:46:25.983Z",
     "gender": "Nam",
     "role": "Quản lý chi nhánh",
-    "base_salary": 3796.4593276478545
+    "base_salary": 9968.69091339793
   },
   {
-    "full_name": "Terrell Erdman",
-    "date_of_birth": "1964-03-09T04:17:27.291Z",
-    "gender": "Nam",
-    "role": "Nhân viên bán hàng",
-    "base_salary": 7972.9083877401
-  },
-  {
-    "full_name": "Jesus Kozey",
-    "date_of_birth": "1965-04-28T18:05:32.782Z",
-    "gender": "Nam",
-    "role": "Nhân viên bán hàng",
-    "base_salary": 5359.733733167984
-  },
-  {
-    "full_name": "Felix Dickinson",
-    "date_of_birth": "2000-07-01T17:51:17.026Z",
-    "gender": "Nam",
-    "role": "Bác sĩ thú y",
-    "base_salary": 15287.121890962737
-  },
-  {
-    "full_name": "Kathryn Reilly",
-    "date_of_birth": "1964-03-30T13:30:55.976Z",
-    "gender": "Nam",
-    "role": "Bác sĩ thú y",
-    "base_salary": 10830.529439883212
-  },
-  {
-    "full_name": "Dr Owen Ullrich",
-    "date_of_birth": "1997-02-21T20:05:37.357Z",
+    "full_name": "Mr Cary O'Kon",
+    "date_of_birth": "1969-09-08T02:29:45.842Z",
     "gender": "Nữ",
     "role": "Bác sĩ thú y",
-    "base_salary": 12027.342913139937
+    "base_salary": 12519.457428721907
   },
   {
-    "full_name": "Cameron Dooley",
-    "date_of_birth": "1997-10-05T04:46:13.873Z",
-    "gender": "Nam",
-    "role": "Quản lý chi nhánh",
-    "base_salary": 10126.59298646634
-  },
-  {
-    "full_name": "Maxine Wisozk",
-    "date_of_birth": "2000-10-22T08:15:42.333Z",
+    "full_name": "Claire Larson",
+    "date_of_birth": "1966-07-31T04:28:38.408Z",
     "gender": "Nữ",
     "role": "Bác sĩ thú y",
-    "base_salary": 10514.541967083205
+    "base_salary": 8436.172156063674
   },
   {
-    "full_name": "Greg Swaniawski",
-    "date_of_birth": "1990-12-04T13:45:55.044Z",
-    "gender": "Nữ",
-    "role": "Bác sĩ thú y",
-    "base_salary": 13993.876650868575
-  },
-  {
-    "full_name": "Dr Fredrick Howe",
-    "date_of_birth": "1965-03-19T19:54:09.251Z",
-    "gender": "Nữ",
-    "role": "Quản lý chi nhánh",
-    "base_salary": 6438.317469205714
-  },
-  {
-    "full_name": "Regina Haag",
-    "date_of_birth": "1969-10-21T15:55:20.382Z",
+    "full_name": "Allen Champlin",
+    "date_of_birth": "1978-04-25T11:18:53.115Z",
     "gender": "Nam",
     "role": "Nhân viên tiếp tân",
-    "base_salary": 14693.544693594478
+    "base_salary": 16175.476553076003
   },
   {
-    "full_name": "Bradford Bashirian I",
-    "date_of_birth": "1989-08-02T01:36:47.007Z",
-    "gender": "Nam",
-    "role": "Nhân viên bán hàng",
-    "base_salary": 18571.19307809959
-  },
-  {
-    "full_name": "Gene Hilll",
-    "date_of_birth": "1963-05-09T03:09:01.493Z",
-    "gender": "Nữ",
-    "role": "Nhân viên tiếp tân",
-    "base_salary": 3089.7438845787196
-  },
-  {
-    "full_name": "Fannie Heller",
-    "date_of_birth": "1994-12-24T14:14:30.803Z",
-    "gender": "Nam",
-    "role": "Bác sĩ thú y",
-    "base_salary": 18145.79178918164
-  },
-  {
-    "full_name": "Randy Pagac-Murphy",
-    "date_of_birth": "1971-02-05T00:36:50.184Z",
-    "gender": "Nữ",
-    "role": "Quản lý chi nhánh",
-    "base_salary": 4925.988465688482
-  },
-  {
-    "full_name": "Victoria Kiehn II",
-    "date_of_birth": "1997-04-11T10:07:58.322Z",
-    "gender": "Nam",
-    "role": "Nhân viên bán hàng",
-    "base_salary": 15261.48763390955
-  },
-  {
-    "full_name": "Ricky Runolfsdottir",
-    "date_of_birth": "1979-06-18T01:42:13.106Z",
+    "full_name": "Dr Santos Connelly",
+    "date_of_birth": "1979-09-07T13:44:28.657Z",
     "gender": "Nam",
     "role": "Nhân viên tiếp tân",
-    "base_salary": 15537.711885095918
+    "base_salary": 18974.20681098326
   },
   {
-    "full_name": "Ms Samantha Parker",
-    "date_of_birth": "1992-03-25T07:15:30.795Z",
-    "gender": "Nữ",
-    "role": "Bác sĩ thú y",
-    "base_salary": 18174.85775959571
-  },
-  {
-    "full_name": "Oscar Morissette",
-    "date_of_birth": "1994-02-19T00:51:50.158Z",
-    "gender": "Nữ",
-    "role": "Nhân viên tiếp tân",
-    "base_salary": 15562.854387456531
-  },
-  {
-    "full_name": "Miss Leigh Williamson",
-    "date_of_birth": "1974-08-14T13:41:42.842Z",
-    "gender": "Nữ",
-    "role": "Nhân viên tiếp tân",
-    "base_salary": 17040.593231330684
-  },
-  {
-    "full_name": "Sean Quigley",
-    "date_of_birth": "1990-06-24T05:05:10.056Z",
-    "gender": "Nam",
-    "role": "Quản lý chi nhánh",
-    "base_salary": 11275.679265093886
-  },
-  {
-    "full_name": "Carmen Quigley",
-    "date_of_birth": "1962-05-30T00:50:36.056Z",
-    "gender": "Nữ",
-    "role": "Nhân viên tiếp tân",
-    "base_salary": 6816.559331596747
-  },
-  {
-    "full_name": "Jan Heaney",
-    "date_of_birth": "1989-02-20T19:53:38.728Z",
-    "gender": "Nam",
-    "role": "Quản lý chi nhánh",
-    "base_salary": 10228.730675189068
-  },
-  {
-    "full_name": "Felix Bashirian",
-    "date_of_birth": "1997-04-06T15:13:08.391Z",
-    "gender": "Nam",
-    "role": "Quản lý chi nhánh",
-    "base_salary": 19728.41099076412
-  },
-  {
-    "full_name": "Reginald Wisozk",
-    "date_of_birth": "1961-05-10T22:18:30.595Z",
-    "gender": "Nam",
-    "role": "Nhân viên bán hàng",
-    "base_salary": 17543.389772408318
-  },
-  {
-    "full_name": "Kristie Nikolaus",
-    "date_of_birth": "1981-06-11T21:21:11.336Z",
+    "full_name": "Marco Will",
+    "date_of_birth": "1982-02-01T18:16:48.674Z",
     "gender": "Nữ",
     "role": "Nhân viên bán hàng",
-    "base_salary": 14834.755084898556
+    "base_salary": 3966.823289438293
   },
   {
-    "full_name": "Judy Collins",
-    "date_of_birth": "1977-03-20T09:44:46.044Z",
+    "full_name": "Ada Durgan",
+    "date_of_birth": "1987-08-30T02:42:37.449Z",
     "gender": "Nữ",
     "role": "Quản lý chi nhánh",
-    "base_salary": 3101.1960328005325
+    "base_salary": 18480.23395560951
   },
   {
-    "full_name": "Josephine Ziemann",
-    "date_of_birth": "1963-11-03T15:22:41.828Z",
+    "full_name": "Nora Strosin",
+    "date_of_birth": "1963-06-01T13:47:33.209Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 17951.018606207173
+  },
+  {
+    "full_name": "Roxanne Heidenreich",
+    "date_of_birth": "1976-04-09T05:23:11.076Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 17188.9336256717
+  },
+  {
+    "full_name": "Mindy Lakin",
+    "date_of_birth": "1985-09-15T23:45:46.528Z",
     "gender": "Nam",
     "role": "Bác sĩ thú y",
-    "base_salary": 19173.196529621713
+    "base_salary": 18704.70613651207
   },
   {
-    "full_name": "Daryl Orn",
-    "date_of_birth": "1985-05-11T04:03:13.941Z",
+    "full_name": "Miss Lucia Wiza",
+    "date_of_birth": "1977-10-15T09:03:06.335Z",
     "gender": "Nam",
-    "role": "Nhân viên tiếp tân",
-    "base_salary": 10259.369495914194
+    "role": "Bác sĩ thú y",
+    "base_salary": 4256.1236949757185
   },
   {
-    "full_name": "Ernestine Crooks DDS",
-    "date_of_birth": "1985-02-01T21:19:13.070Z",
+    "full_name": "Juana Schmidt III",
+    "date_of_birth": "1961-04-18T05:40:10.174Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 4252.583200070664
+  },
+  {
+    "full_name": "Jerome Morar",
+    "date_of_birth": "2000-08-16T02:16:33.437Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 6353.413179205545
+  },
+  {
+    "full_name": "Francisco Pollich",
+    "date_of_birth": "1975-09-28T20:30:25.788Z",
     "gender": "Nữ",
     "role": "Quản lý chi nhánh",
-    "base_salary": 10751.027412584705
+    "base_salary": 12641.078756788942
   },
   {
-    "full_name": "Melissa Weissnat",
-    "date_of_birth": "1982-05-23T15:51:52.911Z",
+    "full_name": "Janie Jacobson",
+    "date_of_birth": "1993-12-12T12:18:18.932Z",
     "gender": "Nam",
-    "role": "Bác sĩ thú y",
-    "base_salary": 17677.27106634053
+    "role": "Quản lý chi nhánh",
+    "base_salary": 8931.516354068983
   },
   {
-    "full_name": "Joanne Yost",
-    "date_of_birth": "1993-04-18T04:52:42.898Z",
-    "gender": "Nam",
-    "role": "Nhân viên tiếp tân",
-    "base_salary": 13551.047293316356
-  },
-  {
-    "full_name": "Lydia Rodriguez",
-    "date_of_birth": "1997-05-15T16:48:22.645Z",
+    "full_name": "Kelly Ernser",
+    "date_of_birth": "1998-12-06T05:15:06.288Z",
     "gender": "Nữ",
-    "role": "Nhân viên tiếp tân",
-    "base_salary": 14364.553311741296
+    "role": "Nhân viên bán hàng",
+    "base_salary": 9704.238296495687
   },
   {
-    "full_name": "Horace Russel",
-    "date_of_birth": "1972-02-18T18:04:53.213Z",
+    "full_name": "Miss Cecelia O'Conner",
+    "date_of_birth": "1999-10-14T17:40:17.112Z",
     "gender": "Nam",
-    "role": "Nhân viên tiếp tân",
-    "base_salary": 13216.816150326686
+    "role": "Quản lý chi nhánh",
+    "base_salary": 6099.314060700732
   },
   {
-    "full_name": "Marion Auer",
-    "date_of_birth": "1972-07-22T05:30:54.000Z",
-    "gender": "Nam",
-    "role": "Bác sĩ thú y",
-    "base_salary": 4166.34697588862
-  },
-  {
-    "full_name": "Bernice Carter",
-    "date_of_birth": "1960-10-01T06:20:39.303Z",
+    "full_name": "Sheldon Deckow IV",
+    "date_of_birth": "1966-10-06T19:19:23.028Z",
     "gender": "Nam",
     "role": "Nhân viên bán hàng",
-    "base_salary": 5129.598578458796
+    "base_salary": 18720.107004842605
   },
   {
-    "full_name": "Lucas Farrell",
-    "date_of_birth": "1978-11-19T08:54:01.232Z",
+    "full_name": "Maryann Kertzmann",
+    "date_of_birth": "1993-08-14T23:13:45.235Z",
     "gender": "Nữ",
-    "role": "Bác sĩ thú y",
-    "base_salary": 16764.750568299423
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15001.968329868745
   },
   {
-    "full_name": "Richard Vandervort",
-    "date_of_birth": "1981-12-11T04:58:54.749Z",
-    "gender": "Nam",
-    "role": "Quản lý chi nhánh",
-    "base_salary": 15895.341446912984
+    "full_name": "Julian Weissnat",
+    "date_of_birth": "1997-03-04T03:03:44.616Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 18120.84362814143
   },
   {
-    "full_name": "Jeanette Tromp",
-    "date_of_birth": "1960-04-02T12:11:40.139Z",
+    "full_name": "Dana Halvorson",
+    "date_of_birth": "1995-07-04T00:50:52.058Z",
     "gender": "Nam",
     "role": "Nhân viên bán hàng",
-    "base_salary": 4650.995843616396
+    "base_salary": 11052.67599674889
+  },
+  {
+    "full_name": "Essie Bailey",
+    "date_of_birth": "1993-04-02T05:03:28.489Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 6635.093967414736
+  },
+  {
+    "full_name": "Derrick Vandervort",
+    "date_of_birth": "1989-03-28T04:07:21.835Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 4683.042174474855
+  },
+  {
+    "full_name": "Angelina Kerluke",
+    "date_of_birth": "1988-10-11T11:58:50.543Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 8702.81918144479
+  },
+  {
+    "full_name": "Tommie Collier",
+    "date_of_birth": "1985-03-29T16:52:51.805Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 9005.587068869274
+  },
+  {
+    "full_name": "Kerry Upton-Moen",
+    "date_of_birth": "1990-01-29T05:55:58.435Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15009.684677164747
+  },
+  {
+    "full_name": "Ross Littel V",
+    "date_of_birth": "1991-08-28T05:28:22.618Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 3989.555371966697
+  },
+  {
+    "full_name": "Donnie Dach",
+    "date_of_birth": "1973-08-17T12:42:13.978Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 16376.961124565738
+  },
+  {
+    "full_name": "Georgia D'Amore",
+    "date_of_birth": "1991-03-23T12:35:27.399Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 15374.309945876013
+  },
+  {
+    "full_name": "Douglas Kozey",
+    "date_of_birth": "1980-05-30T01:11:41.602Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 16409.247812532627
+  },
+  {
+    "full_name": "Rosa Johnston",
+    "date_of_birth": "1993-02-27T03:49:20.243Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 19990.82185089784
+  },
+  {
+    "full_name": "Randy Pfannerstill",
+    "date_of_birth": "1995-10-11T19:56:15.935Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 8819.644019303465
+  },
+  {
+    "full_name": "Minnie Jacobson",
+    "date_of_birth": "1993-10-19T01:35:24.214Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 13430.664222964426
+  },
+  {
+    "full_name": "Laurence Cartwright",
+    "date_of_birth": "1968-06-12T13:56:48.367Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 17701.198498855643
+  },
+  {
+    "full_name": "Debbie Hamill",
+    "date_of_birth": "1993-05-03T23:27:56.300Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15688.971161685877
+  },
+  {
+    "full_name": "Alma Smith",
+    "date_of_birth": "1994-02-17T02:06:10.862Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 17053.478477354198
+  },
+  {
+    "full_name": "Edgar Armstrong",
+    "date_of_birth": "1978-11-20T22:33:01.315Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 4269.314905539009
+  },
+  {
+    "full_name": "Elbert Langosh",
+    "date_of_birth": "1999-06-25T04:04:03.751Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 5473.10680225157
+  },
+  {
+    "full_name": "Rita Stamm",
+    "date_of_birth": "1974-05-04T11:20:55.263Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 7068.60627592237
+  },
+  {
+    "full_name": "Ms Ana Fahey",
+    "date_of_birth": "1982-06-14T17:44:50.913Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 17792.424555392776
+  },
+  {
+    "full_name": "Bobbie Ledner",
+    "date_of_birth": "1994-10-30T06:20:32.493Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 11159.654339312474
+  },
+  {
+    "full_name": "Manuel Kilback",
+    "date_of_birth": "1983-07-06T00:17:26.821Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15543.286035628478
+  },
+  {
+    "full_name": "Peter Murazik",
+    "date_of_birth": "1996-08-19T03:21:32.108Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 4628.956550093061
+  },
+  {
+    "full_name": "Neil Lynch",
+    "date_of_birth": "1971-12-04T20:40:00.748Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 15483.919942783095
+  },
+  {
+    "full_name": "Mrs Ebony Heidenreich Jr",
+    "date_of_birth": "1997-07-29T07:01:33.434Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 12275.13728178943
+  },
+  {
+    "full_name": "Leo Hilll",
+    "date_of_birth": "1968-09-05T21:57:44.178Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 16750.5436400982
+  },
+  {
+    "full_name": "Adam Ankunding",
+    "date_of_birth": "1975-12-26T04:18:21.538Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 7721.7995760031945
+  },
+  {
+    "full_name": "Larry Pollich",
+    "date_of_birth": "1965-09-28T08:52:31.389Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 6837.320942754414
+  },
+  {
+    "full_name": "Andrew Kozey",
+    "date_of_birth": "1962-02-27T22:54:59.724Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 16656.024687602003
+  },
+  {
+    "full_name": "Omar Kerluke",
+    "date_of_birth": "2000-03-20T09:49:20.709Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 13090.916432859161
+  },
+  {
+    "full_name": "Victor Kertzmann",
+    "date_of_birth": "1988-07-03T12:09:12.936Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 17883.573890867076
+  },
+  {
+    "full_name": "Frank Kirlin",
+    "date_of_birth": "1962-02-01T06:36:14.928Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 5349.3017150422875
+  },
+  {
+    "full_name": "Jeff Abbott",
+    "date_of_birth": "1973-02-12T10:23:21.535Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 19447.404689180028
+  },
+  {
+    "full_name": "Erik Ernser",
+    "date_of_birth": "1974-02-26T03:53:21.566Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 13587.474388700184
+  },
+  {
+    "full_name": "Isaac Bernier",
+    "date_of_birth": "1978-07-17T04:11:25.184Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 3821.3145262685207
+  },
+  {
+    "full_name": "Pauline DuBuque",
+    "date_of_birth": "1978-01-19T13:40:29.845Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 19584.46153817546
+  },
+  {
+    "full_name": "Brian Carroll",
+    "date_of_birth": "1998-08-02T15:45:58.984Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 17379.806629717474
+  },
+  {
+    "full_name": "Kelly Oberbrunner",
+    "date_of_birth": "1967-01-19T00:30:58.134Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 19817.0367430798
+  },
+  {
+    "full_name": "Miss Ruby Watsica",
+    "date_of_birth": "2000-12-08T19:34:37.330Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 17480.856700626755
+  },
+  {
+    "full_name": "Lillie Price PhD",
+    "date_of_birth": "1987-03-16T14:09:58.225Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 5699.397988843347
+  },
+  {
+    "full_name": "Beulah Hettinger",
+    "date_of_birth": "1973-04-12T14:54:53.034Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 16052.439914761788
+  },
+  {
+    "full_name": "Ernesto Buckridge",
+    "date_of_birth": "1978-10-20T20:45:40.109Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 15657.876310412172
+  },
+  {
+    "full_name": "Lena Monahan",
+    "date_of_birth": "1969-11-03T00:02:05.292Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 5412.650832004369
+  },
+  {
+    "full_name": "Sam Parker",
+    "date_of_birth": "1980-04-28T02:57:49.840Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 4757.0792722722945
+  },
+  {
+    "full_name": "Traci Price",
+    "date_of_birth": "1999-11-10T16:05:54.003Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 4883.167078975051
+  },
+  {
+    "full_name": "Beulah Jenkins",
+    "date_of_birth": "1960-07-12T15:30:20.220Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 14140.904307201867
+  },
+  {
+    "full_name": "Leon Conroy",
+    "date_of_birth": "1960-09-23T16:15:38.593Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 10206.36190644018
+  },
+  {
+    "full_name": "Betty Rodriguez",
+    "date_of_birth": "1961-07-11T10:52:37.528Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 6708.697328104271
+  },
+  {
+    "full_name": "Sheldon Grant",
+    "date_of_birth": "1971-03-09T12:28:47.532Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 13821.338181395073
+  },
+  {
+    "full_name": "Claudia White",
+    "date_of_birth": "1960-08-16T04:13:48.133Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 7797.140397181527
+  },
+  {
+    "full_name": "Karla Dibbert",
+    "date_of_birth": "1999-12-01T10:45:19.120Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 14179.149246256115
+  },
+  {
+    "full_name": "Jon Lesch",
+    "date_of_birth": "1984-04-08T21:01:12.442Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 4494.57238955171
+  },
+  {
+    "full_name": "Ora Bartoletti",
+    "date_of_birth": "1980-12-25T22:23:59.711Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 11076.659851510594
+  },
+  {
+    "full_name": "Dr Jorge Christiansen",
+    "date_of_birth": "1965-02-23T05:25:09.085Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 8829.200606488494
+  },
+  {
+    "full_name": "Donald Moen",
+    "date_of_birth": "1979-05-26T08:44:11.365Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 4304.096100368668
+  },
+  {
+    "full_name": "Candace Littel",
+    "date_of_birth": "1995-07-06T19:34:21.187Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 11185.879893924885
+  },
+  {
+    "full_name": "Kari Heathcote",
+    "date_of_birth": "1969-08-08T17:25:04.439Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 10528.624499428108
+  },
+  {
+    "full_name": "Anna Kihn",
+    "date_of_birth": "1995-10-13T15:05:48.445Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 11299.145364036056
+  },
+  {
+    "full_name": "Traci Wisozk",
+    "date_of_birth": "1986-06-08T08:14:18.224Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 16048.572299171256
+  },
+  {
+    "full_name": "Ray Ruecker",
+    "date_of_birth": "1977-06-27T05:28:18.601Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15822.572099532976
+  },
+  {
+    "full_name": "Sidney Luettgen",
+    "date_of_birth": "1976-02-21T12:27:42.871Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15078.93494121379
+  },
+  {
+    "full_name": "Dr Ismael Connelly",
+    "date_of_birth": "1966-11-15T06:48:03.322Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 19885.543637449948
+  },
+  {
+    "full_name": "Kendra Walter",
+    "date_of_birth": "1987-10-23T22:04:22.288Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 6215.468615685786
+  },
+  {
+    "full_name": "Myra Monahan",
+    "date_of_birth": "1987-10-02T00:55:02.178Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 13927.753110283898
+  },
+  {
+    "full_name": "Geoffrey Leffler",
+    "date_of_birth": "1967-11-30T22:57:50.950Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 15817.501613380648
+  },
+  {
+    "full_name": "Mary Schultz",
+    "date_of_birth": "1982-08-25T01:03:38.978Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 19189.32722727953
+  },
+  {
+    "full_name": "Elena Hartmann",
+    "date_of_birth": "1997-06-17T23:48:42.034Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 11796.322089269648
+  },
+  {
+    "full_name": "Jennifer Predovic",
+    "date_of_birth": "1974-10-16T09:10:13.528Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 3879.986162495498
+  },
+  {
+    "full_name": "Meredith Dickens",
+    "date_of_birth": "1968-10-21T03:56:42.101Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 8734.656261820332
+  },
+  {
+    "full_name": "Antoinette Gislason-Sanford",
+    "date_of_birth": "1962-08-28T02:15:06.926Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 14711.838138948437
+  },
+  {
+    "full_name": "Josefina Price",
+    "date_of_birth": "1965-08-06T21:13:43.698Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9114.577394037815
+  },
+  {
+    "full_name": "Jasmine Feest DVM",
+    "date_of_birth": "1961-06-04T12:19:02.226Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9692.257482201368
+  },
+  {
+    "full_name": "Ms Connie Price",
+    "date_of_birth": "1971-05-09T13:45:09.081Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 9122.311146942382
+  },
+  {
+    "full_name": "Everett Buckridge",
+    "date_of_birth": "1960-05-11T20:05:58.939Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 7951.755914205432
+  },
+  {
+    "full_name": "Lynn Jerde",
+    "date_of_birth": "1966-04-15T00:25:41.297Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 15547.150769512276
+  },
+  {
+    "full_name": "Milton Casper-Nader",
+    "date_of_birth": "1980-10-24T08:18:17.522Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 19452.013694357618
+  },
+  {
+    "full_name": "Ella Renner",
+    "date_of_birth": "1999-08-03T02:01:12.842Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 3116.300864072092
+  },
+  {
+    "full_name": "Carolyn Stracke",
+    "date_of_birth": "1970-04-22T20:07:46.510Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 16453.545029022513
+  },
+  {
+    "full_name": "Adrian Robel DVM",
+    "date_of_birth": "1996-03-02T00:48:51.692Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 3326.335308650136
+  },
+  {
+    "full_name": "Dr Claude Zulauf",
+    "date_of_birth": "1971-06-05T01:38:15.607Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 18474.104307643964
+  },
+  {
+    "full_name": "Mr Gary Welch",
+    "date_of_birth": "1984-12-13T16:52:55.300Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 14491.659835913248
+  },
+  {
+    "full_name": "Karen Green",
+    "date_of_birth": "1961-02-19T06:47:20.324Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 16701.055496899542
+  },
+  {
+    "full_name": "June Mraz",
+    "date_of_birth": "1976-06-18T06:46:53.745Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15107.911735879137
+  },
+  {
+    "full_name": "Beatrice Hilll",
+    "date_of_birth": "1991-02-24T23:58:41.090Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 10970.837703250738
+  },
+  {
+    "full_name": "Carmen Dach",
+    "date_of_birth": "1986-02-07T19:12:04.350Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 6217.81670795489
+  },
+  {
+    "full_name": "Courtney Prosacco",
+    "date_of_birth": "1996-12-13T00:15:38.551Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 14402.555586370156
+  },
+  {
+    "full_name": "Marcos Conroy",
+    "date_of_birth": "1994-05-11T21:23:31.608Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 16069.944633510622
+  },
+  {
+    "full_name": "Donald Reilly",
+    "date_of_birth": "1968-10-14T05:23:18.266Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 18026.902400180792
+  },
+  {
+    "full_name": "Andre Ebert Jr",
+    "date_of_birth": "1977-09-23T17:56:06.449Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 18822.482996899722
+  },
+  {
+    "full_name": "Wilbur Rowe Sr",
+    "date_of_birth": "1986-12-29T12:11:17.792Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17145.04969288012
+  },
+  {
+    "full_name": "Ryan Wolff III",
+    "date_of_birth": "1974-06-16T14:05:05.224Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 10352.948997957046
+  },
+  {
+    "full_name": "Felipe Swift DDS",
+    "date_of_birth": "1989-01-28T11:32:42.566Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 16743.75256130151
+  },
+  {
+    "full_name": "Nina White",
+    "date_of_birth": "1995-06-11T01:37:58.317Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 10616.609765428868
+  },
+  {
+    "full_name": "Ms Patricia Willms",
+    "date_of_birth": "1994-08-19T11:58:55.414Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 14401.472062426594
+  },
+  {
+    "full_name": "Melody Muller",
+    "date_of_birth": "1998-04-05T10:02:08.126Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 19203.99745327254
+  },
+  {
+    "full_name": "Trevor Leffler",
+    "date_of_birth": "1986-04-01T18:54:31.815Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 12707.944546993222
+  },
+  {
+    "full_name": "Mildred Durgan PhD",
+    "date_of_birth": "1986-10-07T23:47:28.631Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 14652.302927037224
+  },
+  {
+    "full_name": "Ross Walsh",
+    "date_of_birth": "1963-09-11T19:17:46.946Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15815.747576301694
+  },
+  {
+    "full_name": "Doris Walker",
+    "date_of_birth": "1968-09-19T05:06:47.786Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 11334.045544650906
+  },
+  {
+    "full_name": "Moses Huel",
+    "date_of_birth": "1993-09-16T10:49:21.577Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 16467.433096222245
+  },
+  {
+    "full_name": "Darla Langosh",
+    "date_of_birth": "1996-01-23T12:30:52.967Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 16470.658906214776
+  },
+  {
+    "full_name": "Mr Kelvin Kautzer",
+    "date_of_birth": "1972-12-13T05:59:50.519Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 17160.512562180353
+  },
+  {
+    "full_name": "Winifred Stokes",
+    "date_of_birth": "1983-01-08T14:13:57.698Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 19849.4716847593
+  },
+  {
+    "full_name": "Jermaine Mosciski DVM",
+    "date_of_birth": "2000-01-10T21:07:35.526Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 3580.0013999667276
+  },
+  {
+    "full_name": "Janis Pouros",
+    "date_of_birth": "1991-07-13T04:58:55.893Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 3806.6014497368897
+  },
+  {
+    "full_name": "Georgia Cartwright",
+    "date_of_birth": "1977-03-15T05:30:20.705Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 3365.495415124184
+  },
+  {
+    "full_name": "Johnnie McCullough",
+    "date_of_birth": "1996-04-20T14:37:34.679Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 6263.2237680562575
+  },
+  {
+    "full_name": "Todd Schulist",
+    "date_of_birth": "1994-04-24T19:14:10.777Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 19482.97030808047
+  },
+  {
+    "full_name": "Lola Casper",
+    "date_of_birth": "1992-12-27T07:24:17.505Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 9678.43956906367
+  },
+  {
+    "full_name": "Casey Kreiger",
+    "date_of_birth": "1998-07-05T14:29:48.561Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 10550.13380359967
+  },
+  {
+    "full_name": "Danny Jacobson",
+    "date_of_birth": "1994-06-01T06:21:17.803Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 7335.643561009601
+  },
+  {
+    "full_name": "Dr Delores Haag",
+    "date_of_birth": "1960-04-15T17:32:59.458Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 17876.316170008373
+  },
+  {
+    "full_name": "Fannie Ziemann V",
+    "date_of_birth": "2000-10-13T20:01:17.707Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 3158.9320997920595
+  },
+  {
+    "full_name": "Cathy Buckridge",
+    "date_of_birth": "1969-02-11T19:54:40.971Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 8995.081025616613
+  },
+  {
+    "full_name": "Miguel Lemke",
+    "date_of_birth": "1965-01-25T17:55:37.414Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 18274.51406693739
+  },
+  {
+    "full_name": "Alice Zboncak",
+    "date_of_birth": "1965-06-05T23:44:57.720Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 8423.055264870316
+  },
+  {
+    "full_name": "Billy Monahan",
+    "date_of_birth": "1991-04-28T17:34:48.550Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 13801.80678637607
+  },
+  {
+    "full_name": "Joshua McGlynn I",
+    "date_of_birth": "1992-12-01T15:19:43.332Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 14052.452486147384
+  },
+  {
+    "full_name": "Lindsey Mitchell DVM",
+    "date_of_birth": "1992-03-02T22:06:59.221Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 14761.186594193668
+  },
+  {
+    "full_name": "Elsa Padberg",
+    "date_of_birth": "1993-11-09T04:28:16.204Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 9209.09982599695
+  },
+  {
+    "full_name": "Linda Huels",
+    "date_of_birth": "1962-05-17T10:29:56.827Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 17910.05206488249
+  },
+  {
+    "full_name": "David Kreiger",
+    "date_of_birth": "1965-02-10T11:52:45.505Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 8073.247086469994
+  },
+  {
+    "full_name": "Jim Heidenreich",
+    "date_of_birth": "1989-03-04T04:33:44.215Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 10205.139297759952
+  },
+  {
+    "full_name": "Naomi Marquardt",
+    "date_of_birth": "1981-11-03T11:29:58.345Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 12416.05605201668
+  },
+  {
+    "full_name": "Christine Douglas",
+    "date_of_birth": "1992-03-11T05:48:09.798Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9011.858203686199
+  },
+  {
+    "full_name": "Mr Tyrone Auer",
+    "date_of_birth": "1966-12-04T23:39:46.719Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 9984.765222564882
+  },
+  {
+    "full_name": "Jermaine Prohaska",
+    "date_of_birth": "1987-03-07T14:16:48.063Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 7486.552453402288
+  },
+  {
+    "full_name": "Patti Rowe II",
+    "date_of_birth": "1968-07-08T12:17:46.405Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 13097.860045978707
+  },
+  {
+    "full_name": "Debra Fahey",
+    "date_of_birth": "1975-01-06T07:41:51.946Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 11055.151257875756
+  },
+  {
+    "full_name": "Vicki Kuhn",
+    "date_of_birth": "1999-06-01T22:55:54.944Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 12507.50440356378
+  },
+  {
+    "full_name": "Grant Stiedemann",
+    "date_of_birth": "2000-09-02T02:20:28.046Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 7757.270370575171
+  },
+  {
+    "full_name": "Paulette Johns",
+    "date_of_birth": "1963-01-29T10:04:12.289Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 5023.192749514977
+  },
+  {
+    "full_name": "Mrs Katherine Hartmann Sr",
+    "date_of_birth": "1988-06-12T10:43:21.104Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 17966.37954003574
+  },
+  {
+    "full_name": "Gerard Hettinger",
+    "date_of_birth": "1978-03-28T16:00:35.006Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 11782.870486065152
+  },
+  {
+    "full_name": "Mr Lewis Homenick V",
+    "date_of_birth": "1978-05-14T09:18:33.700Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 12886.633811521426
+  },
+  {
+    "full_name": "Adrian Jakubowski",
+    "date_of_birth": "1994-08-02T04:16:28.421Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15517.048786785888
+  },
+  {
+    "full_name": "Erika Jacobs",
+    "date_of_birth": "1972-08-13T04:24:39.440Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 9747.202408964946
+  },
+  {
+    "full_name": "Vernon Marvin",
+    "date_of_birth": "1970-04-29T03:05:45.100Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 6683.5116851391585
+  },
+  {
+    "full_name": "Miriam Veum",
+    "date_of_birth": "1978-09-23T06:10:04.850Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 19810.931886692426
+  },
+  {
+    "full_name": "Ken Ebert",
+    "date_of_birth": "1991-07-19T04:50:03.989Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9002.086336275113
+  },
+  {
+    "full_name": "Tiffany Huels",
+    "date_of_birth": "1979-02-07T02:29:43.627Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 7326.596011804122
+  },
+  {
+    "full_name": "Nellie Wuckert",
+    "date_of_birth": "1991-06-27T08:26:00.209Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 13628.639179829259
+  },
+  {
+    "full_name": "Scott Rau",
+    "date_of_birth": "1978-11-22T08:26:55.801Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 13069.32138999021
+  },
+  {
+    "full_name": "Geraldine Rowe",
+    "date_of_birth": "1973-04-19T00:22:47.265Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 10707.957340533534
+  },
+  {
+    "full_name": "Bertha Renner",
+    "date_of_birth": "1998-01-23T22:06:00.044Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 18936.9450702034
+  },
+  {
+    "full_name": "Homer Botsford",
+    "date_of_birth": "1965-05-13T15:13:17.856Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 9451.725674639612
+  },
+  {
+    "full_name": "Tonya Cummerata IV",
+    "date_of_birth": "1971-02-19T10:08:55.492Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 9368.380848918885
+  },
+  {
+    "full_name": "Gordon Haley",
+    "date_of_birth": "1995-12-14T11:28:58.830Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 19227.885146061573
+  },
+  {
+    "full_name": "Janice Harris",
+    "date_of_birth": "1996-09-15T21:06:41.419Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 12106.333454515574
+  },
+  {
+    "full_name": "Mr Marvin Gutkowski",
+    "date_of_birth": "1970-03-15T17:07:37.397Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 11618.84332065329
+  },
+  {
+    "full_name": "Violet Hudson",
+    "date_of_birth": "1985-05-12T08:35:55.377Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 11945.137370170787
+  },
+  {
+    "full_name": "Al Deckow",
+    "date_of_birth": "1983-08-03T07:06:47.031Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 5631.458733770442
+  },
+  {
+    "full_name": "Cecelia Runolfsson V",
+    "date_of_birth": "1989-04-13T17:29:37.922Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 19746.057470401527
+  },
+  {
+    "full_name": "Blake Tremblay",
+    "date_of_birth": "1978-03-02T09:10:58.360Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 5250.092216057239
+  },
+  {
+    "full_name": "Mr Irving Leffler",
+    "date_of_birth": "1967-12-20T10:00:15.402Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 12830.280658717644
+  },
+  {
+    "full_name": "Brandy Jast",
+    "date_of_birth": "1992-08-01T15:23:13.011Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 7823.669603264094
+  },
+  {
+    "full_name": "Alfredo Howell IV",
+    "date_of_birth": "1963-04-10T09:52:56.110Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 8178.556988775404
+  },
+  {
+    "full_name": "Mr Angelo Tromp",
+    "date_of_birth": "1996-05-06T03:13:34.750Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15731.917062844652
+  },
+  {
+    "full_name": "Bonnie Schaefer",
+    "date_of_birth": "1963-07-10T00:43:09.731Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 8272.735110532329
+  },
+  {
+    "full_name": "Stephanie Robel",
+    "date_of_birth": "1998-06-18T18:43:35.739Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 4496.331745836109
+  },
+  {
+    "full_name": "Jo Moen",
+    "date_of_birth": "1984-10-15T22:38:31.491Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15722.877509013033
+  },
+  {
+    "full_name": "Nelson Keebler",
+    "date_of_birth": "2000-09-18T20:27:38.761Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 10532.433501068863
+  },
+  {
+    "full_name": "Dr Myron Kuphal",
+    "date_of_birth": "1996-12-08T04:37:15.826Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 19425.38883917242
+  },
+  {
+    "full_name": "Blanche Kuphal",
+    "date_of_birth": "1964-03-14T03:20:05.320Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 19046.39156012631
+  },
+  {
+    "full_name": "Elisa Hegmann",
+    "date_of_birth": "1984-02-15T00:25:21.657Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 16121.739507265727
+  },
+  {
+    "full_name": "Lewis Mraz",
+    "date_of_birth": "1998-04-01T13:58:01.606Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 10383.829555834323
+  },
+  {
+    "full_name": "Dr Paula Balistreri",
+    "date_of_birth": "1980-08-18T01:03:38.021Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 3985.9721981275657
+  },
+  {
+    "full_name": "Dr Alan Vandervort I",
+    "date_of_birth": "1998-02-12T01:50:11.556Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17679.434841904775
+  },
+  {
+    "full_name": "Mrs Doris Johnston",
+    "date_of_birth": "1994-03-08T05:58:09.296Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15319.697939829197
+  },
+  {
+    "full_name": "Elisa Davis PhD",
+    "date_of_birth": "1991-12-08T11:38:44.916Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 4948.4091220264545
+  },
+  {
+    "full_name": "Chester Hermann",
+    "date_of_birth": "1964-07-21T07:59:42.915Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 4975.117506103137
+  },
+  {
+    "full_name": "Cody Kilback",
+    "date_of_birth": "1986-04-15T17:03:49.948Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 15695.747713331415
+  },
+  {
+    "full_name": "Loretta Williamson",
+    "date_of_birth": "1999-06-03T09:01:03.009Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 5540.68514751871
+  },
+  {
+    "full_name": "Marguerite Goldner",
+    "date_of_birth": "1981-01-01T05:23:03.938Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 8117.024941414894
+  },
+  {
+    "full_name": "Timmy Stokes-Tremblay",
+    "date_of_birth": "1972-10-05T17:17:16.805Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15464.15245093383
+  },
+  {
+    "full_name": "Randolph Kassulke",
+    "date_of_birth": "1993-11-22T05:57:21.105Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 13313.031953457192
+  },
+  {
+    "full_name": "Iris Waters",
+    "date_of_birth": "1995-10-12T01:23:33.909Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 18503.60989842556
+  },
+  {
+    "full_name": "Anne Pacocha",
+    "date_of_birth": "1969-10-10T13:13:31.027Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 13634.455326750729
+  },
+  {
+    "full_name": "Noah Mosciski",
+    "date_of_birth": "1982-12-27T06:52:58.119Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 5859.430960121093
+  },
+  {
+    "full_name": "Stella Abshire",
+    "date_of_birth": "1964-04-25T03:36:29.121Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 12666.609556473351
+  },
+  {
+    "full_name": "Heidi Block",
+    "date_of_birth": "1966-03-10T19:09:12.588Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 4216.472986600655
+  },
+  {
+    "full_name": "Fannie Raynor",
+    "date_of_birth": "1986-08-09T04:55:07.558Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 6257.554684946196
+  },
+  {
+    "full_name": "Jodi Nikolaus",
+    "date_of_birth": "1993-08-15T03:32:28.331Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15411.6226117022
+  },
+  {
+    "full_name": "Esther Welch",
+    "date_of_birth": "1991-07-09T20:22:47.691Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 9174.39200668312
+  },
+  {
+    "full_name": "Charles Kemmer",
+    "date_of_birth": "1981-02-15T02:55:54.866Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 14538.273407837984
+  },
+  {
+    "full_name": "Dr Ginger Runte",
+    "date_of_birth": "1973-11-15T14:52:02.960Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 18276.072437586325
+  },
+  {
+    "full_name": "Marty Feest",
+    "date_of_birth": "1969-03-13T12:44:11.246Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 11955.024035291397
+  },
+  {
+    "full_name": "Chelsea Waelchi-Windler",
+    "date_of_birth": "1968-09-26T15:03:39.171Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 19313.849146807686
+  },
+  {
+    "full_name": "Lance Crona",
+    "date_of_birth": "1999-09-14T19:34:50.762Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 18123.01493012411
+  },
+  {
+    "full_name": "Brad Schamberger",
+    "date_of_birth": "1993-02-22T04:54:01.242Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 6702.861929308296
+  },
+  {
+    "full_name": "Erica Marks",
+    "date_of_birth": "1989-10-14T19:59:13.900Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 6184.188474608402
+  },
+  {
+    "full_name": "Todd Yost",
+    "date_of_birth": "1984-08-18T18:26:32.503Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 11924.59976265855
+  },
+  {
+    "full_name": "Carroll Graham",
+    "date_of_birth": "1988-05-05T03:40:18.203Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 16285.849375301557
+  },
+  {
+    "full_name": "Herbert Lindgren DVM",
+    "date_of_birth": "1992-10-03T06:44:22.172Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 8286.20026433075
+  },
+  {
+    "full_name": "Rosie Haley I",
+    "date_of_birth": "1999-09-27T04:47:48.364Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 14872.216307041554
+  },
+  {
+    "full_name": "Ray Leannon",
+    "date_of_birth": "1996-04-10T15:22:48.451Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15483.086153910288
+  },
+  {
+    "full_name": "Katherine Cormier",
+    "date_of_birth": "1984-09-12T04:44:56.140Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15413.701450598559
+  },
+  {
+    "full_name": "Mercedes Jacobson",
+    "date_of_birth": "1985-03-02T17:17:34.463Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 6949.2553771267885
+  },
+  {
+    "full_name": "Madeline Huels",
+    "date_of_birth": "1960-09-04T13:35:08.681Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 17553.089499859998
+  },
+  {
+    "full_name": "Stacey Stamm",
+    "date_of_birth": "1998-08-05T10:54:58.204Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 4257.623455945544
+  },
+  {
+    "full_name": "Eddie Shields V",
+    "date_of_birth": "1991-04-08T11:38:13.506Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 7361.854697493296
+  },
+  {
+    "full_name": "Teresa Pagac",
+    "date_of_birth": "1970-09-08T04:48:05.264Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 11535.542392487674
+  },
+  {
+    "full_name": "Ruben Carter",
+    "date_of_birth": "1997-07-15T11:45:59.008Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 4998.122109724259
+  },
+  {
+    "full_name": "Velma West",
+    "date_of_birth": "1983-03-16T03:40:22.739Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17900.15494059972
+  },
+  {
+    "full_name": "Shari Kertzmann",
+    "date_of_birth": "1983-11-14T12:24:29.739Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 7954.9430283281135
+  },
+  {
+    "full_name": "Mitchell Klein-Fay",
+    "date_of_birth": "1978-04-12T18:03:17.808Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 5568.552529263565
+  },
+  {
+    "full_name": "Jacqueline Nienow",
+    "date_of_birth": "1998-06-26T03:16:42.190Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 9165.96970802448
+  },
+  {
+    "full_name": "Juan Thompson",
+    "date_of_birth": "1994-07-05T05:00:41.858Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 7167.386372514508
+  },
+  {
+    "full_name": "Dallas Hoppe",
+    "date_of_birth": "1997-08-22T13:26:52.970Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 16632.229316154677
+  },
+  {
+    "full_name": "Tabitha Wolff",
+    "date_of_birth": "1988-12-09T23:21:57.052Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 16424.53142729486
+  },
+  {
+    "full_name": "Kirk Goldner",
+    "date_of_birth": "1993-03-18T14:55:42.124Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 11374.597555493108
+  },
+  {
+    "full_name": "Rose Torphy",
+    "date_of_birth": "1960-03-28T13:36:33.834Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15627.222609373684
+  },
+  {
+    "full_name": "Gary Goodwin",
+    "date_of_birth": "1994-07-19T22:33:05.925Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 12388.255784037823
+  },
+  {
+    "full_name": "Marion Franey",
+    "date_of_birth": "1979-05-06T11:22:43.411Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 14888.354327336287
+  },
+  {
+    "full_name": "Eileen McLaughlin",
+    "date_of_birth": "1995-04-08T13:49:45.509Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 14421.758884011992
+  },
+  {
+    "full_name": "Ashley MacGyver V",
+    "date_of_birth": "1970-06-12T19:02:25.477Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 17832.45274598489
+  },
+  {
+    "full_name": "Bobby Pacocha",
+    "date_of_birth": "1987-05-15T19:47:11.776Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9526.927948372977
+  },
+  {
+    "full_name": "Donna Satterfield IV",
+    "date_of_birth": "1966-01-14T21:26:01.114Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9180.724846517885
+  },
+  {
+    "full_name": "Miss Lela Gottlieb",
+    "date_of_birth": "1995-10-09T06:14:50.227Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 16597.20758211524
+  },
+  {
+    "full_name": "Bethany Cole Sr",
+    "date_of_birth": "1984-08-09T19:39:49.127Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17596.73696676719
+  },
+  {
+    "full_name": "Kristen Bradtke-Schmitt",
+    "date_of_birth": "1987-03-17T16:22:12.650Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 14734.589790717062
+  },
+  {
+    "full_name": "Geneva Koelpin",
+    "date_of_birth": "1966-12-20T00:37:32.123Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 3720.7217977859527
+  },
+  {
+    "full_name": "Joseph Harber",
+    "date_of_birth": "1961-07-24T14:59:00.979Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 6456.657759617758
+  },
+  {
+    "full_name": "Lola Turcotte DVM",
+    "date_of_birth": "1965-08-16T13:15:08.482Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 13367.520745812722
+  },
+  {
+    "full_name": "Mrs Lee Kohler",
+    "date_of_birth": "1968-08-06T05:31:02.027Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 4962.680369749387
+  },
+  {
+    "full_name": "Krista Pfannerstill PhD",
+    "date_of_birth": "1973-05-24T00:15:13.890Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 9762.839754673154
+  },
+  {
+    "full_name": "Matt Schiller I",
+    "date_of_birth": "1984-05-18T22:57:12.881Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 18858.600114684294
+  },
+  {
+    "full_name": "Eileen Romaguera",
+    "date_of_birth": "1968-03-10T05:15:42.338Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 19180.97838655793
+  },
+  {
+    "full_name": "Roxanne Bosco",
+    "date_of_birth": "2000-02-11T00:05:28.402Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 13496.315168950563
+  },
+  {
+    "full_name": "Dr Terri Barton III",
+    "date_of_birth": "1976-06-12T11:56:07.446Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 18506.49267296269
+  },
+  {
+    "full_name": "Josh Nitzsche",
+    "date_of_birth": "1980-06-20T00:26:27.252Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 7339.170972339101
+  },
+  {
+    "full_name": "Adrienne Kunze",
+    "date_of_birth": "1976-05-02T00:45:56.452Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 7949.136918098723
+  },
+  {
+    "full_name": "Anna Gibson",
+    "date_of_birth": "1976-07-10T05:43:37.868Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 3535.549120721974
+  },
+  {
+    "full_name": "Belinda Kutch",
+    "date_of_birth": "1991-05-27T09:09:33.740Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 12166.986797920194
+  },
+  {
+    "full_name": "Marco Quitzon",
+    "date_of_birth": "1974-12-19T15:38:23.604Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 17908.84843206605
+  },
+  {
+    "full_name": "Shelley Maggio",
+    "date_of_birth": "1960-04-15T05:07:24.313Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 13694.768432171553
+  },
+  {
+    "full_name": "Rodolfo Collier",
+    "date_of_birth": "1973-06-17T08:01:35.400Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 11808.872960436087
+  },
+  {
+    "full_name": "Kendra Greenholt",
+    "date_of_birth": "1967-01-28T14:22:52.953Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 10107.096388410864
+  },
+  {
+    "full_name": "Diane Bernier",
+    "date_of_birth": "1993-10-31T02:53:58.194Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 8097.123119103088
+  },
+  {
+    "full_name": "Sherman Gleason",
+    "date_of_birth": "1989-08-17T08:29:23.943Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 17564.441169726117
+  },
+  {
+    "full_name": "Matt Schmidt-Nicolas",
+    "date_of_birth": "1976-12-08T18:00:05.052Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 5420.042158155017
+  },
+  {
+    "full_name": "Karl Lehner",
+    "date_of_birth": "1981-03-13T06:11:09.315Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 11113.399296576667
+  },
+  {
+    "full_name": "Patrick Corkery",
+    "date_of_birth": "1985-02-11T08:26:08.845Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 4578.826711620506
+  },
+  {
+    "full_name": "Rodolfo Upton",
+    "date_of_birth": "1965-12-06T15:33:55.435Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 10754.814090887843
+  },
+  {
+    "full_name": "Gene Spinka",
+    "date_of_birth": "1992-07-19T08:18:03.050Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15825.909916282726
+  },
+  {
+    "full_name": "Tony Wintheiser",
+    "date_of_birth": "1969-06-11T22:20:00.403Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 9713.380011854635
+  },
+  {
+    "full_name": "Emmett Okuneva",
+    "date_of_birth": "1991-07-16T18:57:14.456Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 18551.85970249874
+  },
+  {
+    "full_name": "Dr Max Rosenbaum-Jacobi",
+    "date_of_birth": "1966-11-19T12:06:06.930Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 11496.873729302757
+  },
+  {
+    "full_name": "Alfonso Graham",
+    "date_of_birth": "1988-06-11T07:29:00.881Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15669.606478933922
+  },
+  {
+    "full_name": "Kathleen Raynor",
+    "date_of_birth": "1967-08-31T21:13:10.989Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 18182.879097269302
+  },
+  {
+    "full_name": "Kelli Johnson",
+    "date_of_birth": "1982-03-06T05:50:35.280Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 18828.27773933267
+  },
+  {
+    "full_name": "Jorge Schimmel III",
+    "date_of_birth": "1963-06-17T08:18:06.802Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 19760.61009347264
+  },
+  {
+    "full_name": "Joe Vandervort",
+    "date_of_birth": "1994-09-08T15:19:26.738Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 8813.800254764688
+  },
+  {
+    "full_name": "Erika Schiller",
+    "date_of_birth": "1986-08-18T19:56:59.229Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 17377.981466774207
+  },
+  {
+    "full_name": "Wilbur Koch",
+    "date_of_birth": "2000-04-01T15:06:36.166Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 18334.832429375892
+  },
+  {
+    "full_name": "Blanca Johnson",
+    "date_of_birth": "1965-10-20T12:02:12.542Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 7841.506824557397
+  },
+  {
+    "full_name": "Miss Lydia Yundt",
+    "date_of_birth": "1997-02-13T09:33:13.551Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 11785.288741774893
+  },
+  {
+    "full_name": "Jamie Nader",
+    "date_of_birth": "1991-12-02T01:15:42.733Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 8396.933746556027
+  },
+  {
+    "full_name": "Nellie Metz",
+    "date_of_birth": "1990-11-18T08:11:57.162Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 12274.530939689494
+  },
+  {
+    "full_name": "Mr Roy Mayer",
+    "date_of_birth": "1982-04-25T09:49:58.514Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 18206.185314385406
+  },
+  {
+    "full_name": "Dominic Jast",
+    "date_of_birth": "1997-02-17T22:12:59.116Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 14119.205110522318
+  },
+  {
+    "full_name": "Ms Guadalupe Erdman II",
+    "date_of_birth": "1987-10-21T22:31:52.813Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 12446.309189461655
+  },
+  {
+    "full_name": "Jesse O'Conner",
+    "date_of_birth": "1972-04-02T19:25:26.930Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 9123.183200770292
+  },
+  {
+    "full_name": "Herbert Wehner-Kris",
+    "date_of_birth": "1993-10-04T02:10:13.616Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 18923.774545399174
+  },
+  {
+    "full_name": "Dr Bernadette Johnson",
+    "date_of_birth": "1967-02-16T08:15:05.115Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 14323.56174956413
+  },
+  {
+    "full_name": "Tina Wisozk",
+    "date_of_birth": "1961-01-27T20:55:47.103Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 6024.035487026458
+  },
+  {
+    "full_name": "Dwight Frami",
+    "date_of_birth": "1988-08-22T19:54:59.934Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 10744.405856496662
+  },
+  {
+    "full_name": "Winifred Swift",
+    "date_of_birth": "1977-02-23T07:48:18.716Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 6820.8605605161265
+  },
+  {
+    "full_name": "Claire Streich-Schmitt II",
+    "date_of_birth": "1975-02-19T02:33:22.293Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 9107.062175850484
+  },
+  {
+    "full_name": "Willis Rice",
+    "date_of_birth": "1989-10-17T21:46:19.682Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 12138.29892328642
+  },
+  {
+    "full_name": "Dianne Parisian",
+    "date_of_birth": "1973-10-11T21:01:16.785Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 12035.217893171503
+  },
+  {
+    "full_name": "Nicholas Buckridge",
+    "date_of_birth": "1979-06-28T18:39:30.918Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 13808.60380114996
+  },
+  {
+    "full_name": "Dr Ernesto Herman DVM",
+    "date_of_birth": "1970-09-20T20:23:09.644Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17356.430614166915
+  },
+  {
+    "full_name": "Kendra Kshlerin",
+    "date_of_birth": "1978-02-13T22:30:50.085Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 5781.312718884657
+  },
+  {
+    "full_name": "Miss Sophie Rutherford",
+    "date_of_birth": "1964-09-02T19:01:17.894Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 19267.299474182993
+  },
+  {
+    "full_name": "Ms Gwendolyn Greenholt",
+    "date_of_birth": "1964-09-19T00:07:48.908Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 9227.084884906855
+  },
+  {
+    "full_name": "Arthur Franey",
+    "date_of_birth": "1981-12-12T08:38:12.393Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 15310.905919584573
+  },
+  {
+    "full_name": "Brandi Kuhlman",
+    "date_of_birth": "1961-05-07T20:34:37.586Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 6446.59627458063
+  },
+  {
+    "full_name": "Mathew Schumm DDS",
+    "date_of_birth": "1989-08-16T01:49:09.473Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 3327.4131047679793
+  },
+  {
+    "full_name": "Loretta Mraz",
+    "date_of_birth": "1967-12-17T17:41:15.323Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 10744.52635803139
+  },
+  {
+    "full_name": "Katie Runte",
+    "date_of_birth": "1980-09-24T17:18:07.194Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 17063.402531410517
+  },
+  {
+    "full_name": "Rachel Kris",
+    "date_of_birth": "1990-11-02T13:01:14.738Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 13479.196500836011
+  },
+  {
+    "full_name": "Manuel Nolan",
+    "date_of_birth": "1985-12-17T17:28:03.355Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 4477.626518294592
+  },
+  {
+    "full_name": "Vera Wiza",
+    "date_of_birth": "1971-11-26T00:19:30.049Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 12971.375410259376
+  },
+  {
+    "full_name": "Lamar Gottlieb DDS",
+    "date_of_birth": "1968-08-23T05:30:31.206Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 10362.550490901362
+  },
+  {
+    "full_name": "Amanda Crist",
+    "date_of_birth": "1984-12-04T10:43:45.040Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 9001.898694243726
+  },
+  {
+    "full_name": "Marianne Howe I",
+    "date_of_birth": "1977-02-21T21:54:57.277Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 13749.858938211528
+  },
+  {
+    "full_name": "Chester Lesch",
+    "date_of_birth": "1965-12-10T10:26:49.083Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17977.18513098143
+  },
+  {
+    "full_name": "Mr Edward Strosin",
+    "date_of_birth": "1995-04-07T00:37:00.646Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 19395.554701972353
+  },
+  {
+    "full_name": "Kristopher Harber",
+    "date_of_birth": "1973-07-21T03:24:16.380Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 16175.435719952864
+  },
+  {
+    "full_name": "Rudy Zulauf",
+    "date_of_birth": "1962-07-26T11:27:16.597Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 19800.20569183888
+  },
+  {
+    "full_name": "Felipe Halvorson",
+    "date_of_birth": "1997-01-19T15:40:50.603Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15933.49276396088
+  },
+  {
+    "full_name": "Alexis Mertz",
+    "date_of_birth": "1993-05-25T11:31:31.344Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15391.949784213892
+  },
+  {
+    "full_name": "Dale Wintheiser",
+    "date_of_birth": "1988-03-04T07:57:35.813Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 7710.323006443202
+  },
+  {
+    "full_name": "Lee Bosco",
+    "date_of_birth": "1983-09-30T21:16:01.303Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 7144.476531753279
+  },
+  {
+    "full_name": "Beth Schinner-Beer",
+    "date_of_birth": "1972-01-04T08:38:01.224Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 12789.413861659106
+  },
+  {
+    "full_name": "Perry Lindgren",
+    "date_of_birth": "1998-05-14T23:13:03.545Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 13416.787800679922
+  },
+  {
+    "full_name": "Shawna Gleichner",
+    "date_of_birth": "1981-10-18T23:18:31.237Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 12905.942246996376
+  },
+  {
+    "full_name": "Jaime Sauer",
+    "date_of_birth": "1989-06-14T23:06:31.460Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 12311.627575436547
+  },
+  {
+    "full_name": "Alma Dietrich",
+    "date_of_birth": "1968-02-28T09:03:37.561Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 3392.531536794845
+  },
+  {
+    "full_name": "Dan DuBuque",
+    "date_of_birth": "2000-11-22T14:41:23.947Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 7313.459698170337
+  },
+  {
+    "full_name": "Shannon Cassin Jr",
+    "date_of_birth": "1998-12-19T20:37:52.423Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 16406.513817798317
+  },
+  {
+    "full_name": "Mrs Katrina Lubowitz",
+    "date_of_birth": "1979-01-22T19:15:06.623Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 15781.420012323117
+  },
+  {
+    "full_name": "Nicholas Beatty",
+    "date_of_birth": "1964-12-09T01:40:40.387Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 9580.187141839579
+  },
+  {
+    "full_name": "Loren Senger",
+    "date_of_birth": "1961-11-30T17:44:08.227Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 11104.882556288936
+  },
+  {
+    "full_name": "Todd Sanford",
+    "date_of_birth": "1974-02-25T11:47:01.626Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 6693.319465728511
+  },
+  {
+    "full_name": "Jacob Denesik",
+    "date_of_birth": "1989-03-21T16:51:48.800Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 19590.52993106525
+  },
+  {
+    "full_name": "Lionel Price II",
+    "date_of_birth": "1995-01-23T23:39:01.662Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 5745.697487704469
+  },
+  {
+    "full_name": "Dr Phil Thompson",
+    "date_of_birth": "1965-08-24T21:36:32.237Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 9443.553489901988
+  },
+  {
+    "full_name": "Anna Orn",
+    "date_of_birth": "1994-03-25T19:58:02.968Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 11616.964128715805
+  },
+  {
+    "full_name": "Kathryn Blick",
+    "date_of_birth": "1998-08-09T08:07:54.936Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 14710.181646586663
+  },
+  {
+    "full_name": "Casey Schneider",
+    "date_of_birth": "1979-08-10T12:37:06.235Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15195.65791967184
+  },
+  {
+    "full_name": "Mr Dallas Bailey",
+    "date_of_birth": "1962-02-26T00:44:43.676Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 11504.893666856859
+  },
+  {
+    "full_name": "Billy Corwin MD",
+    "date_of_birth": "1964-03-29T00:36:44.651Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 14429.624388694876
+  },
+  {
+    "full_name": "Tara Medhurst V",
+    "date_of_birth": "1998-06-04T11:20:03.768Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 3219.450003953024
+  },
+  {
+    "full_name": "Marshall Prosacco",
+    "date_of_birth": "1980-09-12T03:33:58.863Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 9539.69546944178
+  },
+  {
+    "full_name": "Johnny Terry",
+    "date_of_birth": "1972-07-05T13:37:38.780Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 3453.025444091042
+  },
+  {
+    "full_name": "Bertha Koelpin",
+    "date_of_birth": "1967-09-20T21:38:34.041Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 16600.824001005116
+  },
+  {
+    "full_name": "Joanna Keeling",
+    "date_of_birth": "1962-05-12T10:49:11.543Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 19542.289984021438
+  },
+  {
+    "full_name": "Andy Wintheiser-Kassulke",
+    "date_of_birth": "1992-06-07T09:15:45.116Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 19630.731958545566
+  },
+  {
+    "full_name": "Ms Lois Hessel",
+    "date_of_birth": "2000-11-24T21:55:00.905Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 5953.6371114576505
+  },
+  {
+    "full_name": "Molly Rice",
+    "date_of_birth": "1998-08-31T11:14:27.032Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17269.075571516252
+  },
+  {
+    "full_name": "Edwin Gibson",
+    "date_of_birth": "1966-07-05T17:54:12.917Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 12458.443220038751
+  },
+  {
+    "full_name": "Judith Jerde",
+    "date_of_birth": "1990-08-19T15:57:38.873Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15709.364224714938
+  },
+  {
+    "full_name": "Roosevelt Metz",
+    "date_of_birth": "1987-04-29T07:39:31.966Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 17410.949662927706
+  },
+  {
+    "full_name": "Jamie Ernser",
+    "date_of_birth": "1993-03-07T13:44:59.180Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 5313.992959190002
+  },
+  {
+    "full_name": "Isaac Kreiger",
+    "date_of_birth": "1989-12-08T22:53:40.236Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 11067.498239222401
+  },
+  {
+    "full_name": "Maryann Stoltenberg DVM",
+    "date_of_birth": "1966-09-02T15:29:47.557Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 14670.378843611355
+  },
+  {
+    "full_name": "Edmund Mitchell",
+    "date_of_birth": "1976-09-24T11:26:30.396Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 8837.490757893444
+  },
+  {
+    "full_name": "Denise Maggio",
+    "date_of_birth": "1995-07-12T03:06:07.179Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 3900.9935783010874
+  },
+  {
+    "full_name": "Renee Ward",
+    "date_of_birth": "1991-01-14T11:34:09.151Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 11572.26175187171
+  },
+  {
+    "full_name": "Janie Wyman",
+    "date_of_birth": "1989-02-15T16:02:10.953Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 15098.7095273965
+  },
+  {
+    "full_name": "Damon Botsford",
+    "date_of_birth": "1976-12-13T16:35:14.888Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15862.140565008182
+  },
+  {
+    "full_name": "Rachael Kuhic",
+    "date_of_birth": "1978-06-16T09:39:30.350Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 6856.960776857288
+  },
+  {
+    "full_name": "Alma O'Hara",
+    "date_of_birth": "1971-05-30T18:26:01.818Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 8822.86048286969
+  },
+  {
+    "full_name": "Sheila Schamberger",
+    "date_of_birth": "1987-11-07T14:37:05.188Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9714.665118887142
+  },
+  {
+    "full_name": "Charles Wolff",
+    "date_of_birth": "1981-01-02T07:31:53.312Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 5628.688603402767
+  },
+  {
+    "full_name": "Alonzo Kiehn",
+    "date_of_birth": "1962-04-28T22:53:23.822Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 15905.87475601843
+  },
+  {
+    "full_name": "Jeanette Blick",
+    "date_of_birth": "1978-12-24T01:55:49.601Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 17550.84882014896
+  },
+  {
+    "full_name": "Kathy Cronin",
+    "date_of_birth": "1991-06-01T04:57:45.048Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 7639.370418069979
+  },
+  {
+    "full_name": "Don Wunsch Sr",
+    "date_of_birth": "1965-09-24T21:30:58.636Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 14686.983134953925
+  },
+  {
+    "full_name": "Lindsay Rau-O'Connell",
+    "date_of_birth": "1967-02-08T19:52:36.524Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 5302.979770552834
+  },
+  {
+    "full_name": "Kelli Kautzer",
+    "date_of_birth": "1984-01-19T07:55:34.122Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 11000.610377352423
+  },
+  {
+    "full_name": "Clyde Simonis",
+    "date_of_birth": "1970-04-01T23:26:34.897Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 7263.224189140655
+  },
+  {
+    "full_name": "Rose Hermiston",
+    "date_of_birth": "1994-09-15T00:00:18.433Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 14090.835378254069
+  },
+  {
+    "full_name": "Mathew Littel",
+    "date_of_birth": "1962-12-30T05:05:38.997Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17135.149087825543
+  },
+  {
+    "full_name": "Pete Durgan",
+    "date_of_birth": "1995-04-25T13:40:02.620Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 14769.812123604734
+  },
+  {
+    "full_name": "Moses Schoen Jr",
+    "date_of_birth": "1985-03-10T17:55:58.435Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 3215.0584371292925
+  },
+  {
+    "full_name": "Marlene Stanton",
+    "date_of_birth": "1971-04-29T11:52:32.894Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 6360.002014936349
+  },
+  {
+    "full_name": "Dominick Mante",
+    "date_of_birth": "1975-09-10T20:36:18.274Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 9779.750259484257
+  },
+  {
+    "full_name": "Hubert O'Conner Sr",
+    "date_of_birth": "1976-10-04T11:16:36.295Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17704.846236580357
+  },
+  {
+    "full_name": "Dixie Goldner",
+    "date_of_birth": "2000-09-16T06:18:46.811Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9646.277769885548
+  },
+  {
+    "full_name": "Mitchell Ferry",
+    "date_of_birth": "1999-06-07T14:29:59.447Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 9537.374895929932
+  },
+  {
+    "full_name": "Natasha Feil",
+    "date_of_birth": "1999-03-11T14:33:30.591Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 13343.081958185727
+  },
+  {
+    "full_name": "Jay Mohr",
+    "date_of_birth": "1990-10-04T12:30:35.734Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 5134.257369150704
+  },
+  {
+    "full_name": "Ora Miller",
+    "date_of_birth": "1982-08-28T04:50:22.811Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 19525.30854506576
+  },
+  {
+    "full_name": "Alvin Lowe",
+    "date_of_birth": "1976-09-30T15:11:47.542Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 19781.393390759396
+  },
+  {
+    "full_name": "Jerald Aufderhar-Nienow MD",
+    "date_of_birth": "2000-03-16T17:10:10.024Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 19228.121772121078
+  },
+  {
+    "full_name": "Herman Reichert III",
+    "date_of_birth": "1960-09-26T05:26:56.055Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 5380.937859948974
+  },
+  {
+    "full_name": "Gloria Connelly",
+    "date_of_birth": "1985-11-26T07:41:30.347Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 4581.165836003587
+  },
+  {
+    "full_name": "Tony Fisher-Doyle",
+    "date_of_birth": "1987-07-09T22:47:40.614Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 11021.996339201312
+  },
+  {
+    "full_name": "Armando Daniel",
+    "date_of_birth": "1997-11-10T22:57:12.831Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 5508.842443105819
+  },
+  {
+    "full_name": "Ben O'Keefe",
+    "date_of_birth": "1981-01-13T13:18:56.955Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 6439.3837859344785
+  },
+  {
+    "full_name": "Ken Stiedemann",
+    "date_of_birth": "1984-03-31T16:07:10.141Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9595.90868019493
+  },
+  {
+    "full_name": "Jeannie Schuster",
+    "date_of_birth": "1997-01-04T11:24:10.376Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 19820.63731682084
+  },
+  {
+    "full_name": "Mrs Kathryn Roberts",
+    "date_of_birth": "1978-03-18T21:03:24.936Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 3667.5694763495767
+  },
+  {
+    "full_name": "Maureen Gerlach",
+    "date_of_birth": "1989-01-24T15:10:08.783Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 12136.003563351338
+  },
+  {
+    "full_name": "Emmett Kling",
+    "date_of_birth": "1995-02-10T00:19:26.632Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 14722.537053856282
+  },
+  {
+    "full_name": "Veronica Walsh",
+    "date_of_birth": "1978-05-05T01:35:05.730Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 17384.580968307673
+  },
+  {
+    "full_name": "Lorene Cormier",
+    "date_of_birth": "1998-12-19T01:29:23.176Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 9894.80084062685
+  },
+  {
+    "full_name": "Tony Bosco",
+    "date_of_birth": "1994-05-03T16:33:29.953Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 9145.410579083564
+  },
+  {
+    "full_name": "Noel Gutkowski",
+    "date_of_birth": "1979-10-14T09:03:24.479Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 8846.408072934484
+  },
+  {
+    "full_name": "Clifton Hamill",
+    "date_of_birth": "1971-12-22T07:18:41.483Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 16135.437402842254
+  },
+  {
+    "full_name": "Dr Grant Hackett",
+    "date_of_birth": "1996-12-02T09:16:30.650Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 19776.967974175648
+  },
+  {
+    "full_name": "Kristi Hansen",
+    "date_of_birth": "1964-05-05T07:25:28.832Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9026.97375343867
+  },
+  {
+    "full_name": "Dr Lloyd Koss",
+    "date_of_birth": "1970-01-28T10:24:51.284Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 10946.424879080616
+  },
+  {
+    "full_name": "Dolores Kertzmann-Parisian",
+    "date_of_birth": "1982-01-24T20:30:54.854Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 8117.597152215635
+  },
+  {
+    "full_name": "Gregory Leuschke",
+    "date_of_birth": "1996-11-12T19:13:30.528Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 12333.436727263443
+  },
+  {
+    "full_name": "Alonzo Carter-Leannon",
+    "date_of_birth": "1961-07-03T16:59:41.645Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 7735.712017428355
+  },
+  {
+    "full_name": "Cornelius Gibson",
+    "date_of_birth": "1993-09-10T11:28:57.936Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 15175.204011454014
+  },
+  {
+    "full_name": "Tara Hilll",
+    "date_of_birth": "1997-07-23T08:14:00.563Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 11620.473386630172
+  },
+  {
+    "full_name": "Mindy Greenholt",
+    "date_of_birth": "1967-03-09T08:03:27.861Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 5822.900919849686
+  },
+  {
+    "full_name": "Steve Frami DDS",
+    "date_of_birth": "1990-07-26T09:11:11.698Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 3220.7698611876754
+  },
+  {
+    "full_name": "Teri Frami",
+    "date_of_birth": "1988-01-17T16:04:10.716Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 8449.938312726412
+  },
+  {
+    "full_name": "Adam Lindgren",
+    "date_of_birth": "1963-07-01T05:53:32.461Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 16105.863742703845
+  },
+  {
+    "full_name": "Hubert Lesch",
+    "date_of_birth": "1969-02-20T10:52:49.188Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 17714.806241051905
+  },
+  {
+    "full_name": "Leticia Abshire-Dooley",
+    "date_of_birth": "1962-11-25T22:56:01.734Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 13013.531096274688
+  },
+  {
+    "full_name": "Marta Powlowski",
+    "date_of_birth": "1992-07-14T00:05:54.232Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 11119.507323657375
+  },
+  {
+    "full_name": "Shirley VonRueden",
+    "date_of_birth": "1981-06-18T14:30:53.287Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 4507.9010963348355
+  },
+  {
+    "full_name": "Rex Gutkowski",
+    "date_of_birth": "1987-09-23T20:43:20.942Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 16497.03043342232
+  },
+  {
+    "full_name": "Larry Bartoletti",
+    "date_of_birth": "1966-12-28T06:00:52.687Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 9612.457126758527
+  },
+  {
+    "full_name": "Ms Heather Stiedemann",
+    "date_of_birth": "1969-11-05T11:34:53.968Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 13774.522240111517
+  },
+  {
+    "full_name": "Dr Janie Mraz",
+    "date_of_birth": "1968-10-14T09:47:17.866Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17006.96010305496
+  },
+  {
+    "full_name": "Rachael Erdman",
+    "date_of_birth": "1964-11-04T18:49:27.840Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 14779.99677947834
+  },
+  {
+    "full_name": "Julia Lindgren",
+    "date_of_birth": "1995-01-12T21:31:08.238Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15079.524475016466
+  },
+  {
+    "full_name": "Alyssa Sawayn",
+    "date_of_birth": "1983-08-08T13:39:36.778Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15321.390257231218
+  },
+  {
+    "full_name": "Cornelius Jacobi",
+    "date_of_birth": "1984-08-24T01:14:44.523Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 14994.117285298584
+  },
+  {
+    "full_name": "Lillian Herman-Ullrich",
+    "date_of_birth": "1991-10-31T01:20:40.012Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 10047.003729276563
+  },
+  {
+    "full_name": "Myron Funk",
+    "date_of_birth": "1990-01-02T13:41:02.449Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 19362.389794267154
+  },
+  {
+    "full_name": "Lynda Schulist",
+    "date_of_birth": "1964-09-18T19:24:00.305Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 4271.228560045662
+  },
+  {
+    "full_name": "Pam Wisozk",
+    "date_of_birth": "1965-03-10T20:19:32.002Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 3337.59232720448
+  },
+  {
+    "full_name": "Blanche Gutkowski",
+    "date_of_birth": "1967-03-03T00:17:58.080Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 3111.3486253357187
+  },
+  {
+    "full_name": "Gregg Hahn",
+    "date_of_birth": "1999-07-12T21:25:19.603Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 10465.320142503544
+  },
+  {
+    "full_name": "Wilbert Lebsack",
+    "date_of_birth": "1978-03-04T10:13:21.457Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 3017.01516939297
+  },
+  {
+    "full_name": "Julius Tromp",
+    "date_of_birth": "1986-10-05T15:00:03.205Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 9915.344887182571
+  },
+  {
+    "full_name": "Brenda Cummings",
+    "date_of_birth": "1968-05-03T12:22:50.357Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 5445.615798425352
+  },
+  {
+    "full_name": "Kim Muller",
+    "date_of_birth": "2000-10-01T20:50:05.979Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 7911.680640943033
+  },
+  {
+    "full_name": "Dr Wilbert Jacobson",
+    "date_of_birth": "1979-02-13T00:01:40.573Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 19650.384581043963
+  },
+  {
+    "full_name": "Dr Casey Hayes-Ortiz",
+    "date_of_birth": "1986-08-11T04:03:29.344Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 7450.237521280542
+  },
+  {
+    "full_name": "Colin Nienow",
+    "date_of_birth": "2000-12-16T09:51:30.649Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 4588.52986009722
+  },
+  {
+    "full_name": "Jerry Ritchie",
+    "date_of_birth": "1982-08-05T02:58:51.616Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 5899.78537353112
+  },
+  {
+    "full_name": "Ms Laverne Lang",
+    "date_of_birth": "1977-05-03T09:41:46.543Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 16356.510074603848
+  },
+  {
+    "full_name": "Alexandra Kemmer V",
+    "date_of_birth": "1975-07-01T16:48:45.038Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 4755.936246857309
+  },
+  {
+    "full_name": "Gerardo Morar",
+    "date_of_birth": "1982-04-29T16:12:58.918Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 18962.999156128142
+  },
+  {
+    "full_name": "Megan Mertz",
+    "date_of_birth": "1975-01-29T09:08:10.628Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17774.781396839153
+  },
+  {
+    "full_name": "David Kris",
+    "date_of_birth": "1966-12-21T23:59:47.991Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 6578.727107895225
+  },
+  {
+    "full_name": "Gladys Homenick",
+    "date_of_birth": "1964-08-14T12:02:18.635Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 13174.768627837298
+  },
+  {
+    "full_name": "Elisa Ferry",
+    "date_of_birth": "1979-08-15T15:27:37.744Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 10603.608870194843
+  },
+  {
+    "full_name": "Miss Rachel Yundt",
+    "date_of_birth": "1971-08-02T16:11:28.493Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 3587.0428640157056
+  },
+  {
+    "full_name": "Tracy Schiller",
+    "date_of_birth": "1960-05-14T20:56:14.175Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 9400.260779576314
+  },
+  {
+    "full_name": "Lynn Hills",
+    "date_of_birth": "1971-04-03T03:40:50.996Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 17929.73386194068
+  },
+  {
+    "full_name": "Terri Ankunding",
+    "date_of_birth": "1996-08-19T17:12:23.067Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 14681.72254746319
+  },
+  {
+    "full_name": "Judy Dickens MD",
+    "date_of_birth": "1967-09-04T12:27:40.311Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 9415.139735765493
+  },
+  {
+    "full_name": "Lorene Kautzer III",
+    "date_of_birth": "1967-08-13T03:41:59.826Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 13673.094456670062
+  },
+  {
+    "full_name": "Clifford Sanford",
+    "date_of_birth": "1997-09-01T23:28:10.111Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 5819.554064770897
+  },
+  {
+    "full_name": "Leslie Mante",
+    "date_of_birth": "1983-04-02T05:13:16.706Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 16237.246031938841
+  },
+  {
+    "full_name": "Rochelle Stamm",
+    "date_of_birth": "1972-03-21T00:27:47.320Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 4936.462985307638
+  },
+  {
+    "full_name": "Samuel Bernhard",
+    "date_of_birth": "1987-11-05T19:08:29.769Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 16494.06203692363
+  },
+  {
+    "full_name": "Lena Durgan DVM",
+    "date_of_birth": "1968-02-01T21:03:56.689Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 4368.217364352298
+  },
+  {
+    "full_name": "Shawna White",
+    "date_of_birth": "1961-08-05T19:17:41.960Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 4609.652659633907
+  },
+  {
+    "full_name": "Dan Kuhlman",
+    "date_of_birth": "1970-03-09T19:01:30.407Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 10940.179235784224
+  },
+  {
+    "full_name": "Lynette Dare",
+    "date_of_birth": "1991-01-23T02:27:51.830Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 11597.244304391748
+  },
+  {
+    "full_name": "Elsie Ratke",
+    "date_of_birth": "1970-12-03T00:51:30.033Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 19441.48686697918
+  },
+  {
+    "full_name": "Darnell Rau",
+    "date_of_birth": "1960-08-24T19:53:31.379Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 16562.883946442395
+  },
+  {
+    "full_name": "Van Murazik",
+    "date_of_birth": "1979-07-26T09:21:32.740Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 19937.91775674196
+  },
+  {
+    "full_name": "Alonzo Jacobi",
+    "date_of_birth": "1966-12-18T04:36:40.630Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 5381.741024946317
+  },
+  {
+    "full_name": "Dwight Smith",
+    "date_of_birth": "1965-01-27T10:52:27.004Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 3617.0390589917206
+  },
+  {
+    "full_name": "Leo Heathcote",
+    "date_of_birth": "1985-10-03T18:46:20.010Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 15949.636836977206
+  },
+  {
+    "full_name": "Debbie Nicolas",
+    "date_of_birth": "1997-08-11T12:06:33.005Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 15755.553172107047
+  },
+  {
+    "full_name": "Abel Barton",
+    "date_of_birth": "1969-08-31T16:40:18.078Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 17346.210270162614
+  },
+  {
+    "full_name": "Elias Jones",
+    "date_of_birth": "1975-10-12T17:20:46.164Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 11388.327669315226
+  },
+  {
+    "full_name": "Ramona Greenfelder",
+    "date_of_birth": "2000-11-12T16:55:51.139Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 14935.666354095578
+  },
+  {
+    "full_name": "Andy Shields Sr",
+    "date_of_birth": "1969-01-09T11:50:14.638Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 14835.844151774763
+  },
+  {
+    "full_name": "Erin Lueilwitz",
+    "date_of_birth": "1960-08-09T12:03:21.901Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 18269.380592424357
+  },
+  {
+    "full_name": "Lynn Turcotte",
+    "date_of_birth": "1961-10-25T21:25:36.517Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 14204.22311149068
+  },
+  {
+    "full_name": "Willis Mertz",
+    "date_of_birth": "1992-07-13T12:17:30.230Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 7323.40799142597
+  },
+  {
+    "full_name": "Willie Swaniawski",
+    "date_of_birth": "1997-02-20T08:08:05.282Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 16256.544328968364
+  },
+  {
+    "full_name": "Spencer Goldner",
+    "date_of_birth": "1972-01-16T11:46:11.119Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 11377.54372308762
+  },
+  {
+    "full_name": "Dominic McDermott",
+    "date_of_birth": "1988-01-12T22:45:35.470Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 3304.2981109757848
+  },
+  {
+    "full_name": "Charlotte Torp",
+    "date_of_birth": "1960-06-13T18:35:18.174Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 5555.318039216247
+  },
+  {
+    "full_name": "Dr Winston Tremblay",
+    "date_of_birth": "1964-08-27T20:42:26.866Z",
+    "gender": "Nam",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 7702.740956274554
+  },
+  {
+    "full_name": "Shirley Ledner",
+    "date_of_birth": "1968-08-27T13:03:55.110Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 11875.167053715817
+  },
+  {
+    "full_name": "Luke Luettgen",
+    "date_of_birth": "1965-09-19T08:08:57.191Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 16523.845515034216
+  },
+  {
+    "full_name": "Kim O'Reilly",
+    "date_of_birth": "1976-10-02T12:14:39.982Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 12750.928571416776
+  },
+  {
+    "full_name": "Mr Ervin Lockman DDS",
+    "date_of_birth": "1973-02-08T08:09:02.673Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 10035.466488377773
+  },
+  {
+    "full_name": "Elvira Gislason",
+    "date_of_birth": "1965-04-06T01:48:24.876Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 7761.449101567723
+  },
+  {
+    "full_name": "Ms Erma Schoen",
+    "date_of_birth": "1978-01-31T18:45:19.853Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 12870.047083392303
+  },
+  {
+    "full_name": "Kenneth Rohan",
+    "date_of_birth": "1998-03-12T21:52:15.778Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 9465.08746377741
+  },
+  {
+    "full_name": "Cody Dietrich",
+    "date_of_birth": "1995-12-10T12:13:43.177Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 11513.908057946752
+  },
+  {
+    "full_name": "Marta Murray",
+    "date_of_birth": "1983-08-25T01:11:28.361Z",
+    "gender": "Nữ",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 10455.906324194908
+  },
+  {
+    "full_name": "Dr Michael Schmidt",
+    "date_of_birth": "1994-01-04T03:47:59.557Z",
+    "gender": "Nam",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 4105.228084053682
+  },
+  {
+    "full_name": "Meghan Upton",
+    "date_of_birth": "1984-11-28T21:10:48.364Z",
+    "gender": "Nữ",
+    "role": "Bác sĩ thú y",
+    "base_salary": 14252.035980773111
+  },
+  {
+    "full_name": "Mrs Laverne Flatley",
+    "date_of_birth": "1963-12-12T03:29:17.223Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 12135.270517518684
+  },
+  {
+    "full_name": "Clara Brakus",
+    "date_of_birth": "1965-10-10T20:23:39.452Z",
+    "gender": "Nam",
+    "role": "Bác sĩ thú y",
+    "base_salary": 10875.628352226735
+  },
+  {
+    "full_name": "Ellen Erdman",
+    "date_of_birth": "1968-01-14T23:53:54.272Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 9160.868666500435
+  },
+  {
+    "full_name": "Mr Clark Bauch DVM",
+    "date_of_birth": "1992-11-06T01:58:59.746Z",
+    "gender": "Nam",
+    "role": "Nhân viên tiếp tân",
+    "base_salary": 4296.013048108855
+  },
+  {
+    "full_name": "Mr Rudy Nolan",
+    "date_of_birth": "1963-06-04T11:39:37.147Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 7178.285930364342
+  },
+  {
+    "full_name": "Corey Herzog Jr",
+    "date_of_birth": "1971-06-07T05:07:05.539Z",
+    "gender": "Nữ",
+    "role": "Quản lý chi nhánh",
+    "base_salary": 13520.313261892601
+  },
+  {
+    "full_name": "Phyllis Quitzon",
+    "date_of_birth": "1993-01-01T22:06:22.695Z",
+    "gender": "Nữ",
+    "role": "Nhân viên bán hàng",
+    "base_salary": 3477.6399362702764
   }
 ]

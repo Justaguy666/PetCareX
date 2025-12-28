@@ -145,7 +145,7 @@ export default function TodayAppointments() {
                                                         </Button>
                                                     </Link>
                                                 )}
-                                                {appointment.status !== 'Completed' && (
+                                                {!['Completed', 'Hoàn thành', 'Hủy bỏ'].includes(appointment.status) && (
                                                     <Button
                                                         size="sm"
                                                         onClick={() => handleComplete(appointment.id)}

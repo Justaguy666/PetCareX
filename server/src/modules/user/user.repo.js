@@ -19,14 +19,20 @@ class UserRepo {
 
   createPet = async (user_id, petData) => {
     const { pet_name, species, breed, date_of_birth, gender } = petData;
-    const values = [pet_name, species, breed || null, date_of_birth || null, gender, user_id];
+    const breedValue = breed && breed.trim() !== '' ? breed : null;
+    const dateOfBirthValue = date_of_birth && date_of_birth.trim() !== '' ? date_of_birth : null;
+    const values = [pet_name, species, breedValue, dateOfBirthValue, gender, user_id];
     const result = await db.query(Q.CREATE_PET, values);
     return result.rows[0];
   }
 
   updateProfile = async (user_id, updateData) => {
     const { fullName, phone_number, citizen_id, gender, date_of_birth } = updateData;
-    const values = [fullName, phone_number, citizen_id, gender, date_of_birth, user_id];
+    const phoneNumberValue = phone_number && phone_number.trim() !== '' ? phone_number : null;
+    const citizenIdValue = citizen_id && citizen_id.trim() !== '' ? citizen_id : null;
+    const genderValue = gender && gender.trim() !== '' ? gender : null;
+    const dob = date_of_birth && date_of_birth.trim() !== '' ? date_of_birth : null;
+    const values = [fullName, phoneNumberValue, citizenIdValue, genderValue, dob, user_id];
     const result = await db.query(Q.UPDATE_PROFILE, values);
     return result.rows[0];
   }
