@@ -74,21 +74,8 @@ export default function Index() {
               Welcome to PetCareX
             </h1>
             <p className="text-xl text-blue-100 mb-8">
-              Your trusted partner in pet healthcare. Expert veterinary care with
-              compassion and dedication for your beloved companions.
+              Your trusted partner in pet healthcare
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link to="/register">
-                <button className="px-6 py-3 bg-white text-blue-600 font-medium rounded-md hover:bg-blue-50 transition">
-                  Get Started
-                </button>
-              </Link>
-              <Link to="/shop">
-                <button className="px-6 py-3 border border-white text-white rounded-md hover:bg-white/10 transition">
-                  Browse Products
-                </button>
-              </Link>
-            </div>
           </div>
         </div>
       </section>
@@ -145,11 +132,6 @@ export default function Index() {
                     <p className="text-slate-500 mb-8 leading-relaxed font-medium">
                       {service.description}
                     </p>
-                    <Link to="/appointments?tab=book">
-                      <Button className="w-full h-12 rounded-xl font-bold bg-slate-900 text-white hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-200 transition-all duration-300">
-                        Schedule Now
-                      </Button>
-                    </Link>
                   </CardContent>
                 </Card>
               );
